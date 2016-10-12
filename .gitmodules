@@ -6,3 +6,7 @@
 	path = unit-types
 	url = https://github.com/birgersp/dcs-unit-types.git
 	branch = master
+[submodule "webserver/public/resources"]
+	path = webserver/public/resources
+	url = https://github.com/birgersp/dcs-mission-intel-bin.git
+	branch = master
