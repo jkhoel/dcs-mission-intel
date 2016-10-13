@@ -39,90 +39,55 @@ MissionIntelApp.GUI = function () {
         ///////////////////////////////////////////
         // Assign GUI menu to DIV
         var menu = new dat.GUI({autoPlace: false});
-        var customContainer = document.getElementById('div-menu');
-        customContainer.appendChild(menu.domElement);
+        var menuDiv = document.getElementById('div-menu');
+        menuDiv.appendChild(menu.domElement);
 
         var f1 = menu.addFolder('SOURCES');
         var srcObjects = {};
         for (var i in srcObjectNames) {
-
-            // Generate a canvas for each source NOTE!!! THERE IS SOMETHING STRANGE GOING ON! SHOULD NOT USE mapCanvas??
-            mapCanvas = document.createElement("canvas");
-            mapCanvas.id = "source-canvas-" + i;
-            mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
-            mapCanvas.width = WIDTH;
-            mapCanvas.height = HEIGHT;
-            document.body.appendChild(mapCanvas);
-            mapContext = mapCanvas.getContext("2d");
-
             // Add an object and definition
             srcObjects[i] = true;
 
             // Add button and define function
             var btn = f1.add(srcObjects, i);
-            btn.onChange(function () {
-
+            btn.onChange(function () {  
+                //console.log("Toggled" + i);
                 if (srcObjects[i])
-                    document.getElementById("source-canvas-" + i).style.visibility = "visible";
+                    document.getElementById("source-canvas-" + i).style.visibility = "visible";     // Change this to instead toggle a class
                 else
                     document.getElementById("source-canvas-" + i).style.visibility = "hidden";
-
             });
         }
 
         var f2 = menu.addFolder('BLUEFOR');
         var bforObjects = {};
         for (var i in forceObjectNames) {
-
-            // Generate a canvas for each source
-            mapCanvas = document.createElement("canvas");
-            mapCanvas.id = "bluefor-canvas-" + i;
-            mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
-            mapCanvas.width = WIDTH;
-            mapCanvas.height = HEIGHT;
-            document.body.appendChild(mapCanvas);
-            mapContext = mapCanvas.getContext("2d");
-
             // Add an object and definition
             bforObjects[i] = true;
 
             // Add button and define function
             var btn = f2.add(bforObjects, i);
             btn.onChange(function () {
-
                 if (bforObjects[i])
                     document.getElementById("bluefor-canvas-" + i).style.visibility = "visible";
                 else
                     document.getElementById("bluefor-canvas-" + i).style.visibility = "hidden";
-
             });
         }
 
         var f3 = menu.addFolder('REDFOR');
         var rforObjects = {};
         for (var i in forceObjectNames) {
-
-            // Generate a canvas for each source
-            mapCanvas = document.createElement("canvas");
-            mapCanvas.id = "redfor-canvas-" + i;
-            mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
-            mapCanvas.width = WIDTH;
-            mapCanvas.height = HEIGHT;
-            document.body.appendChild(mapCanvas);
-            mapContext = mapCanvas.getContext("2d");
-
             // Add an object and definition
             rforObjects[i] = true;
 
             // Add button and define function
             var btn = f3.add(rforObjects, i);
             btn.onChange(function () {
-
                 if (rforObjects[i])
                     document.getElementById("redfor-canvas-" + i).style.visibility = "visible";
                 else
                     document.getElementById("redfor-canvas-" + i).style.visibility = "hidden";
-
             });
         }
 
@@ -147,13 +112,9 @@ MissionIntelApp.GUI = function () {
      * @param {DCSUnit} markerHash
      */
     this.addMarker = function (markerHash) {
-
-        MS.setStandard("APP6");
-
-        testHash = "SFG-UCI----D";
-        var canvasElement = new MS.symbol(markerHash, {size: 90}).getMarker().asCanvas();
-
-
+        //ADD CODE HERE!
+        //MS.setStandard("APP6");
+        //var canvasElement = new MS.symbol(markerHash, {size: 90}).getMarker().asCanvas();
     };
 
     /**
@@ -163,28 +124,5 @@ MissionIntelApp.GUI = function () {
         context.clearRect();
     };
 
-    this.initialize();
-
-    //this.clearUnits();
-    //this.addUnit(testUnit);
-
-    var newMarker = new MissionIntelApp.Marker(
-            // Regular Fixed-wing Marker: SFAPMFA-----
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Air,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.MilitaryFixedWingAttack_strike,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.None,
-            MissionIntelApp.Marker.x = 5000,
-            MissionIntelApp.Marker.y = 5000
-    );
-
-    console.log("newMarker = "+newMarker.markerHash());
-    
-    //MS.setStandard("APP6");
-    //var markerCanvasElement = new MS.symbol(newMarker.markerHash(), {size: 90}).getMarker().asCanvas();
-    
-    
+    //this.initialize();  
 };
