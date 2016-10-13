@@ -4,16 +4,18 @@ MissionIntelApp.GUI = function () {
 
     var WIDTH = window.innerWidth - 1;
     var HEIGHT = window.innerHeight - 1;
+    
     var mapCanvas;
-    //var canvas;
-    var menuDiv;
     var mapContext;
-    var context;
+    
+    var menuDiv;
+    var markerDiv;
+
     var srcObjectNames = {AWACS: "AWACS", JSTAR: "JSTAR", HUMINT: "HUMINT", GEOINT: "GEOINT", SIGINT: "SIGINT"};
-    var forceObjectNames = {INFANTRY: "Infantry", ARMOR: "Armor", AIRASSETS: "Air-Assets"};            // MOVE THIS ARRAY TO DCSUNIT LATER?
+    var forceObjectNames = {INFANTRY: "Infantry", ARMOR: "Armor", AIRASSETS: "Air-Assets"};            // This needs to be grouped somewhere based on marker-fids
     var mapObj = new Image();
     var mapZ = (Object.keys(srcObjectNames).length + 2 * Object.keys(forceObjectNames).length) * -1;
-
+    
     /**
      * Initialize GUI
      */
@@ -25,12 +27,20 @@ MissionIntelApp.GUI = function () {
         menuDiv.width = WIDTH;
         menuDiv.height = HEIGHT;
         menuDiv.id = "div-menu";
-        menuDiv.style = "z-index: 1; position:absolute; left:0px; top:0px;";
+        menuDiv.style = "z-index: 0; position:absolute; left:0px; top:0px;";
         document.body.appendChild(menuDiv);
-
+        
+        markerDiv = document.createElement("div");
+        markerDiv.width = WIDTH;
+        markerDiv.height = HEIGHT;
+        markerDiv.id = "div-markers";
+        markerDiv.style = "z-index: -1; position:absolute; left:0px; top:0px;";
+        document.body.appendChild(markerDiv);
+        
         mapCanvas = document.createElement("canvas");
         mapCanvas.id = "canvas-map";
-        mapCanvas.style = "z-index:" + mapZ + "; position:absolute; left:0px; top:0px;";
+        //mapCanvas.style = "z-index:" + mapZ + "; position:absolute; left:0px; top:0px;";
+        mapCanvas.style = "z-index:-2; position:absolute; left:0px; top:0px;";
         mapCanvas.width = WIDTH;
         mapCanvas.height = HEIGHT;
         document.body.appendChild(mapCanvas);
@@ -109,12 +119,16 @@ MissionIntelApp.GUI = function () {
 
     /**
      * Add unit
-     * @param {DCSUnit} markerHash
+     * @param {MissionIntelApp.Marker} newMarker
      */
-    this.addMarker = function (markerHash) {
-        //ADD CODE HERE!
-        //MS.setStandard("APP6");
-        //var canvasElement = new MS.symbol(markerHash, {size: 90}).getMarker().asCanvas();
+    this.addMarker = function (newMarker) {
+        //Create Symbol
+        var markerElement = new MS.symbol(newMarker.markerHash(), {size: 50}).getMarker().asCanvas();
+        //Set element properties
+        markerElement.className = newMarker.source;
+        markerElement.style = "position:absolute; left:"+newMarker.x+"px; top:"+newMarker.y+"px;";
+        
+        document.getElementById("div-markers").appendChild(markerElement); 
     };
 
     /**

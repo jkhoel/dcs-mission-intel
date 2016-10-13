@@ -1,4 +1,4 @@
-MissionIntelApp.Marker = function (codingScheme, affiliation, battleDimension, status, functionID, modifier1, modifier2, x, y) {
+MissionIntelApp.Marker = function (codingScheme, affiliation, battleDimension, status, functionID, modifier1, modifier2, source, x, y) {
     this.codingScheme = codingScheme;   // Allways 'S'
     this.affiliation = affiliation;
     this.battleDim = battleDimension;
@@ -6,8 +6,10 @@ MissionIntelApp.Marker = function (codingScheme, affiliation, battleDimension, s
     this.functionID = functionID;
     this.modifier1 = modifier1;         // HQ, Task Force etc..
     this.modifier2 = modifier2;         // Squad, Platoon etc..
+    this.source = source;               // Intel source
     this.x = x;
     this.y = y;
+    
 
     this.markerHash = function () {
         return "" + this.codingScheme + this.affiliation + this.battleDim + this.status + this.functionID + this.modifier1 + this.modifier2;
@@ -85,4 +87,12 @@ MissionIntelApp.Marker.Modifier2 = {
     Front: "L",
     Region: "M",
     Command: "N"
+};
+
+MissionIntelApp.Marker.Source = {
+    AWACS: "source-awacs",
+    JSTAR: "source-jstar",
+    HUMINT: "source-humint",
+    GEOINT: "source-geoint",
+    SIGINT: "source-sigint",
 };
