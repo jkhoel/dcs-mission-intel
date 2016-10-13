@@ -6,17 +6,18 @@ MissionIntelApp.GUI = function () {
     var HEIGHT = window.innerHeight - 1;
 
     var mapCanvas;
+    var canvas;
+    
     var menuDiv;
 
     var mapContext;
-
     var context;
 
     var srcObjectNames = {AWACS: "AWACS", JSTAR: "JSTAR", HUMINT: "HUMINT", GEOINT: "GEOINT", SIGINT: "SIGINT"};
-    var forceObjectNames = ["Infantry", "Armor", "Air-Assets"];            // MOVE THIS ARRAY TO DCSUNIT LATER?
+    var forceObjectNames = {INFANTRY:"Infantry", ARMOR:"Armor", AIRASSETS:"Air-Assets"};            // MOVE THIS ARRAY TO DCSUNIT LATER?
     
     var mapObj = new Image();
-    var mapZ = (Object.keys(srcObjectNames).length + 2 * forceObjectNames.length)* -1;
+    var mapZ = (Object.keys(srcObjectNames).length + 2 * Object.keys(forceObjectNames).length)* -1;
     
     console.log("--> VARs initialized");
     /**
@@ -24,6 +25,7 @@ MissionIntelApp.GUI = function () {
      */
     this.initialize = function () {
 
+        ///////////////////////////////////////////
         // Set up all CANVASes and DIVs
         menuDiv = document.createElement("div");
         menuDiv.width = WIDTH;
@@ -47,28 +49,12 @@ MissionIntelApp.GUI = function () {
         var menu = new dat.GUI({autoPlace: false});
         var customContainer = document.getElementById('div-menu');
         customContainer.appendChild(menu.domElement);
-
-        ///// MENU TOPOLOGY ////
-        // SOURCES:
-        //  - AWACS
-        //  - JSTAR
-        //  - HUMINT
-        //  - GEOINT
-        //  - SIGINT
-        // BLUEFOR:
-        //  - INFANTRY
-        //  - ARMOR/LAVs
-        //  - AIR ASSETS
-        // REDFOR:
-        //  - INFANTRY
-        //  - ARMOR/LAVs
-        //  - AIR ASSETS
-
+       
         var f1 = menu.addFolder('SOURCES');
         var srcObjects = {};
         for (var i in srcObjectNames) {
 
-            // Generate a canvas for each source
+            // Generate a canvas for each source NOTE!!! THERE IS SOMETHING STRANGE GOING ON! SHOULD NOT USE mapCanvas??
             mapCanvas = document.createElement("canvas");
             mapCanvas.id = "source-canvas-" + i;
             mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
@@ -85,44 +71,80 @@ MissionIntelApp.GUI = function () {
             btn.onChange(function () {
 
                 if (srcObjects[i])
-                    document.getElementById("source-canvas-" + i).style.setProperty("hidden", "false", 0);
+                    document.getElementById("source-canvas-" + i).style.visibility = "visible";
                 else
-                    document.getElementById("source-canvas-" + i).style.setProperty("hidden", "true", 0);
+                    document.getElementById("source-canvas-" + i).style.visibility = "hidden";
 
             });
         }
+        
+        var f2 = menu.addFolder('BLUEFOR');
+        var bforObjects = {};
+        for (var i in forceObjectNames) {
 
-  
-        // GUI Menu Objects
-        /*var srcObjects = {
-         sourceAWACS: true,
-         sourceJSTAR: true
-         };
-         
-         var fltrObjects = {
-         filterAllBlue: true,
-         filterAllRed: true
-         };
-         
-         var f1 = 	menu.addFolder('INTEL SOURCES');
-         var sAWACS =  f1.add(srcObjects, 'sourceAWACS');
-         var sJSTAR =  f1.add(srcObjects, 'sourceJSTAR');
-         
-         var f2 = 	menu.addFolder('BLUEFOR');
-         var fltrAllBlue =  f2.add(fltrObjects, 'filterAllBlue');
-         
-         var f3 = 	menu.addFolder('REDFOR');
-         var fltrAllRed = f3.add(fltrObjects, 'filterAllRed');*/
+            // Generate a canvas for each source
+            mapCanvas = document.createElement("canvas");
+            mapCanvas.id = "bluefor-canvas-" + i;
+            mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
+            mapCanvas.width = WIDTH;
+            mapCanvas.height = HEIGHT;
+            document.body.appendChild(mapCanvas);
+            mapContext = mapCanvas.getContext("2d");
 
+            // Add an object and definition
+            bforObjects[i] = true;
+
+            // Add button and define function
+            var btn = f2.add(bforObjects, i);
+            btn.onChange(function () {
+
+                if (bforObjects[i])
+                    document.getElementById("bluefor-canvas-" + i).style.visibility = "visible";
+                else
+                    document.getElementById("bluefor-canvas-" + i).style.visibility = "hidden";
+
+            });
+        }
+        
+        var f3 = menu.addFolder('REDFOR');
+        var rforObjects = {};
+        for (var i in forceObjectNames) {
+
+            // Generate a canvas for each source
+            mapCanvas = document.createElement("canvas");
+            mapCanvas.id = "redfor-canvas-" + i;
+            mapCanvas.style = "z-index: " + (-i) + "; position:absolute; left:0px; top:0px;";
+            mapCanvas.width = WIDTH;
+            mapCanvas.height = HEIGHT;
+            document.body.appendChild(mapCanvas);
+            mapContext = mapCanvas.getContext("2d");
+
+            // Add an object and definition
+            rforObjects[i] = true;
+
+            // Add button and define function
+            var btn = f3.add(rforObjects, i);
+            btn.onChange(function () {
+
+                if (rforObjects[i])
+                    document.getElementById("redfor-canvas-" + i).style.visibility = "visible";
+                else
+                    document.getElementById("redfor-canvas-" + i).style.visibility = "hidden";
+
+            });
+        }
+        
+        // Set all folder to open by default
         f1.open();
-        //f2.open();
-        //f3.open();
+        f2.open();
+        f3.open();
 
         console.log("--> GUI initialized");
         
         // Draw Map
         mapObj.src = 'resources/img/map.jpg';
         mapContext.drawImage(mapObj, -4000, -3000);
+        
         console.log("--> MAP Drawn");
         ///////////////////////////////////////////
     };
@@ -131,13 +153,15 @@ MissionIntelApp.GUI = function () {
      * Add unit
      * @param {DCSUnit} unit
      */
-    this.addUnit = function (unit) {
+    this.addMarker = function (unit) {
 
-        if (unit.coalition == "RED")
+
+
+        /*if (unit.coalition == "RED")
             context.setColor(255, 0, 0);
 
         context.rect(unit.x, unit.z, 10, 10);
-        context.fill();
+        context.fill();*/
     };
 
     /**
