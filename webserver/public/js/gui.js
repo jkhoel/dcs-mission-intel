@@ -4,10 +4,10 @@ MissionIntelApp.GUI = function () {
 
     var WIDTH = window.innerWidth - 1;
     var HEIGHT = window.innerHeight - 1;
-    
+
     var mapCanvas;
     var mapContext;
-    
+
     var menuDiv;
     var markerDiv;
 
@@ -15,7 +15,7 @@ MissionIntelApp.GUI = function () {
     var forceObjectNames = {INFANTRY: "Infantry", ARMOR: "Armor", AIRASSETS: "Air-Assets"};            // This needs to be grouped somewhere based on marker-fids
     var mapObj = new Image();
     var mapZ = (Object.keys(srcObjectNames).length + 2 * Object.keys(forceObjectNames).length) * -1;
-    
+
     /**
      * Initialize GUI
      */
@@ -29,14 +29,14 @@ MissionIntelApp.GUI = function () {
         menuDiv.id = "div-menu";
         menuDiv.style = "z-index: 0; position:absolute; left:0px; top:0px;";
         document.body.appendChild(menuDiv);
-        
+
         markerDiv = document.createElement("div");
         markerDiv.width = WIDTH;
         markerDiv.height = HEIGHT;
         markerDiv.id = "div-markers";
         markerDiv.style = "z-index: -1; position:absolute; left:0px; top:0px;";
         document.body.appendChild(markerDiv);
-        
+
         mapCanvas = document.createElement("canvas");
         mapCanvas.id = "canvas-map";
         //mapCanvas.style = "z-index:" + mapZ + "; position:absolute; left:0px; top:0px;";
@@ -60,7 +60,7 @@ MissionIntelApp.GUI = function () {
 
             // Add button and define function
             var btn = f1.add(srcObjects, i);
-            btn.onChange(function () {  
+            btn.onChange(function () {
                 //console.log("Toggled" + i);
                 if (srcObjects[i])
                     document.getElementById("source-canvas-" + i).style.visibility = "visible";     // Change this to instead toggle a class
@@ -117,19 +117,42 @@ MissionIntelApp.GUI = function () {
 
     };
 
+
     /**
      * Add unit
      * @param {MissionIntelApp.Marker} newMarker
      */
     this.addMarker = function (newMarker) {
-        //Create Symbol
+
+        MS.setStandard("APP6");
+
+        // Create marker element and set marker position
         var markerElement = new MS.symbol(newMarker.markerHash(), {size: 50}).getMarker().asCanvas();
-        //Set element properties
-        markerElement.className = newMarker.source;
-        markerElement.style = "position:absolute; left:"+newMarker.x+"px; top:"+newMarker.y+"px;";
-        
-        document.getElementById("div-markers").appendChild(markerElement); 
+        markerElement.style = "position:absolute; left:" + newMarker.x + "px; top:" + newMarker.y + "px;";
+
+        // Check if there is an <ul> to add this element to. If not, create it
+        if (!document.getElementById(newMarker.source)) {
+            var ul = document.createElement("ul");
+            ul.id = newMarker.source;
+            document.getElementById("div-markers").appendChild(ul);
+        }
+
+        // Adds element to div. Probably needs to be added as to a <ul> as <li>'s grouped by source
+        document.getElementById(newMarker.source).appendChild(markerElement);
     };
+    
+    /**
+     * Update marker
+     * @param {MissionIntelApp.Marker} updateMarker
+     */
+    this.updateMarker = function(updateMarker) {
+        
+        // whipe all <li>'s
+        
+        // kjør addMarker       
+    };
+
+
 
     /**
      * Remove all units from view
