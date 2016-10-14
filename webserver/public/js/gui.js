@@ -137,8 +137,10 @@ MissionIntelApp.GUI = function () {
             document.getElementById("div-markers").appendChild(ul);
         }
 
-        // Adds element to div. Probably needs to be added as to a <ul> as <li>'s grouped by source
-        document.getElementById(newMarker.source).appendChild(markerElement);
+        // Creates <li> and adds the element (<canvas>) to it
+        var li = document.createElement("li");
+        li.appendChild(markerElement)
+        document.getElementById(newMarker.source).appendChild(li);
     };
     
     /**
