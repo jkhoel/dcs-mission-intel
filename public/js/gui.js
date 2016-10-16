@@ -365,4 +365,13 @@ MissionIntelApp.GUI = function () {
     this.clearUnits = function () {
         context.clearRect();
     };
+    
+    /**
+     * @param {MissionIntelApp.MapTile} tile
+     */
+    this.handleTile = function(tile) {
+        
+        // TODO: Handle a tile here ...
+        
+    };
 };
