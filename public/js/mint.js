@@ -1,7 +1,11 @@
 var MissionIntelApp = function () {
-
+    
     var gui = new MissionIntelApp.GUI();
     gui.initialize();
+
+    var session = new MissionIntelApp.Session(gui);
+    session.initialize();
+    
     /////////////////////////////////////////////////////////////////
     // MARKER TEST OBJECTS
 
