@@ -9,11 +9,13 @@ MissionIntelApp.Marker = function (codingScheme, affiliation, battleDimension, s
     this.source = source;               // Intel source
     this.x = x;
     this.y = y;
-    
+};
 
-    this.markerHash = function () {
-        return "" + this.codingScheme + this.affiliation + this.battleDim + this.status + this.functionID + this.modifier1 + this.modifier2;
-    };
+/**
+ * @type {MissionIntelApp.Marker}
+ */
+MissionIntelApp.Marker.getHash = function (marker) {
+    return "" + marker.codingScheme + marker.affiliation + marker.battleDim + marker.status + marker.functionID + marker.modifier1 + marker.modifier2;
 };
 
 MissionIntelApp.Marker.CodingScheme = {
@@ -95,5 +97,5 @@ MissionIntelApp.Marker.Source = {
     HUMINT: "HUMINT",
     GEOINT: "GEOINT",
     SIGINT: "SIGINT"
-    // MASINT?
+            // MASINT?
 };

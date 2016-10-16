@@ -317,15 +317,19 @@ MissionIntelApp.GUI = function () {
      * @param {MissionIntelApp.Marker} newMarker
      */
     this.addMarker = function (newMarker) {
-
+        
         MS.setStandard("APP6");
+        
+        function getHash(marker) {
+            return MissionIntelApp.Marker.getHash(marker);
+        }
 
         // Create marker element and set marker position
-        var markerElement = new MS.symbol(newMarker.markerHash(), {size: 50}).getMarker().asCanvas();
+        var markerElement = new MS.symbol(getHash(newMarker), {size: 50}).getMarker().asCanvas();
         markerElement.style = "position:absolute; left:" + newMarker.x + "px; top:" + newMarker.y + "px;";
 
         // Add custom attributes to context tag
-        markerElement.setAttribute("markerhash", newMarker.markerHash());
+        markerElement.setAttribute("markerhash", getHash(newMarker));
         markerElement.setAttribute("affiliation", newMarker.affiliation);
         markerElement.setAttribute("battleDimension", newMarker.battleDim);
         markerElement.setAttribute("functionID", newMarker.functionID);
