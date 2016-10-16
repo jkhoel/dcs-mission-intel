@@ -90,9 +90,10 @@ MissionIntelApp.Marker.Modifier2 = {
 };
 
 MissionIntelApp.Marker.Source = {
-    AWACS: "source-awacs",
-    JSTAR: "source-jstar",
-    HUMINT: "source-humint",
-    GEOINT: "source-geoint",
-    SIGINT: "source-sigint",
+    AWACS: "AWACS",
+    JSTAR: "JSTAR",
+    HUMINT: "HUMINT",
+    GEOINT: "GEOINT",
+    SIGINT: "SIGINT"
+    // MASINT?
 };

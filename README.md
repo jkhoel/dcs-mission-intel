@@ -1,4 +1,4 @@
-# DCS World Mission Intel (MInt)
-DCS World Utility
+# DCS World Mission Intel (MINT)
 
-(More details coming soon)
+MINT is a webapp that aims at removing the need for the ingame F10-map, while at the same time provide enhanced features for realism and immersion.
+
