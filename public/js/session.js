@@ -6,7 +6,7 @@
  */
 MissionIntelApp.Session = function (gui) {
     
-    this.connect = function () {
+    this.initialize = function () {
 
         var wsURL = "";
         if (window.location.protocol === "https:")
