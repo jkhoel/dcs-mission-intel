@@ -28,7 +28,7 @@ MissionIntelApp.GUI = function () {
         menuDiv.width = WIDTH;
         menuDiv.height = HEIGHT;
         menuDiv.id = "div-menu";
-        menuDiv.style = "z-index: 0; position:absolute; left:0px; top:42px;";
+        menuDiv.style = "position:absolute; left:0px; top:42px;";
         document.body.appendChild(menuDiv);
 
         menuUI = new dat.GUI({autoPlace: false});
@@ -39,29 +39,68 @@ MissionIntelApp.GUI = function () {
         markerDiv.width = WIDTH;
         markerDiv.height = HEIGHT;
         markerDiv.id = "div-markers";
-        markerDiv.style = "z-index: -1; position:absolute; left:0px; top:0px;";
+        markerDiv.style = "position:absolute; left:0px; top:0px;";
         document.body.appendChild(markerDiv);
 
-        mapCanvas = document.createElement("canvas");
-        mapCanvas.id = "canvas-map";
-        mapCanvas.style = "z-index:-2; position:absolute; left:0px; top:0px;";
-        mapCanvas.width = WIDTH;
-        mapCanvas.height = HEIGHT;
-        document.body.appendChild(mapCanvas);
-        mapContext = mapCanvas.getContext("2d");
+//        mapCanvas = document.createElement("canvas");
+//        mapCanvas.id = "canvas-map";
+//        mapCanvas.style = "position:absolute; left:0px; top:0px;";
+//        mapCanvas.width = WIDTH;
+//        mapCanvas.height = HEIGHT;
+//        document.body.appendChild(mapCanvas);
+//        mapContext = mapCanvas.getContext("2d");
 
 //        mapObj.src = 'resources/img/map.jpg';
 //        mapContext.drawImage(mapObj, -4000, -3000);
 
-        mapObj.src = 'resources/img/troll.jpg';
-        mapContext.drawImage(mapObj, 0, 0);
+//        mapObj.src = 'resources/img/troll.jpg';
+//        mapContext.drawImage(mapObj, 0, 0);
 
         console.log("--> gui.initialize() FINISHED");
-
+        
         this.initUIElements();
+        this.initOpenLayers();
         //this.initMouseEvents();
     };
 
+    /**
+     * Initialize the OpenLayer3 map
+     */
+    this.initOpenLayers = function () {
+        var mousePositionControl = new ol.control.MousePosition({
+            coordinateFormat: ol.coordinate.createStringXY(4),
+            projection: 'EPSG:3857'
+        });
+
+        var scaleLineControl = new ol.control.ScaleLine();
+
+        var map = new ol.Map({
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.TileJSON({
+                        url: 'http://api.tiles.mapbox.com/v4/mapbox.dark.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
+                        //url: 'http://api.tiles.mapbox.com/v4/mapbox.outdoors.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
+                        //url: 'http://api.tiles.mapbox.com/v4/mapbox.light.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
+                        crossOrigin: 'anonymous'
+                    })
+                })
+            ],
+            target: 'div-map',
+            controls: ol.control.defaults({
+                attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+                    collapsible: true
+                })
+            }).extend([mousePositionControl, scaleLineControl]),
+            view: new ol.View({
+                center: [0, 0],
+                zoom: 2
+            })
+        });
+        
+//        document.getElementById('div-map').style.height = HEIGHT - 100;
+//        document.getElementById('div-map').style.width = WIDTH - 100;
+    };
+    
     /**
      * Initialize all UI elements
      */
@@ -317,9 +356,9 @@ MissionIntelApp.GUI = function () {
      * @param {MissionIntelApp.Marker} newMarker
      */
     this.addMarker = function (newMarker) {
-        
+
         MS.setStandard("APP6");
-        
+
         function getHash(marker) {
             return MissionIntelApp.Marker.getHash(marker);
         }
@@ -369,13 +408,13 @@ MissionIntelApp.GUI = function () {
     this.clearUnits = function () {
         context.clearRect();
     };
-    
+
     /**
      * @param {MissionIntelApp.MapTile} tile
      */
-    this.handleTile = function(tile) {
-        
+    this.handleTile = function (tile) {
+
         // TODO: Handle a tile here ...
-        
+
     };
 };
