@@ -77,17 +77,20 @@ MissionIntelApp.GUI = function() {
 
         var scaleLineControl = new ol.control.ScaleLine();
 
+        var milsymbolLayer = new ol.layer.Vector({
+    	  //source: vectorSource
+    	});
+
+        var mapLayer = new ol.layer.Tile({
+            preload: 4,
+            source: new ol.source.TileJSON({
+                url: 'http://api.tiles.mapbox.com/v4/mapbox.dark.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
+                crossOrigin: 'anonymous'
+            })
+        });
+
         var map = new ol.Map({
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.TileJSON({
-                        url: 'http://api.tiles.mapbox.com/v4/mapbox.dark.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
-                        //url: 'http://api.tiles.mapbox.com/v4/mapbox.outdoors.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
-                        //url: 'http://api.tiles.mapbox.com/v4/mapbox.light.json?access_token=pk.eyJ1Ijoic2d0dGVkIiwiYSI6ImNpdWZ1bmZ0OTAwMWoyem5uaGl4a2s0ejIifQ.aqtpdqUySGs1lrPbtITp0g',
-                        crossOrigin: 'anonymous'
-                    })
-                })
-            ],
+            layers: [mapLayer, milsymbolLayer],
             target: 'div-map',
             controls: ol.control.defaults({
                 attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
@@ -95,8 +98,9 @@ MissionIntelApp.GUI = function() {
                 })
             }).extend([mousePositionControl, scaleLineControl]),
             view: new ol.View({
-                center: [0, 0],
-                zoom: 2
+                //center: [0, 0],
+                center: ol.proj.transform([43,42], 'EPSG:4326', 'EPSG:3857'),
+                zoom: 8
             })
         });
 
