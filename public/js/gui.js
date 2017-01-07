@@ -77,8 +77,39 @@ MissionIntelApp.GUI = function() {
 
         var scaleLineControl = new ol.control.ScaleLine();
 
+
+        ////// TEST CODE
+        var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};
+        var ratio = window.devicePixelRatio || 1;
+
+        var vectorSource = new ol.source.Vector({
+    	  features: (new ol.format.GeoJSON()).readFeatures(situation,{featureProjection:'EPSG:3857'})
+    	});
+
+        vectorSource.forEachFeature(function(f){
+    		var mysymbol = new MS.symbol(
+    				f.getProperties().SIDC,{
+    					size:iconSize[(f.getProperties().SIDC).charAt(11)]*ratio,
+    					uniqueDesignation:f.getProperties().name
+    				});
+    		var mycanvas = mysymbol.getMarker().asCanvas();
+
+    		f.setStyle(new ol.style.Style({
+    	  		image: new ol.style.Icon( ({
+    	  			scale: 1/ratio,
+    				anchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
+    				anchorXUnits: 'pixels',
+    				anchorYUnits: 'pixels',
+    				imgSize: [Math.floor(mysymbol.width), Math.floor(mysymbol.height)],
+    				img: (mycanvas)
+    	  		}))
+    		}));
+    	});
+
+        /// TEST CODE END
+
         var milsymbolLayer = new ol.layer.Vector({
-    	  //source: vectorSource
+    	  source: vectorSource
     	});
 
         var mapLayer = new ol.layer.Tile({
@@ -104,8 +135,6 @@ MissionIntelApp.GUI = function() {
             })
         });
 
-        //        document.getElementById('div-map').style.height = HEIGHT - 100;
-        //        document.getElementById('div-map').style.width = WIDTH - 100;
     };
 
     /**

@@ -1,0 +1,9 @@
+var situation = {"name":"Layer","type":"FeatureCollection",
+"crs": {"type": "name","properties": {"name": "EPSG:4326"}},
+"features":[
+{"type":"Feature","geometry":{"type":"Point","coordinates":[42.71,42.22]},"properties":{"SIDC":"SFGPU------E***","name":"1.C2 komp","fullname":"1.C2 komp/FTS/INSS","command":"FTS"}}
+,{"type":"Feature","geometry":{"type":"Point","coordinates":[41.75,42.06]},"properties":{"SIDC":"SFGPUCRV---F***","name":"1.Jbat","fullname":"1.Jbat/INSS","command":"INSS"}}
+,{"type":"Feature","geometry":{"type":"Point","coordinates":[39.00,42.00]},"properties":{"SIDC":"SFGPUUMSE--F***","name":"1.TKbat","fullname":"1.TKbat/INSS","command":"INSS"}}
+,{"type":"Feature","geometry":{"type":"Point","coordinates":[41.30,43.00]},"properties":{"SIDC":"SFGPUULM---F***","name":"13.S&#228;kbat","fullname":"13.S&#228;kbat/INSS","command":"INSS"}}
+,{"type":"Feature","geometry":{"type":"Point","coordinates":[44.8927072589139,41.6451408696477]},"properties":{"SIDC":"SFGPUCD----F***","name":"62.Lvbat","fullname":"62.Lvbat/INSS","command":"INSS"}}
+]}
