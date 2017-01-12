@@ -78,13 +78,54 @@ MissionIntelApp.GUI = function() {
         var scaleLineControl = new ol.control.ScaleLine();
 
 
-        ////// TEST CODE
+        ////// EXAMPLE CODE FROM MILSYMBOLS
         var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};
         var ratio = window.devicePixelRatio || 1;
 
+        // TEST SNIPPET
+        // var features = new ol.Feature({
+        //     name: "layer",
+        //     type: "FeatureCollection",
+        //     crs: {
+        //         type: "name",
+        //         properties: {
+        //             name: "EPSG:4326"
+        //         }
+        //     },
+        //     features: [{
+        //         type: "Feature",
+        //         geometry: {
+        //             type: "Point",
+        //             coordinates: [42.000,42.123],
+        //             properties: {
+        //                 SIDC: "SFGPU------E***",
+        //                 name: "1.C2 komp",
+        //                 fullname: "1.C2 komp/FTS/INSS",
+        //                 command: "FTS",
+        //                 source: "AWACS"
+        //             }
+        //         }
+        //     }]
+        // });
+
+        var features = new ol.Feature({
+            name: 'layer',
+            geometry: new ol.geom.Point({
+                coordinates: [42.000,42.123],
+                properties: {
+                    SIDC: "SFGPU------E***",
+                    name: "1.C2 komp",
+                    fullname: "1.C2 komp/FTS/INSS",
+                    command: "FTS",
+                    source: "AWACS"
+                }
+            })
+        });
+
         var vectorSource = new ol.source.Vector({
-    	  features: (new ol.format.GeoJSON()).readFeatures(situation,{featureProjection:'EPSG:3857'})
-    	});
+    	  //features: (new ol.format.GeoJSON()).readFeatures(situation,{featureProjection:'EPSG:3857'})
+          features: features
+        });
 
         vectorSource.forEachFeature(function(f){
     		var mysymbol = new MS.symbol(
@@ -106,7 +147,23 @@ MissionIntelApp.GUI = function() {
     		}));
     	});
 
-        /// TEST CODE END
+        ////// EXAMPLE CODE FROM MILSYMBOLS END
+
+        ////// TEST CODE
+
+        // var symbolCollection = new ol.collection({
+        //         // add a collection of markers here
+        // });
+
+        var symbolsSource = new ol.source.Vector({
+
+        });
+
+        var symbolLayer = new ol.layer.Vector({
+            source: symbolsSource
+        });
+
+        ////// TEST CODE END
 
         var milsymbolLayer = new ol.layer.Vector({
     	  source: vectorSource
@@ -121,7 +178,7 @@ MissionIntelApp.GUI = function() {
         });
 
         var map = new ol.Map({
-            layers: [mapLayer, milsymbolLayer],
+            layers: [mapLayer, milsymbolLayer, symbolLayer],
             target: 'div-map',
             controls: ol.control.defaults({
                 attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
@@ -403,7 +460,7 @@ MissionIntelApp.GUI = function() {
         var markerElement = new MS.symbol(getHash(newMarker), {
             size: 50
         }).getMarker().asCanvas();
-        markerElement.style = "position:absolute; left:" + newMarker.x + "px; top:" + newMarker.y + "px;";
+        // markerElement.style = "position:absolute; left:" + newMarker.x + "px; top:" + newMarker.y + "px;";
 
         // Add custom attributes to context tag
         markerElement.setAttribute("markerhash", getHash(newMarker));

@@ -1,11 +1,11 @@
 var MissionIntelApp = function () {
-    
+
     var gui = new MissionIntelApp.GUI();
     gui.initialize();
 
-    var session = new MissionIntelApp.Session(gui);
-    session.initialize();
-    
+    // var session = new MissionIntelApp.Session(gui);
+    // session.initialize();
+
     /////////////////////////////////////////////////////////////////
     // MARKER TEST OBJECTS
 
@@ -22,6 +22,7 @@ var MissionIntelApp = function () {
             MissionIntelApp.Marker.x = 400,
             MissionIntelApp.Marker.y = 200
             );
+
     var newMarker2 = new MissionIntelApp.Marker(
             // Regular Armoured Hostile: SFGPUCA----C
             MissionIntelApp.Marker.CodingScheme.Warfighting,
@@ -35,6 +36,7 @@ var MissionIntelApp = function () {
             MissionIntelApp.Marker.x = 600,
             MissionIntelApp.Marker.y = 200
             );
+
     var newMarker3 = new MissionIntelApp.Marker(
             // Regular Armoured Hostile: SFGPUCATH--C
             MissionIntelApp.Marker.CodingScheme.Warfighting,
@@ -48,6 +50,7 @@ var MissionIntelApp = function () {
             MissionIntelApp.Marker.x = 800,
             MissionIntelApp.Marker.y = 200
             );
+
     var newMarker4 = new MissionIntelApp.Marker(
             // Regular Armoured Hostile: SHGPUCAT---C
             MissionIntelApp.Marker.CodingScheme.Warfighting,
@@ -97,5 +100,25 @@ var MissionIntelApp = function () {
     gui.addMarker(newMarker5);
     gui.addMarker(newMarker6);
 
-     console.log("//////// END OF CODE ///////");
+    // TEST CODE: new add marker function
+    var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};
+
+    //var feature = new ol.Feature({});
+
+    var sidc = MissionIntelApp.Marker.getHash(newMarker6);
+
+    //var sidc = "SHGPUCAT---C";
+    // var milsym = new MS.symbol(sidc, {
+    //     size: iconSize[sidc.charAt(11)],
+    // });
+    //
+    // console.log(sidc);
+    // console.log(sidc.charAt(11));
+    // console.log(iconSize[sidc.charAt(11)]);
+
+    // END OF TEST CODE
+    console.log("--> MissionIntelApp FINISHED");
+    console.log("//////// END OF CODE ///////");
+
+
 };
