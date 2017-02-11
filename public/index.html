@@ -4,120 +4,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
         <link rel="stylesheet" href="css/ol.css" type="text/css">
-        <style type="text/css">
-
-            .navigation-container ul.navigation li a:link, .navigation-container ul.navigation li a:visited {
-                color: #777777;
-                text-decoration: none;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-            }
-
-            .navigation-container ul.navigation li.clock {
-                color: #777777;
-                text-decoration: none;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-            }
-
-            .navigation-container ul.navigation li a:hover, .navigation-container ul.navigation li a:active {
-                color: #fff;
-            }
-
-            .navigation-container ul.navigation li {
-                list-style: none;
-                float: left;
-                border-right: 1px solid #303030;
-                font-weight: 700;
-                background: #000;
-            }
-
-            .navigation-container li:not(:first-child) {
-                padding: 0 18px;
-                font-family: 'Roboto', sans-serif;
-                font-size: 12px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #777777;
-            }
-
-            .navigation-container li:first-child {
-                border: 0;
-                margin-left: 0;
-                padding-left: 40px;
-                padding-right: 20px;
-                font-family: 'Lato', sans-serif;
-                -webkit-text-stroke: 1px #2fa1d6;
-                color: #000 !important;
-                font-size: 24px;
-                letter-spacing: 2px;
-            }
-
-            .navigation-container ul.navigation {
-                height: 42px;
-                line-height: 42px;
-                width: 100%;
-                margin: 0 auto;
-                padding: 0;
-                position: relative;
-            }
-
-            .navigation-container {
-                font-family: 'Raleway', sans-serif;
-                position: fixed;
-                top: 0;
-                right: 0;
-                left: 0;
-                background: #000;
-                z-index: 5;
-            }
-
-            body {
-                margin: 0px;
-                padding: 0px;
-            }
-
-/*            .ol-zoom-in {
-                position: absolute;
-                left: 245px;
-                top:40px;
-                background: #1a1a1a;
-            }
-            .ol-zoom-out {
-                position: absolute;
-                left: 275px;
-                top:40px;
-                background: #1a1a1a;
-            }*/
-/*
-            .ol-scale-line {
-                position: absolute;
-                left: 10px;
-                bottom: 5px;
-                width:auto;
-                color: #fff;
-                background: #1a1a1a;
-            }*/
-
-/*            .ol-mouse-position {
-                position: absolute;
-                right:  10px;
-                top: 45px;
-                width:auto;
-                font-family: 'Roboto', sans-serif;
-                color: #fff;
-                font-size: 12px;
-                background: #1a1a1a;
-
-            }*/
-
-            #div-map {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-            }
-
-        </style>
+        <link rel="stylesheet" href="css/style.css" type="text/css">
 
         <meta charset="UTF-8" />
 
@@ -178,10 +65,18 @@
         <div class="navigation-container" style="moz-user-select: none;">
             <ul class="navigation">
                 <li class="mint-logo">MINT:DCS</li>
-                <li><a href="#placeholder">VIEW MAP</a></li>
-                <li><a href="#placeholder">AIR TASKING ORDERS</a></li>
+                <li><a href="#TACMAP1">VIEW MAP</a></li>
+                <li><a href="#TACMAP2">DRAW</a></li>
+                <li id="menu-functions-button">&nbsp;</li>
                 <li id="clock" style="float: right;">02:15:00 GMT 10/16/2016</li>
             </ul>
+            <!-- <div id="menu-functions-dropdown" class="menu-functions-dropdown-content"> -->
+              <ul id="menu-functions-dropdown" class="menu-functions-dropdown-content">
+                <li><a href="#TACMAP">TACMAP</a></li>
+                <li><a href="#ATO">AIR TASKING ORDERS</a></li>
+                <li><a href="#NOTES">NOTES</a></li>
+              </ul>
+            <!-- </div> -->
         </div>
         <div id="div-map" class="div-map"></div>
     </body>

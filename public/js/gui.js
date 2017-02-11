@@ -79,7 +79,15 @@ MissionIntelApp.GUI = function() {
 
 
         ////// EXAMPLE CODE FROM MILSYMBOLS
-        var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};
+        var iconSize = {
+            "C": 15,
+            "D": 20,
+            "E": 25,
+            "F": 30,
+            "G": 35,
+            "H": 40,
+            "I": 45
+        };
         var ratio = window.devicePixelRatio || 1;
 
         // TEST SNIPPET
@@ -111,7 +119,7 @@ MissionIntelApp.GUI = function() {
         var features = new ol.Feature({
             name: 'layer',
             geometry: new ol.geom.Point({
-                coordinates: [42.000,42.123],
+                coordinates: [42.000, 42.123],
                 properties: {
                     SIDC: "SFGPU------E***",
                     name: "1.C2 komp",
@@ -123,29 +131,29 @@ MissionIntelApp.GUI = function() {
         });
 
         var vectorSource = new ol.source.Vector({
-    	  //features: (new ol.format.GeoJSON()).readFeatures(situation,{featureProjection:'EPSG:3857'})
-          features: features
+            //features: (new ol.format.GeoJSON()).readFeatures(situation,{featureProjection:'EPSG:3857'})
+            features: features
         });
 
-        vectorSource.forEachFeature(function(f){
-    		var mysymbol = new MS.symbol(
-    				f.getProperties().SIDC,{
-    					size:iconSize[(f.getProperties().SIDC).charAt(11)]*ratio,
-    					uniqueDesignation:f.getProperties().name
-    				});
-    		var mycanvas = mysymbol.getMarker().asCanvas();
+        vectorSource.forEachFeature(function(f) {
+            var mysymbol = new MS.symbol(
+                f.getProperties().SIDC, {
+                    size: iconSize[(f.getProperties().SIDC).charAt(11)] * ratio,
+                    uniqueDesignation: f.getProperties().name
+                });
+            var mycanvas = mysymbol.getMarker().asCanvas();
 
-    		f.setStyle(new ol.style.Style({
-    	  		image: new ol.style.Icon( ({
-    	  			scale: 1/ratio,
-    				anchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
-    				anchorXUnits: 'pixels',
-    				anchorYUnits: 'pixels',
-    				imgSize: [Math.floor(mysymbol.width), Math.floor(mysymbol.height)],
-    				img: (mycanvas)
-    	  		}))
-    		}));
-    	});
+            f.setStyle(new ol.style.Style({
+                image: new ol.style.Icon(({
+                    scale: 1 / ratio,
+                    anchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels',
+                    imgSize: [Math.floor(mysymbol.width), Math.floor(mysymbol.height)],
+                    img: (mycanvas)
+                }))
+            }));
+        });
 
         ////// EXAMPLE CODE FROM MILSYMBOLS END
 
@@ -166,8 +174,8 @@ MissionIntelApp.GUI = function() {
         ////// TEST CODE END
 
         var milsymbolLayer = new ol.layer.Vector({
-    	  source: vectorSource
-    	});
+            source: vectorSource
+        });
 
         var mapLayer = new ol.layer.Tile({
             preload: 4,
@@ -187,7 +195,7 @@ MissionIntelApp.GUI = function() {
             }).extend([mousePositionControl, scaleLineControl]),
             view: new ol.View({
                 //center: [0, 0],
-                center: ol.proj.transform([43,42], 'EPSG:4326', 'EPSG:3857'),
+                center: ol.proj.transform([43, 42], 'EPSG:4326', 'EPSG:3857'),
                 zoom: 8
             })
         });
@@ -427,8 +435,21 @@ MissionIntelApp.GUI = function() {
 
         }, 1000);
 
+        // FUNCTION-MENU
 
+        document.getElementById("menu-functions-button").onclick = function() {
+          if(document.getElementById("menu-functions-dropdown").style.display == "block") {
+            document.getElementById("menu-functions-dropdown").style.display = "none";
+          } else {
+            document.getElementById("menu-functions-dropdown").style.display = "block";
+          };
+        }
 
+        window.onclick = function(event){
+          //  if(!event.target.matches('menu-functions-button')){
+          //    document.getElementById("menu-functions-dropdown").style.display = "none";
+          // }
+        }
 
         console.log("--> gui.UIelements() FINISHED");
     };
