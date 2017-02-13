@@ -2,7 +2,7 @@
 <html>
     <head>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Roboto+Condensed" rel="stylesheet">
         <link rel="stylesheet" href="css/ol.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
 
@@ -23,6 +23,8 @@
         <script src="js/session.js"></script>
         <script src="js/comm.js"></script>
         <script src="js/gui.js"></script>
+        <script src="js/navigation.js"></script>
+        <script src="js/notes.js"></script>
         <script src="js/marker.js"></script>
         <script src="js/marker-fids.js"></script>
         <script src="js/maptile.js"></script>
@@ -53,9 +55,10 @@
         -->
         <script>
 
+          var app;
             window.onload = function () {
 
-                new MissionIntelApp();
+                app = new MissionIntelApp(); // initializes in mint.js
 
             };
 
@@ -65,18 +68,22 @@
         <div class="navigation-container" style="moz-user-select: none;">
             <ul class="navigation">
                 <li class="mint-logo">MINT:DCS</li>
-                <li><a href="#TACMAP1">VIEW MAP</a></li>
-                <li><a href="#TACMAP2">DRAW</a></li>
-                <li id="menu-functions-button">&nbsp;</li>
-                <li id="clock" style="float: right;">02:15:00 GMT 10/16/2016</li>
+                <li id="menu-mode-func">VIEW MAP</li>
+                <li id="menu-mode-func">DRAW</li>
+                <li id="menu-mode-button">&nbsp;</li>
+                <li id="clock" style="float: right;"></li>
             </ul>
-            <!-- <div id="menu-functions-dropdown" class="menu-functions-dropdown-content"> -->
-              <ul id="menu-functions-dropdown" class="menu-functions-dropdown-content">
-                <li><a href="#TACMAP">TACMAP</a></li>
-                <li><a href="#ATO">AIR TASKING ORDERS</a></li>
-                <li><a href="#NOTES">NOTES</a></li>
-              </ul>
-            <!-- </div> -->
+            <ul id="menu-mode-dropdown" class="menu-mode-dropdown-content">
+                <li id="menu-mode-tacmap">TACMAP</li>
+                <li id="menu-mode-ato">AIR TASKING ORDERS</li>
+                <li id="menu-mode-notes">NOTES</li>
+            </ul>
+        </div>
+        <div id="mode-notes-wrapper" class="mode-notes-wrapper">
+          <div id="mode-notes-controls">
+            <a href="#" id="mode-notes-controls-add">+ ADD NOTE</a>
+          </div>
+          <ul id="mode-notes-content" class="mode-notes-content"></ul>
         </div>
         <div id="div-map" class="div-map"></div>
     </body>

@@ -62,7 +62,6 @@ MissionIntelApp.GUI = function() {
 
         this.initUIElements();
         this.initOpenLayers();
-        //this.initMouseEvents();
     };
 
     /**
@@ -424,35 +423,61 @@ MissionIntelApp.GUI = function() {
         });
 
 
-        // Clock
-        setInterval(function() {
-            var clockElement = document.querySelectorAll('#clock');
-            var DateString = new Date().toGMTString();
-
-            for (i = 0; i < clockElement.length; i++) {
-                clockElement[i].textContent = DateString;
-            }
-
-        }, 1000);
-
-        // FUNCTION-MENU
-
-        document.getElementById("menu-functions-button").onclick = function() {
-          if(document.getElementById("menu-functions-dropdown").style.display == "block") {
-            document.getElementById("menu-functions-dropdown").style.display = "none";
-          } else {
-            document.getElementById("menu-functions-dropdown").style.display = "block";
-          };
-        }
-
-        window.onclick = function(event){
-          //  if(!event.target.matches('menu-functions-button')){
-          //    document.getElementById("menu-functions-dropdown").style.display = "none";
-          // }
-        }
+        // // Clock
+        // setInterval(function() {
+        //     var clockElement = document.querySelectorAll('#clock');
+        //     var DateString = new Date().toGMTString();
+        //
+        //     for (i = 0; i < clockElement.length; i++) {
+        //         clockElement[i].textContent = DateString;
+        //     }
+        //
+        // }, 1000);
+        //
+        // // FUNCTION-MENU
+        // document.getElementById("menu-mode-button").onclick = function() {
+        //     var height = window.innerHeight;
+        //
+        //     if (document.getElementById("menu-mode-dropdown").style.visibility == "visible") {
+        //         document.getElementById("menu-mode-dropdown").style.visibility = "hidden";
+        //         document.getElementById("menu-mode-dropdown").style.maxHeight = "0px";
+        //     } else {
+        //         document.getElementById("menu-mode-dropdown").style.visibility = "visible";
+        //         document.getElementById("menu-mode-dropdown").style.maxHeight = height + "px";
+        //     };
+        // }
+        //
+        // // OTHER ONCLICK FUNCTIONS
+        // window.onclick = function(event) {
+        //     //  if(!event.target.matches('menu-mode-button')){
+        //     //    document.getElementById("menu-mode-dropdown").style.display = "none";
+        //     // }
+        // }
 
         console.log("--> gui.UIelements() FINISHED");
     };
+
+    // document.getElementById("menu-mode-notes").onclick = function() {
+    //   if (document.getElementById("mode-notes-wrapper").style.visibility == "visible") {
+    //       document.getElementById("mode-notes-wrapper").style.visibility = "hidden";
+    //   } else {
+    //       document.getElementById("mode-notes-wrapper").style.visibility = "visible";
+    //   };
+    // }
+    //
+    // // FUNCTION-MENU: Notes
+    // document.getElementById("mode-notes-controls-add").onclick = function() {
+    //   var node = document.createElement("LI");
+    //   var notes = document.getElementById('mode-notes-content');
+    //
+    //
+    //   node.innerHTML =  "<div><textarea class='note-title' placeholder='Untitled' maxlength='10'></textarea>"+
+    //                     "<textarea class='note-content' placeholder='Your content here'/></textarea>"+
+    //                     "<a href='#' id='mode-notes-controls-remove'>×</a></div>";
+    //
+    //   notes.appendChild(node);
+    // }
+
 
     /**
      * Initialize Mouse Events

@@ -1,6 +1,13 @@
 var MissionIntelApp = function () {
 
     var gui = new MissionIntelApp.GUI();
+    var notes = new MissionIntelApp.Notes();
+    var navigation = new MissionIntelApp.SiteNavigation();
+
+    this.gui = gui;
+    this.myNotes = notes;
+    this.siteNavigation = navigation;
+
     gui.initialize();
 
     // var session = new MissionIntelApp.Session(gui);
