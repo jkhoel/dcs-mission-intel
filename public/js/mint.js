@@ -1,14 +1,16 @@
 var MissionIntelApp = function () {
 
-    var gui = new MissionIntelApp.GUI();
+    //var gui = new MissionIntelApp.GUI();
     var notes = new MissionIntelApp.Notes();
     var navigation = new MissionIntelApp.SiteNavigation();
+    var map = new MissionIntelApp.Map();
 
-    this.gui = gui;
+    //this.gui = gui;
     this.myNotes = notes;
     this.siteNavigation = navigation;
+    this.map = map;
 
-    gui.initialize();
+    //gui.initialize();
 
     // var session = new MissionIntelApp.Session(gui);
     // session.initialize();
@@ -100,12 +102,12 @@ var MissionIntelApp = function () {
             MissionIntelApp.Marker.y = 200
             );
 
-    gui.addMarker(newMarker);
-    gui.addMarker(newMarker2);
-    gui.addMarker(newMarker3);
-    gui.addMarker(newMarker4);
-    gui.addMarker(newMarker5);
-    gui.addMarker(newMarker6);
+    // gui.addMarker(newMarker);
+    // gui.addMarker(newMarker2);
+    // gui.addMarker(newMarker3);
+    // gui.addMarker(newMarker4);
+    // gui.addMarker(newMarker5);
+    // gui.addMarker(newMarker6);
 
     // TEST CODE: new add marker function
     var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};

@@ -37,16 +37,15 @@ MissionIntelApp.Notes = function() {
 
     /* FUNCTION: ADDS notes */
     function addNote(title, content) {
-        var noteID = new Date().getTime();
+        var ident = new Date().getTime();
         var parentID = '';
 
         var notes = document.getElementById('mode-notes-content');
         var node = document.createElement("LI");
 
-
-        node.innerHTML = "<div><textarea class='note-title' id='note-title' placeholder='Untitled' maxlength='10'></textarea>" +
-            "<textarea class='note-content' id='note-content' placeholder='Your content here'/></textarea>" +
-            "<a href='#' id='mode-notes-controls-remove' noteID='" + noteID + "C'>×</a></div>";
+        node.innerHTML = "<div><textarea class='note-title' id='note-title' placeholder='Untitled' maxlength='10' ident='" + ident + "TLE'></textarea>" +
+            "<textarea class='note-content' id='note-content' placeholder='Your content here' ident='" + ident + "CON'/></textarea>" +
+            "<a href='#' id='mode-notes-controls-remove' ident='" + ident + "DEL'>×</a></div>";
 
         notes.appendChild(node);
 
@@ -58,19 +57,25 @@ MissionIntelApp.Notes = function() {
         };
 
         // Add custom attributes and html to the new node (note)
-        notes.lastChild.setAttribute("noteID", noteID);
-        // notes.lastChild.childNodes[0].childNodes[2].setAttribute("noteID",noteID+'C');
-
-        //  console.log(notes.querySelector('[noteID="' + noteID + '"]'))
+        notes.lastChild.setAttribute("ident", ident);
 
         // EVENT: Delete note if X is pressed:
-        notes.querySelector('[noteID="' + noteID + 'C"]').onclick = function() {
-            parentID = this.parentElement.parentElement.getAttribute("noteID");
-            console.log(parentID + '//' + notes.querySelector('[noteID="' + noteID + 'C"]').getAttribute("noteID"));
-
-            notes.removeChild(notes.querySelector('[noteID="' + parentID + '"]'));
+        notes.querySelector('[ident="' + ident + 'DEL"]').onclick = function() {
+            parentID = this.parentElement.parentElement.getAttribute("ident");
+            console.log(parentID + '//' + notes.querySelector('[ident="' + ident + 'DEL"]').getAttribute("ident"));       // This apperantly has to be here in order for this to work!
+            notes.removeChild(notes.querySelector('[ident="' + parentID + '"]'));
             saveNotes();
         };
+
+        // EVENT: Save on lost focus of the TITLE field
+        notes.querySelector('[ident="' + ident + 'TLE"]').onblur = function() {
+            saveNotes();
+        }
+
+        // EVENT: Save on lost focus of the CONTENT field
+        notes.querySelector('[ident="' + ident + 'CON"]').onblur = function() {
+            saveNotes();
+        }
 
         saveNotes();
     };

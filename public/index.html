@@ -23,13 +23,14 @@
         <script src="js/session.js"></script>
         <script src="js/comm.js"></script>
         <script src="js/gui.js"></script>
+        <script src="js/map.js"></script>
         <script src="js/navigation.js"></script>
         <script src="js/notes.js"></script>
         <script src="js/marker.js"></script>
         <script src="js/marker-fids.js"></script>
         <script src="js/maptile.js"></script>
 
-        <script src="src/situation.json"></script>
+        <script src="src/dcsStream.json" type="text/javascript" ></script>
 
         <link rel="stylesheet" href="css/datGUI.css" type="text/css">
         <!-- @
@@ -78,6 +79,12 @@
                 <li id="menu-mode-ato">AIR TASKING ORDERS</li>
                 <li id="menu-mode-notes">NOTES</li>
             </ul>
+        </div>
+        <div id="map-filters-container">
+          <ul id="map-filters">
+            <li id="map-filters-awacs" class="enabled-filter">AWACS</li>
+            <li id="map-filters-planned" class="enabled-filter">Planned</li>
+          </ul>
         </div>
         <div id="mode-notes-wrapper" class="mode-notes-wrapper">
           <div id="mode-notes-controls">

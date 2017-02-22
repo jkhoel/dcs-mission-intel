@@ -1,3 +1,54 @@
+/*# MAP Filters Menu*/
+.enabled-filter {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #303030;
+    border-left: 3px solid #2fa1d6;
+}
+
+.disabled-filter {
+    color: #777777;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #303030;
+    border-left: 3px solid #303030;
+}
+
+#map-filters-container ul#map-filters li {
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /*border: 1px solid #303030;*/
+    /*border-left: 3px solid #303030;*/
+    /*background: rgba(0, 0, 0, 0.8);*/
+    padding: 5px 18px 5px;
+    /*color: #777777;*/
+}
+
+#map-filters-container ul#map-filters li:hover {
+    color: #fff;
+    background: rgba(60, 60, 60, 0.7);
+    /*border-left: 3px solid #2fa1d6;*/
+}
+
+div#map-filters-container {
+    position: absolute;
+    top: 42px;
+    left: -1em;
+    min-width: 160px;
+    text-decoration: none;
+    z-index: 6;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+}
+
 /*# MODE Notes Controls*/
 
 #mode-notes-controls a {
