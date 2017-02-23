@@ -13,29 +13,34 @@
     border-left: 3px solid #303030;
 }
 
+#map-filters-header {
+  cursor: move;
+  color: #fff;
+  background: rgba(60, 60, 60, 0.7);
+}
+
+#map-filters-container ul#map-filters li:not(:first-child) {
+    cursor:pointer;
+}
+
 #map-filters-container ul#map-filters li {
     list-style: none;
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    /*border: 1px solid #303030;*/
-    /*border-left: 3px solid #303030;*/
-    /*background: rgba(0, 0, 0, 0.8);*/
     padding: 5px 18px 5px;
-    /*color: #777777;*/
 }
 
 #map-filters-container ul#map-filters li:hover {
     color: #fff;
     background: rgba(60, 60, 60, 0.7);
-    /*border-left: 3px solid #2fa1d6;*/
 }
 
 div#map-filters-container {
     position: absolute;
-    top: 42px;
-    left: -1em;
+    top: 2em;
+    left: -2em;
     min-width: 160px;
     text-decoration: none;
     z-index: 6;
@@ -217,6 +222,7 @@ div#map-filters-container {
     background: rgba(0, 0, 0, 0.8);
     padding: 5px 18px 5px;
     color: #777777;
+    cursor: pointer;
 }
 
 .navigation-container ul.menu-mode-dropdown-content li:hover {
@@ -260,6 +266,7 @@ div#map-filters-container {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
+    cursor: crosshair;
 }
 
 .navigation-container #menu-mode-func:hover {
@@ -281,6 +288,7 @@ div#map-filters-container {
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #777777;
+    cursor: pointer;
 }
 
 .navigation-container .mint-logo {
@@ -319,6 +327,7 @@ div#map-filters-container {
     /* IE 10+ */
     user-select: none;
     /* Likely future */
+    cursor: crosshair;
 }
 
 body {
@@ -371,4 +380,5 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
+    cursor: crosshair;
 }

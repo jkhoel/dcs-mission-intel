@@ -1,5 +1,5 @@
 /* global MissionIntelApp */
-MissionIntelApp.Notes = function() {
+MissionIntelApp.Notes = function(app) {
 
     this.save = function() {
         saveNotes();

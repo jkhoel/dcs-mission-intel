@@ -1,16 +1,20 @@
 /* global MissionIntelApp */
-MissionIntelApp.Map = function() {
+MissionIntelApp.Map = function(app) {
 
     this.toggleLayer = function(layerName) {
         toggleLayer(layerName);
-    }
+    };
 
     function toggleLayer(layerName) {
         layerName.setVisible((!layerName.getVisible()));
     }
 
+    function get(el) {
+        if (typeof el == 'string') return document.getElementById(el);
+        return el;
+    }
 
-    // SOURCES
+        // SOURCES
     var jsonSource = new ol.source.Vector({
         features: (new ol.format.GeoJSON()).readFeatures(jsonStream, {
             featureProjection: 'EPSG:3857'
@@ -75,12 +79,12 @@ MissionIntelApp.Map = function() {
     var plannedLayer = new ol.layer.Vector({
         id: 'planned',
         source: plannedSource
-    })
+    });
 
     var awacsLayer = new ol.layer.Vector({
         id: 'awacs',
         source: awacsSource
-    })
+    });
 
     var mapLayer = new ol.layer.Tile({
         id: 'map',
@@ -135,5 +139,4 @@ MissionIntelApp.Map = function() {
         document.getElementById("map-filters-planned").classList.toggle("disabled-filter");
         toggleLayer(plannedLayer);
     };
-
 };

@@ -1,39 +1,40 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Roboto+Condensed" rel="stylesheet">
-        <link rel="stylesheet" href="css/ol.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+<head>
 
-        <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="css/ol.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 
-
-        <title>DCS:MINT</title>
+    <meta charset="UTF-8" />
 
 
-        <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-        <script src="https://openlayers.org/en/v3.19.1/build/ol.js" type="text/javascript"></script>
+    <title>DCS:MINT</title>
 
-        <script src="js/milsymbol-0.6.0.js"></script>
-        <script src="js/dat.gui.min.js"></script>
 
-        <script src="js/mint.js"></script>
-        <script src="js/session.js"></script>
-        <script src="js/comm.js"></script>
-        <script src="js/gui.js"></script>
-        <script src="js/map.js"></script>
-        <script src="js/navigation.js"></script>
-        <script src="js/notes.js"></script>
-        <script src="js/marker.js"></script>
-        <script src="js/marker-fids.js"></script>
-        <script src="js/maptile.js"></script>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v3.19.1/build/ol.js" type="text/javascript"></script>
 
-        <script src="src/dcsStream.json" type="text/javascript" ></script>
+    <script src="js/milsymbol-0.6.0.js"></script>
+    <script src="js/dat.gui.min.js"></script>
 
-        <link rel="stylesheet" href="css/datGUI.css" type="text/css">
-        <!-- @
+    <script src="js/mint.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/comm.js"></script>
+    <script src="js/gui.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/marker.js"></script>
+    <script src="js/marker-fids.js"></script>
+    <script src="js/maptile.js"></script>
+
+    <script src="src/dcsStream.json" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="css/datGUI.css" type="text/css">
+    <!-- @
                                                            ▄              ▄
                                                           ▌▒█           ▄▀▒▌
                 wow                                       ▌▒▒█        ▄▀▒▒▒▐
@@ -54,44 +55,46 @@
                                                          ▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀
                                                           ░▒▒▒▒▒▒▒▒▒▒▀▀
         -->
-        <script>
+    <script>
+        window.addEventListener("load", function() {
 
-          var app;
-            window.onload = function () {
+            var app = new MissionIntelApp();
 
-                app = new MissionIntelApp(); // initializes in mint.js
+            //app.makeDraggable('map-filters-container');
 
-            };
+        });
+    </script>
+</head>
 
-        </script>
-    </head>
-    <body>
-        <div class="navigation-container" style="moz-user-select: none;">
-            <ul class="navigation">
-                <li class="mint-logo">MINT:DCS</li>
-                <li id="menu-mode-func">VIEW MAP</li>
-                <li id="menu-mode-func">DRAW</li>
-                <li id="menu-mode-button">&nbsp;</li>
-                <li id="clock" style="float: right;"></li>
-            </ul>
-            <ul id="menu-mode-dropdown" class="menu-mode-dropdown-content">
-                <li id="menu-mode-tacmap">TACMAP</li>
-                <li id="menu-mode-ato">AIR TASKING ORDERS</li>
-                <li id="menu-mode-notes">NOTES</li>
-            </ul>
-        </div>
-        <div id="map-filters-container">
-          <ul id="map-filters">
+<body>
+    <div class="navigation-container" style="moz-user-select: none;">
+        <ul class="navigation">
+            <li class="mint-logo">MINT:DCS</li>
+            <li id="menu-mode-func">VIEW MAP</li>
+            <li id="menu-mode-func">DRAW</li>
+            <li id="menu-mode-button">&nbsp;</li>
+            <li id="clock" style="float: right;"></li>
+        </ul>
+        <ul id="menu-mode-dropdown" class="menu-mode-dropdown-content">
+            <li id="menu-mode-tacmap">TACMAP</li>
+            <li id="menu-mode-ato">AIR TASKING ORDERS</li>
+            <li id="menu-mode-notes">NOTES</li>
+        </ul>
+    </div>
+    <div id="map-filters-container">
+        <ul id="map-filters">
+            <li id="map-filters-header">Sources:</li>
             <li id="map-filters-awacs" class="enabled-filter">AWACS</li>
             <li id="map-filters-planned" class="enabled-filter">Planned</li>
-          </ul>
-        </div>
-        <div id="mode-notes-wrapper" class="mode-notes-wrapper">
-          <div id="mode-notes-controls">
+        </ul>
+    </div>
+    <div id="mode-notes-wrapper" class="mode-notes-wrapper">
+        <div id="mode-notes-controls">
             <a href="#" id="mode-notes-controls-add">+ ADD NOTE</a>
-          </div>
-          <ul id="mode-notes-content" class="mode-notes-content"></ul>
         </div>
-        <div id="div-map" class="div-map"></div>
-    </body>
+        <ul id="mode-notes-content" class="mode-notes-content"></ul>
+    </div>
+    <div id="div-map" class="div-map"></div>
+</body>
+
 </html>

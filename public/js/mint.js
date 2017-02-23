@@ -1,133 +1,77 @@
-var MissionIntelApp = function () {
+var MissionIntelApp = function() {
 
-    //var gui = new MissionIntelApp.GUI();
-    var notes = new MissionIntelApp.Notes();
-    var navigation = new MissionIntelApp.SiteNavigation();
-    var map = new MissionIntelApp.Map();
+    /* VARIABLES */
+    var selected = null, x_pos = 0, y_pos = 0, x_elem = 0, y_elem = 0;
 
-    //this.gui = gui;
+    /* APP-WIDE FUNCTIONS */
+    this.get = function(el) {
+        get(el);
+        return el;
+    };
+
+    this.makeDraggable = function(id) {
+        makeDraggable(id);
+        return id;
+    };
+
+    this.moveDraggable = function(e) {
+        moveDraggable(e);
+    };
+
+    this.destroyDraggable = function() {
+        destroyDraggable();
+    };
+
+    function get(el) {
+        if (typeof el == 'string') return document.getElementById(el);
+        return el;
+    }
+
+    function makeDraggable(elem) {
+        selected = elem;
+        x_elem = x_pos - selected.offsetLeft;
+        y_elem = y_pos - selected.offsetTop;
+    }
+
+    function moveDraggable(e) {
+        x_pos = document.all ? window.event.clientX : e.pageX;
+        y_pos = document.all ? window.event.clientY : e.pageY;
+        if (selected !== null) {
+            selected.style.left = (x_pos - x_elem) + 'px';
+            selected.style.top = (y_pos - y_elem) + 'px';
+        }
+    }
+
+    function destroyDraggable() {
+        selected = null;
+    }
+
+    /* INITIALIZATIONS */
+    var notes = new MissionIntelApp.Notes(this);
+    var navigation = new MissionIntelApp.SiteNavigation(this);
+    var map = new MissionIntelApp.Map(this);
+
+    // var gui = new MissionIntelApp.GUI(this);
+    // var session = new MissionIntelApp.Session(gui);
+    // session.initialize();
+
+    /* PUBLIC DECLARATIONS OF THE ABOVE INITIALIZATIONS */
     this.myNotes = notes;
     this.siteNavigation = navigation;
     this.map = map;
 
-    //gui.initialize();
 
-    // var session = new MissionIntelApp.Session(gui);
-    // session.initialize();
+    /* EVENTS */
+    document.addEventListener("mouseup", function(e) {
+        destroyDraggable();
+    });
 
-    /////////////////////////////////////////////////////////////////
-    // MARKER TEST OBJECTS
+    document.addEventListener("mousemove", function(e) {
+        moveDraggable(e);
+    });
 
-    var newMarker = new MissionIntelApp.Marker(
-            // Regular Fixed-wing Marker BLUEFOR: SFAPMFA-----
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Ground,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.UnitCombatInfantry,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.None,
-            MissionIntelApp.Marker.Source.AWACS,
-            MissionIntelApp.Marker.x = 400,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    var newMarker2 = new MissionIntelApp.Marker(
-            // Regular Armoured Hostile: SFGPUCA----C
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Ground,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.UnitCombatArmor,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.Company,
-            MissionIntelApp.Marker.Source.JSTAR,
-            MissionIntelApp.Marker.x = 600,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    var newMarker3 = new MissionIntelApp.Marker(
-            // Regular Armoured Hostile: SFGPUCATH--C
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Air,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.MilitaryFixedWing,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.Section,
-            MissionIntelApp.Marker.Source.GEOINT,
-            MissionIntelApp.Marker.x = 800,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    var newMarker4 = new MissionIntelApp.Marker(
-            // Regular Armoured Hostile: SHGPUCAT---C
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Air,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.MilitaryRotaryWing,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.None,
-            MissionIntelApp.Marker.Source.GEOINT,
-            MissionIntelApp.Marker.x = 1000,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    var newMarker5 = new MissionIntelApp.Marker(
-            // Regular Armoured Hostile: SHGPUCAT---C
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Friend,
-            MissionIntelApp.Marker.BattleDim.Ground,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.UnitCombatAirDefence,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.None,
-            MissionIntelApp.Marker.Source.JSTAR,
-            MissionIntelApp.Marker.x = 1200,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    var newMarker6 = new MissionIntelApp.Marker(
-            // Regular Armoured Hostile: SHGPUCAT---C
-            MissionIntelApp.Marker.CodingScheme.Warfighting,
-            MissionIntelApp.Marker.Affiliation.Hostile,
-            MissionIntelApp.Marker.BattleDim.SeaSurface,
-            MissionIntelApp.Marker.Status.Present,
-            MissionIntelApp.Marker.FunctionID.CombatantLineBattleship,
-            MissionIntelApp.Marker.Modifier1.None,
-            MissionIntelApp.Marker.Modifier2.None,
-            MissionIntelApp.Marker.Source.SIGINT,
-            MissionIntelApp.Marker.x = 1400,
-            MissionIntelApp.Marker.y = 200
-            );
-
-    // gui.addMarker(newMarker);
-    // gui.addMarker(newMarker2);
-    // gui.addMarker(newMarker3);
-    // gui.addMarker(newMarker4);
-    // gui.addMarker(newMarker5);
-    // gui.addMarker(newMarker6);
-
-    // TEST CODE: new add marker function
-    var iconSize = {"C":15,"D":20,"E":25,"F":30,"G":35,"H":40,"I":45};
-
-    //var feature = new ol.Feature({});
-
-    var sidc = MissionIntelApp.Marker.getHash(newMarker6);
-
-    //var sidc = "SHGPUCAT---C";
-    // var milsym = new MS.symbol(sidc, {
-    //     size: iconSize[sidc.charAt(11)],
-    // });
-    //
-    // console.log(sidc);
-    // console.log(sidc.charAt(11));
-    // console.log(iconSize[sidc.charAt(11)]);
-
-    // END OF TEST CODE
-    console.log("--> MissionIntelApp FINISHED");
-    console.log("//////// END OF CODE ///////");
-
-
+    get('map-filters-header').onmousedown = function() {
+        makeDraggable(get('map-filters-container'));
+        return false;
+    };
 };

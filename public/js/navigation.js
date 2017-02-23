@@ -1,5 +1,11 @@
 /* global MissionIntelApp */
-MissionIntelApp.SiteNavigation = function() {
+MissionIntelApp.SiteNavigation = function(app) {
+
+    /* TODO IMPLEMENTERE get() I KODEN UNDER! */
+    function get(el) {
+        if (typeof el == 'string') return document.getElementById(el);
+        return el;
+    }
 
     /* MODES: Main Dropdown Menu */
     document.getElementById("menu-mode-button").onclick = function() {
@@ -11,8 +17,8 @@ MissionIntelApp.SiteNavigation = function() {
         } else {
             document.getElementById("menu-mode-dropdown").style.visibility = "visible";
             document.getElementById("menu-mode-dropdown").style.maxHeight = height + "px";
-        };
-    }
+        }
+    };
 
     /* MODES: Notes ON/OFF */
     document.getElementById("menu-mode-notes").onclick = function() {
@@ -25,15 +31,15 @@ MissionIntelApp.SiteNavigation = function() {
             document.getElementById("mode-notes-wrapper").style.visibility = "visible";
             document.getElementById("menu-mode-notes").innerHTML = "SAVE & EXIT";
             document.getElementById("menu-mode-notes").style.color = "#2FA1D6";
-        };
-    }
+        }
+    };
 
     /* Window Overrides */
-    window.onclick = function(event) {
+    // window.onclick = function(event) {     // MÅ SKIFTES MED EN addEventListener!!
         //  if(!event.target.matches('menu-mode-button')){
         //    document.getElementById("menu-mode-dropdown").style.display = "none";
         // }
-    }
+    // }
 
     /* GUI Element: Clock */
     setInterval(function() {
