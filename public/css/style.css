@@ -1,29 +1,77 @@
-/*# MAP Filters Menu*/
-.enabled-filter {
+/* COLOR STYLES */
+
+.blue {
+    color: #2FA1D6;
+}
+
+.blue-faded {
+    color: #3E6D83;
+}
+
+.red {
+    color: #ff135d;
+}
+
+.red-faded {
+    color: #99475B;
+}
+
+.yellow {
+    color: #D8E926;
+}
+
+/* OPTION MENUS */
+
+.opt-actions {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 0px 10px 0px 0px;
+  /*width: 240px;*/
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #303030;
+  /*box-shadow: 1px 1px 2px #cfcfcf;*/
+  margin: 0px 34px;
+}
+
+.opt-actions-active {
+  display: block;
+}
+
+.opt {
+  color: #fff;
+}
+
+/* MAP MENUS*/
+
+.enabled-map-function {
     color: #fff;
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid #303030;
     border-left: 3px solid #2fa1d6;
 }
 
-.disabled-filter {
+.disabled-map-function {
     color: #777777;
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid #303030;
     border-left: 3px solid #303030;
 }
 
-#map-filters-header {
-  cursor: move;
-  color: #fff;
-  background: rgba(60, 60, 60, 0.7);
+
+/*# MAP Filters Menu*/
+
+#map-filters-header, #map-draw-header {
+    cursor: move;
+    color: #fff;
+    background: rgba(60, 60, 60, 0.7);
 }
 
-#map-filters-container ul#map-filters li:not(:first-child) {
-    cursor:pointer;
+#map-filters-container ul li:not(:first-child), #map-draw-container ul li:not(:first-child) {
+    cursor: pointer;
 }
 
-#map-filters-container ul#map-filters li {
+#map-filters-container ul li, #map-draw-container ul li {
     list-style: none;
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
@@ -32,9 +80,29 @@
     padding: 5px 18px 5px;
 }
 
-#map-filters-container ul#map-filters li:hover {
+#map-filters-container ul li:hover, {
     color: #fff;
     background: rgba(60, 60, 60, 0.7);
+}
+
+
+/*#map-draw-features li {
+        font-size: 8px !important;
+        padding: 0px 0px 0px 18px !important;
+}*/
+
+#map-draw-features-remove, #map-draw-features-edit {
+    font-family: 'Raleway', sans-serif;
+    font-size: 200%;
+    position: relative;
+    top: 0px;
+    left: 140px;
+    text-decoration: none;
+    color: #777777;
+}
+
+#map-draw-features-edit:hover {
+    color: #2fa1d6;
 }
 
 div#map-filters-container {
@@ -43,7 +111,7 @@ div#map-filters-container {
     left: -2em;
     min-width: 160px;
     text-decoration: none;
-    z-index: 6;
+    z-index: 2;
     -webkit-user-select: none;
     /* Chrome all / Safari all */
     -moz-user-select: none;
@@ -52,6 +120,118 @@ div#map-filters-container {
     /* IE 10+ */
     user-select: none;
     /* Likely future */
+}
+
+
+/*# MAP Draw Menu*/
+
+#map-draw-features .icon-user-plus {
+    color: #7D833E;
+    cursor: pointer;
+}
+
+#map-draw-features .icon-user-plus-active {
+    color: #D8E926;
+}
+
+#map-draw-features .icon-cog {
+    color: #3E6D83;
+}
+
+#map-draw-features .icon-cog:hover {
+    color: #2FA1D6;
+    cursor: pointer;
+}
+
+#map-draw-features .icon-block {
+    color: #99475B;
+}
+
+#map-draw-features .icon-block:hover {
+    color: #ff135d;
+    cursor: pointer;
+}
+
+#map-draw-features i {
+    padding: 0px 5px 0px 5px;
+}
+
+#map-draw-features textarea {
+    background: rgba(0, 0, 0, 0);
+    border-style: none;
+    resize: none;
+    color: #888;
+    margin: 0px 10px;
+    width: auto;
+    max-width: 120px;
+    max-height: 14px;
+}
+
+#map-draw-features {
+    position: relative;
+    top: -1em;
+}
+
+#map-draw-brush-type {
+    font-size: 10px;
+    background: transparent;
+    color: #fff;
+    /*border-color: rgba(100, 100, 100, 0.7);*/
+    border: none;
+    outline: 0;
+    /*-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #333;*/
+    cursor: pointer;
+}
+
+div#map-draw-container {
+    position: absolute;
+    top: 10em;
+    left: -2em;
+    min-width: 160px;
+    text-decoration: none;
+    z-index: 2;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+}
+
+/* MAP Draw Options */
+
+#map-draw-opt-actions ul li {
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: unset;
+}
+
+#map-draw-opt-actions ul {
+  padding: unset;
+}
+
+div#map-draw-opt-actions ul li textarea {
+  background: rgba(0, 0, 0, 0.5);
+  border-style: none;
+  resize: none;
+  color: #888;
+  margin: 0px 5px 0px 0px;
+  width: 100%;
+  max-width: 90px;
+  max-height: 14px;
+}
+
+div#map-draw-opt-actions {
+    margin: 0px;
+    padding: 5px 5px;
 }
 
 /*# MODE Notes Controls*/
@@ -76,18 +256,19 @@ div#map-filters-container {
 }
 
 #mode-notes-controls-remove {
-  font-family: 'Raleway', sans-serif;
-  font-size: 200%;
-  position: absolute;
-  top: 0;
-  right: .3em;
-  text-decoration: none;
-  color: #777777;
+    font-family: 'Raleway', sans-serif;
+    font-size: 200%;
+    position: absolute;
+    top: 0;
+    right: .3em;
+    text-decoration: none;
+    color: #777777;
 }
 
-#mode-notes-controls-remove:hover {
-  color: #ff135d;
+#mode-notes-controls-remove:hover, #map-draw-features-remove:hover {
+    color: #ff135d;
 }
+
 
 /*# MODE Notes Content*/
 
@@ -149,18 +330,18 @@ div#map-filters-container {
 }
 
 .mode-notes-content li div {
-  text-decoration: none;
-  color: #777777;
-  background: rgb(54, 54, 54);
-  border: 1px solid #929292;
-  display: block;
-  height: auto;
-  width: 12em;
-  padding: .5em;
-  opacity: .7;
-  -moz-transition: -moz-transform .10s linear;
-  -o-transition: -o-transform .10s linear;
-  -webkit-transition: -webkit-transform .10s linear;
+    text-decoration: none;
+    color: #777777;
+    background: rgb(54, 54, 54);
+    border: 1px solid #929292;
+    display: block;
+    height: auto;
+    width: 12em;
+    padding: .5em;
+    opacity: .7;
+    -moz-transition: -moz-transform .10s linear;
+    -o-transition: -o-transform .10s linear;
+    -webkit-transition: -webkit-transform .10s linear;
 }
 
 .mode-notes-content ul li {

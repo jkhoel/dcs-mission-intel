@@ -1,5 +1,5 @@
-var jsonStream = {
-    "name" : "Layer",
+var dcsStream = {
+    "name": "Layer",
     "type": "FeatureCollection",
     "crs": {
         "type": "name",

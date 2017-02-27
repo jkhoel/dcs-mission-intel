@@ -1,0 +1,99 @@
+{
+    "name": "Layer",
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [44.4226333, 41.9061667],
+                        [44.7550000, 41.9991667],
+                        [45.5335333, 41.4797667],
+                        [45.2161667, 41.4670667],
+                        [45.0486000, 41.3866500],
+                        [44.7095000, 41.6558333],
+                        [44.4275000, 41.7298000],
+                        [44.4226333, 41.9061667]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "TBLISI TMA",
+                "type": "TMA",
+                "color": "rgba(255, 0, 0, 0.5)",
+                "colorBg": "rgba(255, 0, 0, 0.1)"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [44.2457333, 41.4555000],
+                        [44.1981667, 41.6888833],
+                        [44.7095000, 41.6558333],
+                        [44.7125167, 41.4458500],
+                        [44.5046000, 41.3342833],
+                        [44.5046000, 41.3342833]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "MARNUELI",
+                "type": "RANGE",
+                "color": "rgba(255, 0, 0, 0.5)",
+                "colorBg": "rgba(255, 0, 0, 0.1)"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [44.5655555555556, 41.9166666666667]
+            },
+            "properties": {
+                "name": "DF/MUKHRANI/NDB",
+                "type": "NAV",
+                "radius": 200,
+                "color": "rgba(255, 0, 0, 0.8)",
+                "colorBg": "rgba(255, 0, 0, 0.1)"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [44.9516, 41.6688]
+            },
+            "properties": {
+                "name": "TBLISI-LOCHINI TWR",
+                "type": "TWR",
+                "radius": 20000,
+                "color": "rgba(255, 255, 0, 0.8)",
+                "colorBg": "rgba(255, 255, 0, 0.1)"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [44.8679833333333, 42.13925]
+            },
+            "properties": {
+                "name": "FARP MADRID",
+                "type": "FARP",
+                "radius": 600,
+                "color": "rgba(255, 0, 0, 0.8)",
+                "colorBg": "rgba(255, 0, 0, 0.1)"
+            }
+        }
+    ]
+}

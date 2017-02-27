@@ -1,7 +1,11 @@
 var MissionIntelApp = function() {
 
     /* VARIABLES */
-    var selected = null, x_pos = 0, y_pos = 0, x_elem = 0, y_elem = 0;
+    var selected = null,
+        x_pos = 0,
+        y_pos = 0,
+        x_elem = 0,
+        y_elem = 0;
 
     /* APP-WIDE FUNCTIONS */
     this.get = function(el) {
@@ -21,6 +25,10 @@ var MissionIntelApp = function() {
     this.destroyDraggable = function() {
         destroyDraggable();
     };
+
+    this.getJSON = function(url, data, callback) {
+      getJSON(url, data, callback);
+    }
 
     function get(el) {
         if (typeof el == 'string') return document.getElementById(el);
@@ -46,6 +54,35 @@ var MissionIntelApp = function() {
         selected = null;
     }
 
+    var getJSON = function(url, data, callback) {
+        // Must encode data
+        if (data && typeof(data) === 'object') {
+            var y = '',
+                e = encodeURIComponent;
+            for (x in data) {
+                y += '&' + e(x) + '=' + e(data[x]);
+            }
+            data = y.slice(1);
+            url += (/\?/.test(url) ? '&' : '?') + data;
+        }
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", url, true);
+        xmlHttp.setRequestHeader('Accept', 'application/json, text/javascript');
+        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState != 4) {
+                return;
+            }
+            if (xmlHttp.status != 200 && xmlHttp.status != 304) {
+                callback('');
+                return;
+            }
+            callback(JSON.parse(xmlHttp.response));
+        };
+        xmlHttp.send(null);
+    };
+
     /* INITIALIZATIONS */
     var notes = new MissionIntelApp.Notes(this);
     var navigation = new MissionIntelApp.SiteNavigation(this);
@@ -60,7 +97,6 @@ var MissionIntelApp = function() {
     this.siteNavigation = navigation;
     this.map = map;
 
-
     /* EVENTS */
     document.addEventListener("mouseup", function(e) {
         destroyDraggable();
@@ -72,6 +108,11 @@ var MissionIntelApp = function() {
 
     get('map-filters-header').onmousedown = function() {
         makeDraggable(get('map-filters-container'));
-        return false;
+        //return false;
+    };
+
+    get('map-draw-header').onmousedown = function() {
+        makeDraggable(get('map-draw-container'));
+        //return false;
     };
 };
