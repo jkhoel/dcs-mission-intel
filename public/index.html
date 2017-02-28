@@ -10,9 +10,7 @@
 
     <meta charset="UTF-8" />
 
-
     <title>MINT:DCS</title>
-
 
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
@@ -20,23 +18,15 @@
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js" type="text/javascript"></script>
 
     <script src="js/milsymbol-0.6.0.js"></script>
-    <script src="js/dat.gui.min.js"></script>
 
     <script src="js/mint.js"></script>
-    <script src="js/session.js"></script>
-    <script src="js/comm.js"></script>
-    <script src="js/gui.js"></script>
     <script src="js/map.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/notes.js"></script>
-    <script src="js/marker.js"></script>
-    <script src="js/marker-fids.js"></script>
-    <script src="js/maptile.js"></script>
 
     <script src="src/dcsStream.json" type="text/javascript"></script>
     <!-- <script src="src/vectors/vectors.geojson" type="text/javascript"></script> -->
 
-    <link rel="stylesheet" href="css/datGUI.css" type="text/css">
     <!-- @
                                                            ▄              ▄
                                                           ▌▒█           ▄▀▒▌
@@ -83,26 +73,27 @@
         </ul>
     </div>
 
-    <div id="map-filters-container">
+    <div id="map-filters-container" class="map-menu-container map-menu-filters-pos">
         <ul id="map-filters">
-            <li id="map-filters-header">Sources:</li>
-            <li id="map-filters-awacs" class="enabled-map-function">AWACS</li>
-            <li id="map-filters-planned" class="enabled-map-function">Planned</li>
+            <li id="map-filters-header" class="map-menu-header cursor-move">Sources:</li>
+            <li id="map-filters-awacs" class="map-menu-object cursor-pointer enabled-map-menu-object">AWACS</li>
+            <li id="map-filters-planned" class="map-menu-object cursor-pointer enabled-map-menu-object">Planned</li>
         </ul>
     </div>
 
-    <div id="map-draw-container">
+    <div id="map-draw-container" class="map-menu-container map-menu-draw-pos">
         <ul id="map-draw-tools">
-            <li id="map-draw-header">Draw:</li>
-            <li id="map-draw-brush" class="enabled-map-function">
-                Brush Type:&nbsp;
-                <select id="map-draw-brush-type">
-                  <option value="None">None</option>
-                  <option value="Point">Point</option>
-                  <option value="LineString">LineString</option>
-                  <option value="Polygon">Polygon</option>
-                  <option value="Circle">Circle</option>
-                </select>
+            <li id="map-draw-header" class="map-menu-header cursor-move">Draw:</li>
+            <li id="map-draw-brush" class="enabled-map-menu-object cursor-crosshair">
+                <div id="map-draw-brush-type-selector" class="wrapper-dropdown" tabindex="1">Brush Type
+                  <ul class="dropdown">
+                    <li id="map-draw-brush-type-none" class="map-menu-object">None</li>
+                    <li id="map-draw-brush-type-point" class="map-menu-object">Point</li>
+                    <li id="map-draw-brush-type-circle" class="map-menu-object">Circle</li>
+                    <li id="map-draw-brush-type-polygon" class="map-menu-object">Polygon</li>
+                    <li id="map-draw-brush-type-linestring" class="map-menu-object">LineString</li>
+                  </ul>
+                </div>
             </li>
         </ul>
         <ul id="map-draw-features">

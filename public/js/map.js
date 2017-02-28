@@ -237,7 +237,7 @@ MissionIntelApp.Map = function(app) {
 
     var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: function(coord) {
-          return ol.coordinate.toStringHDMS(coord, 3);
+            return ol.coordinate.toStringHDMS(coord, 3);
         },
         projection: 'EPSG:4326'
     });
@@ -271,25 +271,50 @@ MissionIntelApp.Map = function(app) {
 
 
     /* EVENTS */
+
+    // --> map filters
     document.getElementById("map-filters-awacs").onclick = function(element) {
-        document.getElementById("map-filters-awacs").classList.toggle("enabled-map-function");
-        document.getElementById("map-filters-awacs").classList.toggle("disabled-map-function");
+        document.getElementById("map-filters-awacs").classList.toggle("enabled-map-menu-object");
+        document.getElementById("map-filters-awacs").classList.toggle("disabled-map-menu-object");
         toggleLayer(awacsLayer);
     };
 
     document.getElementById("map-filters-planned").onclick = function(element) {
-        document.getElementById("map-filters-planned").classList.toggle("enabled-map-function");
-        document.getElementById("map-filters-planned").classList.toggle("disabled-map-function");
+        document.getElementById("map-filters-planned").classList.toggle("enabled-map-menu-object");
+        document.getElementById("map-filters-planned").classList.toggle("disabled-map-menu-object");
         toggleLayer(plannedLayer);
     };
 
-    document.getElementById("map-draw-brush-type").onchange = function() {
-        map.removeInteraction(draw);
-        drawInteraction(drawSource, this.value);
+    // --> drawing brushes
+    document.getElementById('map-draw-brush-type-selector').onclick = function() {
+        this.classList.toggle("wrapper-dropdown-active");
     };
 
-    drawInteraction(drawSource, document.getElementById("map-draw-brush-type").value);
+    document.getElementById("map-draw-brush-type-none").onclick = function(el) {
+        map.removeInteraction(draw);
+    }
 
+    document.getElementById("map-draw-brush-type-point").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Point");
+    }
+
+    document.getElementById("map-draw-brush-type-circle").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Circle");
+    }
+
+    document.getElementById("map-draw-brush-type-polygon").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Polygon");
+    }
+
+    document.getElementById("map-draw-brush-type-linestring").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "LineString");
+    }
+
+    // --> drawing controls
     drawSource.on('addfeature', function(e) {
         // add controls for deleting and manipulating all features in the source
         var container = document.getElementById("map-draw-features");
@@ -309,19 +334,16 @@ MissionIntelApp.Map = function(app) {
                 }, true);
             }
 
-            node.className = 'enabled-map-function';
+            node.className = 'enabled-map-menu-object';
             node.innerHTML = "<i class='icon-block' /></i><i class='icon-cog'></i><i class='icon-user-plus'></i><textarea id='map-draw-feature-namebox'>" + f.getProperties().name + "</textarea></li>";
 
-            // TODO Add code for options-menu, based on type of feature
-            var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
+            // IDEA put the below code into a function addDrawingEvents(feature, node);
+            var geometryCoords;
             var inputCoords;
 
-            console.log(f.getGeometry().getCoordinates());
-
+            // CREATE NODE
             if (f.getGeometry().getType() == 'Point') {
-                // var coordX = f.getGeometry().getFirstCoordinate();
-                // var coordY = f.getGeometry().getLastCoordinate();
-                //console.log(ol.proj.toLonLat(coordX));
+                var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
                 node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
                                                     <li class='opt opt-color'>COLOR:</li>\
                                                     <li class='opt opt-color'><textarea></textarea></li>\
@@ -336,28 +358,41 @@ MissionIntelApp.Map = function(app) {
             }
 
             if (f.getGeometry().getType() == 'Circle') {
+                var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCenter());
                 node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
                                                   <li class='opt opt-color'>COLOR:</li>\
                                                   <li class='opt opt-color'><textarea></textarea></li>\
-                                                  <li class='opt opt-fillcolor'>FILL COLOR></li>\
+                                                  <li class='opt opt-fillcolor'>FILL COLOR</li>\
                                                   <li class='opt opt-fillcolor'><textarea></textarea></li>\
                                                   <li class='opt opt-radius'>RADIUS:</li>\
                                                   <li class='opt opt-radius'><textarea></textarea></li>\
                                                   <li class='opt opt-coord'>CENTER:</li>\
-                                                  <li class='opt opt-coord-center opt-coord'><textarea>" + geometryCoords[0].toFixed(7) + "</textarea><textarea>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
+                                                  <li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
                                                   </ul></div>";
             }
 
             if (f.getGeometry().getType() == 'Polygon') {
-                //node.innerHTML = node.innerHTML + "SOME HTML HERE!"
+                var geometryCoords = f.getGeometry().getCoordinates();
+                var coordHTML = '';
 
-                // IDEA the coords variable will most likely return a longer array of coords for polys and lineStrings and so will probably need to iterate trough the whole array - outputting textareas.
-                // IDEA On polys and lineStrings - each coordinate pair needs to be deletable
+                geometryCoords[0].forEach(function(c) {
+                    var c = ol.proj.toLonLat(c);
+                    coordHTML = coordHTML + "<li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + c[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + c[1].toFixed(7) + "</textarea></li>"
+                });
+
+                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
+                                                  <li class='opt opt-color'>COLOR:</li>\
+                                                  <li class='opt opt-color'><textarea></textarea></li>\
+                                                  <li class='opt opt-fillcolor'>FILL COLOR</li>\
+                                                  <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                                                  <li class='opt opt-radius'>RADIUS:</li>\
+                                                  <li class='opt opt-radius'><textarea></textarea></li>\
+                                                  <li class='opt opt-coord'>COORDS:</li>" + coordHTML + "</ul></div>";
             }
 
             container.appendChild(node);
 
-            // add events pr feature
+            // EVENTS
             node.querySelector('[id="map-draw-feature-namebox"]').onblur = function() {
                 f.setProperties({
                     name: this.value,
@@ -372,17 +407,32 @@ MissionIntelApp.Map = function(app) {
             node.querySelector(".icon-cog").onclick = function() {
                 node.querySelector(".opt-actions").classList.toggle("opt-actions-active");
 
-                // update position
-                inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
-                inputCoords = ol.proj.fromLonLat(inputCoords);
-                f.getGeometry().setCoordinates(inputCoords);
+                if (f.getGeometry().getType() == 'Point') {
+                    inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    inputCoords = ol.proj.fromLonLat(inputCoords);
+                    f.getGeometry().setCoordinates(inputCoords);
+                }
+
+                if (f.getGeometry().getType() == 'Circle') {
+                    inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    inputCoords = ol.proj.fromLonLat(inputCoords);
+                    f.getGeometry().setCenter(inputCoords);
+                }
+
+                if (f.getGeometry().getType() == 'Polygon') {
+                    // XXX Continue here! Need to convert and store new coords. Most likely the whole object could be stored, but how to get all the inputs...?
+
+                    // inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    // inputCoords = ol.proj.fromLonLat(inputCoords);
+                    // f.getGeometry().setCenter(inputCoords);
+                }
 
                 // TODO update color information
             }
 
             node.querySelector(".icon-user-plus").onclick = function() {
                 this.classList.toggle("icon-user-plus-active");
-                // TODO this gets disabled when the list re-renders. Probably a status property will have to be added to f and checked
+                // BUG this gets disabled when the list re-renders. Probably a status property will have to be added to f and checked
             }
 
             //console.log(f._objectID);
