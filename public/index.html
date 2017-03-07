@@ -58,11 +58,11 @@
 </head>
 
 <body>
-    <div class="navigation-container" style="moz-user-select: none;">
+    <!-- <div class="navigation-container" style="moz-user-select: none;">
         <ul class="navigation">
             <li class="mint-logo">MINT:DCS</li>
             <li id="menu-mode-func">VIEW MAP</li>
-            <li id="menu-mode-func">DRAW</li>
+            <li id="menu-mode-notes">NOTES</li>
             <li id="menu-mode-button">&nbsp;</li>
             <li id="clock" style="float: right;"></li>
         </ul>
@@ -70,6 +70,26 @@
             <li id="menu-mode-tacmap">TACMAP</li>
             <li id="menu-mode-ato">AIR TASKING ORDERS</li>
             <li id="menu-mode-notes">NOTES</li>
+        </ul>
+    </div> -->
+
+    <div class="navigation-container" style="moz-user-select: none;">
+        <ul class="navigation nav-root">
+            <li class="mint-logo">MINT:DCS</li>
+            <li id="menu-root-1">VIEW MAP</li>
+            <li id="menu-root-2">NOTES</li>
+            <li id="menu-root-3">AIR TASKING ORDERS</li>
+            <li id="menu-root-settings" style="float: right; border: 0; font-size:200%;"><i class="icon-cog" id="menu-root-settings"></i></li>
+            <li id="clock" class="clock" style="float: right;"></li>
+        </ul>
+        <ul class="navigation nav-submenu" id="notes-submenu1">
+            <li id="menu-notes-sub-11">&nbsp;</li>
+            <li id="menu-notes-sub-12">+ ADD NOTE</li>
+        </ul>
+
+        <ul id="menu-mode-dropdown" class="menu-mode-dropdown-content">
+            <li id="menu-settings-1">SETTINGS</li>
+            <li id="menu-settings-2">LOG OUT</li>
         </ul>
     </div>
 
@@ -102,9 +122,6 @@
     </div>
 
     <div id="mode-notes-wrapper" class="mode-notes-wrapper">
-        <div id="mode-notes-controls">
-            <a href="#" id="mode-notes-controls-add">+ ADD NOTE</a>
-        </div>
         <ul id="mode-notes-content" class="mode-notes-content"></ul>
     </div>
     <div id="div-map" class="div-map"></div>

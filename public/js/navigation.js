@@ -8,7 +8,7 @@ MissionIntelApp.SiteNavigation = function(app) {
     }
 
     /* MODES: Main Dropdown Menu */
-    document.getElementById("menu-mode-button").onclick = function() {
+    document.getElementById("menu-root-settings").onclick = function() {
         var height = window.innerHeight;
 
         if (document.getElementById("menu-mode-dropdown").style.visibility == "visible") {
@@ -21,17 +21,17 @@ MissionIntelApp.SiteNavigation = function(app) {
     };
 
     /* MODES: Notes ON/OFF */
-    document.getElementById("menu-mode-notes").onclick = function() {
-        if (document.getElementById("mode-notes-wrapper").style.visibility == "visible") {
-            document.getElementById("mode-notes-wrapper").style.visibility = "hidden";
-            document.getElementById("menu-mode-notes").innerHTML = "NOTES";
-            document.getElementById("menu-mode-notes").style.color = "#777777";
-            app.myNotes.save();
-        } else {
-            document.getElementById("mode-notes-wrapper").style.visibility = "visible";
-            document.getElementById("menu-mode-notes").innerHTML = "SAVE & EXIT";
-            document.getElementById("menu-mode-notes").style.color = "#2FA1D6";
-        }
+    document.getElementById("menu-root-2").onclick = function() {
+          document.getElementById("menu-root-2").classList.toggle("nav-active");
+          document.getElementById("mode-notes-wrapper").classList.toggle("block");
+          document.getElementById("notes-submenu1").classList.toggle("block");
+          app.myNotes.save();
+    };
+
+    /* NOTES Submenu */
+    document.getElementById("menu-notes-sub-12").onclick = function() {
+          app.myNotes.save();
+          app.myNotes.addNote();
     };
 
     /* Window Overrides */

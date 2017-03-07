@@ -334,8 +334,9 @@ MissionIntelApp.Map = function(app) {
                 }, true);
             }
 
-            node.className = 'enabled-map-menu-object';
-            node.innerHTML = "<i class='icon-block' /></i><i class='icon-cog'></i><i class='icon-user-plus'></i><textarea id='map-draw-feature-namebox'>" + f.getProperties().name + "</textarea></li>";
+            //node.className = 'enabled-map-menu-object';
+            node.classList.add('enabled-map-menu-object');
+            node.innerHTML = "<span class='inline-flex'><i class='icon-block' /></i><i class='icon-cog'></i><i class='icon-user-plus'></i><textarea id='map-draw-feature-namebox'>" + f.getProperties().name + "</textarea></span></li>";
 
             // IDEA put the below code into a function addDrawingEvents(feature, node);
             var geometryCoords;
@@ -359,11 +360,22 @@ MissionIntelApp.Map = function(app) {
 
             if (f.getGeometry().getType() == 'Circle') {
                 var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCenter());
+                // node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
+                //                                   <li class='opt opt-color'>COLOR:</li>\
+                //                                   <li class='opt opt-color'><textarea></textarea></li>\
+                //                                   <li class='opt opt-fillcolor'>FILL COLOR</li>\
+                //                                   <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                //                                   <li class='opt opt-radius'>RADIUS:</li>\
+                //                                   <li class='opt opt-radius'><textarea></textarea></li>\
+                //                                   <li class='opt opt-coord'>CENTER:</li>\
+                //                                   <li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
+                //                                   </ul></div>";
+
                 node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
                                                   <li class='opt opt-color'>COLOR:</li>\
-                                                  <li class='opt opt-color'><textarea></textarea></li>\
+                                                  <li class='opt opt-color'><input id='map-draw-circle-color' type='color' /></li>\
                                                   <li class='opt opt-fillcolor'>FILL COLOR</li>\
-                                                  <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                                                  <li class='opt opt-fillcolor'><input id='map-draw-circle-fill' type='color' /></li>\
                                                   <li class='opt opt-radius'>RADIUS:</li>\
                                                   <li class='opt opt-radius'><textarea></textarea></li>\
                                                   <li class='opt opt-coord'>CENTER:</li>\
@@ -417,6 +429,20 @@ MissionIntelApp.Map = function(app) {
                     inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
                     inputCoords = ol.proj.fromLonLat(inputCoords);
                     f.getGeometry().setCenter(inputCoords);
+
+                    // TODO This should be made into a function of some sort:
+                    // var style = new ol.style.Style({
+                    //     stroke: new ol.style.Stroke({
+                    //         color: node.querySelector(".map-draw-circle-color").value,
+                    //         width: 2
+                    //     }),
+                    //     fill: new ol.style.Fill({
+                    //         color: node.querySelector(".map-draw-circle-fill").value
+                    //     }),
+                    // });
+                    // f.setStyle(style);
+                    // console.log(f.getStyle());
+                    console.log(node.querySelector(".map-draw-circle-color").value);
                 }
 
                 if (f.getGeometry().getType() == 'Polygon') {
