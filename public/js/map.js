@@ -25,6 +25,7 @@ MissionIntelApp.Map = function(app) {
         return groundRadius;
     }
 
+    
     function addMarkersToLayerBySource(source, lookup, layer) {
         if (!layer.getSource()) {
             layer.setSource(new ol.source.Vector());
@@ -230,10 +231,10 @@ MissionIntelApp.Map = function(app) {
     // }));
 
     /* CONTROLS SETUP */
-    // var mousePositionControl = new ol.control.MousePosition({
-    //     coordinateFormat: ol.coordinate.createStringXY(4),
-    //     projection: 'EPSG:4326'
-    // });
+/*     var mousePositionControl = new ol.control.MousePosition({
+         coordinateFormat: ol.coordinate.createStringXY(4),
+         projection: 'EPSG:4326'
+     });*/
 
     var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: function(coord) {
@@ -292,27 +293,27 @@ MissionIntelApp.Map = function(app) {
 
     document.getElementById("map-draw-brush-type-none").onclick = function(el) {
         map.removeInteraction(draw);
-    }
+    };
 
     document.getElementById("map-draw-brush-type-point").onclick = function(el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Point");
-    }
+    };
 
     document.getElementById("map-draw-brush-type-circle").onclick = function(el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Circle");
-    }
+    };
 
     document.getElementById("map-draw-brush-type-polygon").onclick = function(el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Polygon");
-    }
+    };
 
     document.getElementById("map-draw-brush-type-linestring").onclick = function(el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "LineString");
-    }
+    };
 
     // --> drawing controls
     drawSource.on('addfeature', function(e) {
@@ -345,14 +346,14 @@ MissionIntelApp.Map = function(app) {
             // CREATE NODE
             if (f.getGeometry().getType() == 'Point') {
                 var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
-                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
-                                                    <li class='opt opt-color'>COLOR:</li>\
-                                                    <li class='opt opt-color'><textarea></textarea></li>\
-                                                    <li class='opt opt-fillcolor'>FILL COLOR</li>\
-                                                    <li class='opt opt-fillcolor'><textarea></textarea></li>\
-                                                    <li class='opt opt-coord'>COORDS:</li>\
-                                                    <li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
-                                                    </ul></div>";
+                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>"+
+                                                    "<li class='opt opt-color'>COLOR:</li>" +
+                                                    "<li class='opt opt-color'><textarea></textarea></li>" +
+                                                    "<li class='opt opt-fillcolor'>FILL COLOR</li>" + 
+                                                    "<li class='opt opt-fillcolor'><textarea></textarea></li>" +
+                                                    "<li class='opt opt-coord'>COORDS:</li>" +
+                                                    "<li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>" +
+                                                    "</ul></div>";
 
                 // var circle = new ol.geom.Circle(f.getGeometry().getCoordinates(), 1);
                 // circle.setRadius(findProjectedRadius(circle.getCenter(), f.getProperties().radius));

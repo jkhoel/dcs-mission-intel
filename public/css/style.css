@@ -6,7 +6,6 @@ ul {
     padding-left: 5px !important;
 }
 
-
 /* VARIOUS */
 
 .inline-flex {
@@ -66,7 +65,6 @@ ul {
 
 .cursor-pointer {
     cursor: pointer;
-    ;
 }
 
 
@@ -108,7 +106,7 @@ ul {
     margin: 0 auto;
     padding: 10px 15px;
     /*background: #000;
-  border-left: 5px solid grey;*/
+    border-left: 5px solid grey;*/
     cursor: pointer;
     outline: none;
 }
@@ -601,7 +599,7 @@ body {
     left: 275px;
     top:40px;
     background: #1a1a1a;
-}*/
+    }*/
 
 
 /*
@@ -612,7 +610,7 @@ body {
     width:auto;
     color: #fff;
     background: #1a1a1a;
-}*/
+    }*/
 
 
 /*            .ol-mouse-position {
@@ -625,4 +623,4 @@ body {
     font-size: 12px;
     background: #1a1a1a;
 
-}*/
+    }*/
