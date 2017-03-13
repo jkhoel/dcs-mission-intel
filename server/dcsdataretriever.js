@@ -1,4 +1,4 @@
-module.exports = function DCSDataRetriever() {
+module.exports = function DCSDataRetriever(dataCallback) {
 
     let net = require('net');
     net.createServer(function(dcs_socket) {
@@ -8,7 +8,8 @@ module.exports = function DCSDataRetriever() {
             buffer += data;
             let i = 0;
             while ((i = buffer.indexOf("\n")) >= 0) {
-                console.log("MSG FROM DCS: " + buffer.substring(0, i));
+                let data = JSON.parse(buffer.substring(0, i));
+                dataCallback(data);
                 buffer = buffer.substring(i + 1);
             }
         });
