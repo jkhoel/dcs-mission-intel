@@ -1,0 +1,39 @@
+var dcsStream = {
+    "name": "Layer",
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "EPSG:4326"
+        }
+    },
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [42.000, 42.000]
+        },
+        "properties": {
+            "SIDC": "SFGPUCIZ--AH***",
+            "name": "3.Brig",
+            "fullname": "3.Brig/INSS/",
+            "command": "INSS",
+            "source": "planned"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [42.500, 42.500]
+        },
+        "properties": {
+            "SIDC": "SFAPMFF----F***",
+            "name": "EAGLE",
+            "fullname": "",
+            "command": "THE SHIT BELOW DON'T WORK!",
+            "direction" : 1270,
+            "altitudeDepth": "FL200",
+            "source": "awacs"
+        }
+    }]
+};
