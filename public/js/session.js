@@ -1,12 +1,6 @@
+MissionIntelApp.Session = function(dataCallback) {
 
-/**
- * 
- * @param {MissionIntelApp.GUI} gui
- * @returns {MissionIntelApp.Session}
- */
-MissionIntelApp.Session = function (gui) {
-    
-    this.initialize = function () {
+    this.initialize = function() {
 
         var wsURL = "";
         if (window.location.protocol === "https:")
@@ -23,27 +17,9 @@ MissionIntelApp.Session = function (gui) {
 
     };
 
-    this.onmessage = function (evt) {
+    this.onmessage = function(evt) {
 
-        var splitIndex = evt.data.indexOf(MissionIntelApp.comm.misc.SPLIT_SMYBOL);
-        
-        var command = evt.data.substr(0, splitIndex);
-        var data = evt.data.substr(splitIndex);
-        
-        console.log();
-
-        switch (command) {
-            
-            case MissionIntelApp.comm.commands.ADD_MARKER:
-                var marker = JSON.parse(data);
-                gui.addMarker(marker);
-                break;
-            case MissionIntelApp.comm.commands.CLEAR_MARKERS:
-                gui.clearMarkers();
-                break;
-                
-        }
-
+        dataCallback(JSON.parse(evt.data));
     };
 
 };
