@@ -25,10 +25,10 @@ class Unit {
 
     static parse(data) {
         let unit = new Unit();
-        unit.type = data.type;
-        unit.x = data.x;
-        unit.y = data.y;
-        unit.z = data.z;
+        unit.type = data[0];
+        unit.x = data[1];
+        unit.y = data[2];
+        unit.z = data[3];
         return unit;
     }
 
@@ -47,12 +47,14 @@ function toGeoJSON(dcsData) {
     // Example usage:
 
     // Red units
-    let redUnits = dcsData.red;
+    let blueUnits = dcsData.blue;
     // First red unit
-    let redUnit0 = Unit.parse(redUnits[0]);
+    let blueUnit0 = Unit.parse(blueUnits[0]);
+
+    // Read some properties of the unit
 
     // All data printed to console
-    console.log(dcsData);
+//    console.log(dcsData);
 
     let geoJSONData = dcsData;
 

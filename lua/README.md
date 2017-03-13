@@ -1,6 +1,6 @@
 ### How to send data from DCS to the webserver application
 
-1. At the **top** of the `MissionScripting.lua` script file located in your DCS/Scripts directory, add the following line
+1. At the **top** (add some new lines above all the text) of the `MissionScripting.lua` script file located in your `(DCS install directory)/Scripts` directory, add the following line
 ```
 mint = { require = require }
 ```
