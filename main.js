@@ -8,6 +8,8 @@ require('./public/js/comm.js');
 require('./public/js/marker.js');
 require('./public/js/marker-fids.js');
 
+var GeoJSON = require('geojson');
+
 var wsConnections = [];
 
 var websocket = require('nodejs-websocket');
@@ -54,9 +56,40 @@ function toGeoJSON(dcsData) {
     // Read some properties of the unit
 
     // All data printed to console
-//    console.log(dcsData);
+    // console.log(dcsData);
 
-    let geoJSONData = dcsData;
+    // let geoJSONData = dcsData;
+
+    // featureCollection object holds all features to pass onto the client arranged into individual arrays pr. unit (see GeoJSON documentation)
+    var featureCollection = [];
+
+    // Blue Markers
+    [].forEach.call(dcsData.blue, function(el,i) {
+        featureCollection[i] = {
+                type: el[0],
+                x: el[1],
+                y: el[2],
+                z: el[3],
+                source: el[4],
+                side: 'blue'
+            };
+    });
+
+    // Red Markers -- ERROR!! This will overwrite blue features because of the i value
+    // [].forEach.call(dcsData.red, function(el,i) {
+    //     featureCollection[i] = {
+    //             type: el[0],
+    //             x: el[1],
+    //             y: el[2],
+    //             z: el[3],
+    //             source: el[4],
+    //             side: 'blue'
+    //         };
+    // });
+
+
+    let geoJSONData = GeoJSON.parse(featureCollection, {Point: ['x', 'z']});
+    // console.log(geoJSONData);
 
     return geoJSONData;
 }
@@ -65,7 +98,7 @@ function receiveDCSData(dcsData) {
 
     let geoJSONData = toGeoJSON(dcsData);
     for (let connection in wsConnections)
-        connection.send(JSON.stringify(geoJSONData));
+        wsConnections[connection].sendText(JSON.stringify(geoJSONData));
 }
 
 server.listen(8081);
