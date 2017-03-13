@@ -3,14 +3,65 @@ do
   package.path = package.path..";.\\LuaSocket\\?.lua"
   package.cpath = package.cpath..";.\\LuaSocket\\?.dll"
 
-  local socket = mint.require("socket")
+  require = mint.require
+  local socket = require("socket")
   local client = socket.tcp()
 
-  if client:connect('127.0.0.1', 3001) then
+  local function sendData()
+    local msg = "{"
 
-      client:settimeout(1)
-      client:send("Hello from DCS!\n")
-
+    local function addUnit(unit)
+      msg = msg .. "[";
+      msg = msg .. "\"" .. unit:getTypeName() .. "\""
+      local pos = unit:getPosition().p
+      msg = msg .. "," .. pos.x
+      msg = msg .. "," .. pos.y
+      msg = msg .. "," .. pos.z
+      msg = msg .. "]";
     end
+
+    msg = msg .. "\"red\":["
+    local redGroups = coalition.getGroups(coalition.side.RED)
+    for _, group in pairs(redGroups) do
+      local units = group:getUnits()
+      for unitIndex = 1, #units do
+        if unitIndex > 1 then
+          msg = msg .. ","
+        end
+        addUnit(units[unitIndex])
+      end
+    end
+
+    msg = msg .. "],\"blue\":["
+    local redGroups = coalition.getGroups(coalition.side.BLUE)
+    for _, group in pairs(redGroups) do
+      local units = group:getUnits()
+      for unitIndex = 1, #units do
+        if unitIndex > 1 then
+          msg = msg .. ","
+        end
+        addUnit(units[unitIndex])
+      end
+    end
+    msg = msg .. "]"
+
+    msg = msg .. "}\n"
+    client:send(msg)
+  end
+
+  local function loop()
+    if not client then
+      return
+    end
+    
+    timer.scheduleFunction(loop, {}, timer.getTime() + 5)
+    sendData()
+  end
+
+  if client:connect('127.0.0.1', 3001) then
+    loop()
+  end
+
+  require = nil
 
 end
