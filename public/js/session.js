@@ -19,7 +19,7 @@ MissionIntelApp.Session = function(dataCallback) {
 
     this.onmessage = function(evt) {
 
-        dataCallback(evt.data);
+        dataCallback(JSON.parse(evt.data));
     };
 
 };

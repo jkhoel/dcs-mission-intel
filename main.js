@@ -65,7 +65,7 @@ function receiveDCSData(dcsData) {
 
     let geoJSONData = toGeoJSON(dcsData);
     for (let connection in wsConnections)
-        connection.send(geoJSONData);
+        connection.send(JSON.stringify(geoJSONData));
 }
 
 server.listen(8081);
