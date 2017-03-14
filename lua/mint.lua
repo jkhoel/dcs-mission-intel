@@ -14,9 +14,10 @@ do
       msg = msg .. "[";
       msg = msg .. "\"" .. unit:getTypeName() .. "\""
       local pos = unit:getPosition().p
-      msg = msg .. "," .. pos.x
-      msg = msg .. "," .. pos.y
-      msg = msg .. "," .. pos.z
+      local lat, lon, alt = coord.LOtoLL(pos)
+      msg = msg .. "," .. lat
+      msg = msg .. "," .. lon
+      msg = msg .. "," .. alt
       msg = msg .. "]";
     end
 
