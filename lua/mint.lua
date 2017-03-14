@@ -14,38 +14,38 @@ do
       msg = msg .. "[";
       msg = msg .. "\"" .. unit:getTypeName() .. "\""
       local pos = unit:getPosition().p
-      msg = msg .. "," .. pos.x
-      msg = msg .. "," .. pos.y
-      msg = msg .. "," .. pos.z
+      local lat, lon, alt = coord.LOtoLL(pos)
+      msg = msg .. "," .. lat
+      msg = msg .. "," .. lon
+      msg = msg .. "," .. alt
       msg = msg .. "]";
+    end
+
+    local function addGroups(groups)
+      local isFirstUnit = true
+      for groupIndex = 1, #groups do
+        if groupIndex > 1 then
+          msg = msg .. ","
+        end
+        local group = groups[groupIndex]
+        local units = group:getUnits()
+        for unitIndex = 1, #units do
+          if not isFirstUnit then
+            msg = msg .. ","
+          end
+          addUnit(units[unitIndex])
+          isFirstUnit = false
+        end
+      end
     end
 
     msg = msg .. "\"red\":["
     local redGroups = coalition.getGroups(coalition.side.RED)
-    for _, group in pairs(redGroups) do
-      local units = group:getUnits()
-      for unitIndex = 1, #units do
-        if unitIndex > 1 then
-          msg = msg .. ","
-        end
-        addUnit(units[unitIndex])
-      end
-    end
-
+    addGroups(redGroups)
     msg = msg .. "],\"blue\":["
-    local redGroups = coalition.getGroups(coalition.side.BLUE)
-    for _, group in pairs(redGroups) do
-      local units = group:getUnits()
-      for unitIndex = 1, #units do
-        if unitIndex > 1 then
-          msg = msg .. ","
-        end
-        addUnit(units[unitIndex])
-      end
-    end
-    msg = msg .. "]"
-
-    msg = msg .. "}\n"
+    local blueGroups = coalition.getGroups(coalition.side.BLUE)
+    addGroups(blueGroups)
+    msg = msg .. "]}\n"
     client:send(msg)
   end
 
@@ -53,7 +53,7 @@ do
     if not client then
       return
     end
-    
+
     timer.scheduleFunction(loop, {}, timer.getTime() + 5)
     sendData()
   end
