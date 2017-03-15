@@ -9,6 +9,7 @@ var dcsStream = {
     },
     "features": [{
         "type": "Feature",
+        "id" : "1",
         "geometry": {
             "type": "Point",
             "coordinates": [42.000, 42.000]
@@ -22,6 +23,7 @@ var dcsStream = {
         }
     }, {
         "type": "Feature",
+        "id" : "2",
         "geometry": {
             "type": "Point",
             "coordinates": [42.500, 42.500]

@@ -18,7 +18,7 @@ var server = websocket.createServer(function(conn) {
     console.log("Client connected");
     wsConnections.push(conn);
     conn.on("close", function(code, reason) {
-        wsConnection.splice(wsConnections.indexOf(conn), 1);
+        wsConnections.splice(wsConnections.indexOf(conn), 1);
         console.log("Client disconnected");
     });
 });
@@ -56,39 +56,51 @@ function toGeoJSON(dcsData) {
     // Read some properties of the unit
 
     // All data printed to console
-    // console.log(dcsData);
+    console.log(dcsData);
 
     // let geoJSONData = dcsData;
 
-    // featureCollection object holds all features to pass onto the client arranged into individual arrays pr. unit (see GeoJSON documentation)
+    // These will be featureCollection array holds all features to pass onto the client arranged into individual objects pr. unit (see GeoJSON documentation)
     var featureCollection = [];
 
-    // Blue Markers
-    [].forEach.call(dcsData.blue, function(el,i) {
-        featureCollection[i] = {
-                type: el[0],
-                x: el[1],
-                y: el[2],
-                z: el[3],
-                source: el[4],
-                side: 'blue'
-            };
+    // TODO: ADD MORE CODE TO DECIDE WHAT SIDE IS FRIENDLY TO THE CLIENT
+    var _friendlies = dcsData.blue;
+    var _foes = dcsData.red;
+
+    [].forEach.call(_friendlies, function(el) {
+
+        // Call function to generate SIDC here! TODO: Update to Milsym 1.0.0!
+
+        // Add unit to the feature collection
+        featureCollection.push ({
+                lat: el[1],
+                lon: el[2],
+                alt: el[3],
+                monoColor: 'rgb(128, 224, 255)',
+                //SIDC: 'SFGPUCIZ--AH***',
+                SIDC: 'SFAPMFF----F***',
+                side: 'blue',
+                source: 'awacs',
+                type: el[0]
+            });
     });
 
-    // Red Markers -- ERROR!! This will overwrite blue features because of the i value
-    // [].forEach.call(dcsData.red, function(el,i) {
-    //     featureCollection[i] = {
-    //             type: el[0],
-    //             x: el[1],
-    //             y: el[2],
-    //             z: el[3],
-    //             source: el[4],
-    //             side: 'blue'
-    //         };
-    // });
+    [].forEach.call(_foes, function(el) {
+        featureCollection.push ({
+                lat: el[1],
+                lon: el[2],
+                alt: el[3],
+                //monoColor: 'rgb(255, 128, 128)',
+                monoColor: 'rgb(255, 88, 88)',
+                SIDC: 'SHAPMFF----F***',
+                //SIDC: 'SHGPUCIZ----***',
+                side: 'red',
+                source: 'awacs',
+                type: el[0]
+            });
+    });
 
-
-    let geoJSONData = GeoJSON.parse(featureCollection, {Point: ['x', 'z']});
+    let geoJSONData = GeoJSON.parse(featureCollection, {Point: ['lat', 'lon']});
     // console.log(geoJSONData);
 
     return geoJSONData;

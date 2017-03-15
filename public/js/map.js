@@ -25,7 +25,6 @@ MissionIntelApp.Map = function(app) {
         return groundRadius;
     }
 
-    
     function addMarkersToLayerBySource(source, lookup, layer) {
         if (!layer.getSource()) {
             layer.setSource(new ol.source.Vector());
@@ -33,22 +32,22 @@ MissionIntelApp.Map = function(app) {
 
         source.forEachFeature(function(f) {
             if (f.getProperties().source == lookup) {
-                var mysymbol = new MS.symbol(
+                var mySymbol = new MS.symbol(
                     f.getProperties().SIDC, {
                         size: iconSize[(f.getProperties().SIDC).charAt(11)],
                         uniqueDesignation: f.getProperties().name
                     }
                 );
 
-                var mycanvas = mysymbol.getMarker().asCanvas();
+                var mycanvas = mySymbol.getMarker().asCanvas();
 
                 f.setStyle(new ol.style.Style({
                     image: new ol.style.Icon(({
                         scale: 1,
-                        anchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
+                        anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
                         anchorXUnits: 'pixels',
                         anchorYUnits: 'pixels',
-                        imgSize: [Math.floor(mysymbol.width), Math.floor(mysymbol.height)],
+                        imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
                         img: (mycanvas)
                     }))
                 }));
@@ -56,6 +55,113 @@ MissionIntelApp.Map = function(app) {
             }
         });
     }
+
+    function updateMap(source) {
+        console.log('-> MARKER UPDATE <-');
+        let collection = [];
+        let iconSize = {
+            "C": 15,
+            "D": 20,
+            "E": 25,
+            "F": 30,
+            "G": 35,
+            "H": 40,
+            "I": 45
+        };
+
+        // Convert source into an OL3 source
+        let s = new ol.source.Vector({
+            features: (new ol.format.GeoJSON()).readFeatures(source, {
+                featureProjection: 'EPSG:3857'
+            })
+        });
+
+        //console.log(jsonify(s));
+
+        // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
+        s.forEachFeature(function(f) {
+        // s.forEachFeature(function(f) {
+           
+            // Draw Marker
+            var mySymbol = new MS.symbol(
+                f.getProperties().SIDC, {
+                    size: iconSize[(f.getProperties().SIDC).charAt(11)],
+                    uniqueDesignation: f.getProperties().type,
+                    monoColor: f.getProperties().monoColor
+                    // infoColor: 'white'
+                }
+            );
+
+            var mycanvas = mySymbol.getMarker().asCanvas();
+
+            f.setStyle(new ol.style.Style({
+                image: new ol.style.Icon(({
+                    scale: 1,
+                    anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels',
+                    imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
+                    //snapToPixel: false, // ENABLE THIS IF ICONS START GETTING JITTERY
+                    img: (mycanvas)
+
+                }))
+            }));
+
+            // Add it to some Array to be put to a layer later
+            collection.push(f);
+
+        });
+
+        // Remove all old features from the layer group
+        _group.getLayers().clear(true);
+
+        // Add updated features to layer TODO: THE BELOW FUNCTION DOES NOT WORK... THE COLLECTION IS JUST PASSED TO THE streamLayer (SEE BELOW)
+        [].forEach.call(collection, function(obj) {
+            let exists;
+            
+            // If there is a layer with an ID equal to SOURCE then this layer exists and we will add the feature to this layer
+            _group.getLayers().forEach(function(layer) {
+                if(layer.getProperties().id == obj.getProperties().source) { 
+                    exists = true;
+                    layer.getSource().addFeature(obj);
+                } 
+            });
+
+            // .. if there is not - then we have to make it, add a source and then add the feature here
+            if (!exists) {
+                let grp = _group.getLayers();
+                grp.push(new ol.layer.Vector({
+                    id: obj.getProperties().source,
+                    source: new ol.source.Vector({
+                        features: obj
+                    })
+                }));
+                _group.setLayers(grp);
+                //console.log(jsonify(grp));
+            }
+        });
+        
+        // UNCOMMENT BELOW IN ORDER TO SEND COLLECTION TO A PRE-MADE LAYER
+        streamLayer.getSource().clear(true);
+        streamLayer.getSource().addFeatures(collection);
+        //console.log(collection);
+        //console.log(jsonify(collection));
+    }
+
+    var jsonify=function(o){
+        var seen=[];
+        var jso=JSON.stringify(o, function(k,v){
+            if (typeof v =='object') {
+                if ( seen.indexOf(v) != -1 ) { return '__cycle__'; }
+                seen.push(v);
+            } return v;
+        });
+    return jso;
+};
+
+    this.update = function(source) {
+        updateMap(source);
+    };
 
     function drawInteraction(source, brush) {
         if (brush !== 'None') {
@@ -89,16 +195,6 @@ MissionIntelApp.Map = function(app) {
 
     /* GLOBALS */
     var draw;
-    var iconSize = {
-        "C": 15,
-        "D": 20,
-        "E": 25,
-        "F": 30,
-        "G": 35,
-        "H": 40,
-        "I": 45
-    };
-
 
 
     /* SOURCES */
@@ -196,18 +292,23 @@ MissionIntelApp.Map = function(app) {
         }),
     });
 
+    /* LAYER GROUPS */
+    let _group = new ol.layer.Group;
+
+
     /* LAYERS SETUP */
     var vectorLayer = new ol.layer.Vector({ // "Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors."
         id: 'vectors',
         source: vectorSource
     });
 
-    var plannedLayer = new ol.layer.Vector({
-        id: 'planned'
-    });
+    // var plannedLayer = new ol.layer.Vector({
+    //     id: 'planned'
+    // });
 
-    var awacsLayer = new ol.layer.Vector({
-        id: 'awacs'
+    var streamLayer = new ol.layer.Vector({
+        id: 'stream',
+        source: new ol.source.Vector()
     });
 
     var drawLayer = new ol.layer.Vector({
@@ -224,8 +325,8 @@ MissionIntelApp.Map = function(app) {
         })
     });
 
-    addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
-    addMarkersToLayerBySource(dcsSource, 'awacs', awacsLayer);
+    // addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
+    // addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
     // addMarkersToLayerBySource(dcsSource, 'planned', new ol.layer.Vector({
     //     id: 'planned'
     // }));
@@ -267,9 +368,9 @@ MissionIntelApp.Map = function(app) {
     map.addLayer(mapLayer);
     map.addLayer(vectorLayer);
     map.addLayer(drawLayer);
-    map.addLayer(plannedLayer);
-    map.addLayer(awacsLayer);
-
+    map.addLayer(_group);
+    map.addLayer(streamLayer);
+    // map.addLayer(plannedLayer);
 
     /* EVENTS */
 
@@ -277,7 +378,7 @@ MissionIntelApp.Map = function(app) {
     document.getElementById("map-filters-awacs").onclick = function(element) {
         document.getElementById("map-filters-awacs").classList.toggle("enabled-map-menu-object");
         document.getElementById("map-filters-awacs").classList.toggle("disabled-map-menu-object");
-        toggleLayer(awacsLayer);
+        toggleLayer(streamLayer);
     };
 
     document.getElementById("map-filters-planned").onclick = function(element) {
