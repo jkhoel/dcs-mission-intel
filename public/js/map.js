@@ -32,9 +32,9 @@ MissionIntelApp.Map = function(app) {
 
         source.forEachFeature(function(f) {
             if (f.getProperties().source == lookup) {
-                var mySymbol = new MS.symbol(
+                var mySymbol = new ms.symbol(
                     f.getProperties().SIDC, {
-                        size: iconSize[(f.getProperties().SIDC).charAt(11)],
+                        // size: iconSize[(f.getProperties().SIDC).charAt(11)],
                         uniqueDesignation: f.getProperties().name
                     }
                 );
@@ -79,11 +79,12 @@ MissionIntelApp.Map = function(app) {
         //console.log(jsonify(s));
 
         // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
+        //dcsSource.forEachFeature(function(f) {
         s.forEachFeature(function(f) {
-        // s.forEachFeature(function(f) {
            
             // Draw Marker
-            var mySymbol = new MS.symbol(
+            //var mySymbol = new MS.symbol(
+            var mySymbol = new ms.symbol(
                 f.getProperties().SIDC, {
                     size: iconSize[(f.getProperties().SIDC).charAt(11)],
                     uniqueDesignation: f.getProperties().type,
