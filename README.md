@@ -7,10 +7,10 @@ Latest WIP Picture:
 ![Work-in-progress image](http://www.hoelweb.com/mint/wip.gif)
 
 This project makes use of the following 3rd party libraries:
-[spatialillusions/milsymbol (v1.0.0) by ](https://github.com/spatialillusions/milsymbol)
-[OpenLayers3 (v4.0.1)](https://github.com/openlayers/openlayers)
+* [spatialillusions/milsymbol (v1.0.0)](https://github.com/spatialillusions/milsymbol)
+* [OpenLayers3 (v4.0.1)](https://github.com/openlayers/openlayers)
+
+Thanks to the work put into these exellent libraries, this project is able to grow very rapidly while maintaining stability and visual quality.
 
 Map Source:
 [Mapbox.com](https://www.mapbox.com)
-
-Thanks to the work put into these exellent libraries, this project is able to grow very rapidly while maintaining stability and visual quality.
