@@ -13,11 +13,20 @@ do
     local function addUnit(unit)
       msg = msg .. "[";
       msg = msg .. "\"" .. unit:getTypeName() .. "\""
-      local pos = unit:getPosition().p
-      local lat, lon, alt = coord.LOtoLL(pos)
+	  local unitPosition = unit:getPosition()
+      local lat, lon, alt = coord.LOtoLL(unitPosition.p)
+	  local unitXYZNorthCorr = coord.LLtoLO(lat + 1, lon)
+	  local headingNorthCorr = math.atan2(unitXYZNorthCorr.z - unitPosition.p.z, unitXYZNorthCorr.x - unitPosition.p.x)
+	  local heading = math.atan2(unitPosition.x.z, unitPosition.x.x) + headingNorthCorr
+	  if heading < 0 then
+		heading = heading + 2 * math.pi
+	  end
+	  local headingDeg = math.floor(heading / math.pi * 180);
+	  
       msg = msg .. "," .. lat
       msg = msg .. "," .. lon
       msg = msg .. "," .. alt
+	  msg = msg .. "," .. headingDeg
       msg = msg .. "]";
     end
 
