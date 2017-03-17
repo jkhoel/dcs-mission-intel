@@ -56,7 +56,7 @@ function toGeoJSON(dcsData) {
     // Read some properties of the unit
 
     // All data printed to console
-    console.log(dcsData);
+    //console.log(dcsData);
 
     // let geoJSONData = dcsData;
 

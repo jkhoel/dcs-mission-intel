@@ -54,7 +54,7 @@ do
       return
     end
 
-    timer.scheduleFunction(loop, {}, timer.getTime() + 5)
+    timer.scheduleFunction(loop, {}, timer.getTime() + 2)	-- Change to 5 instead of 2 before release so that updates are sent every 5sec
     sendData()
   end
 

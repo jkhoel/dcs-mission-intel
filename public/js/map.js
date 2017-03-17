@@ -39,7 +39,7 @@ MissionIntelApp.Map = function(app) {
                     }
                 );
 
-                var mycanvas = mySymbol.getMarker().asCanvas();
+                var myCanvas = mySymbol.getMarker().asCanvas();
 
                 f.setStyle(new ol.style.Style({
                     image: new ol.style.Icon(({
@@ -48,7 +48,7 @@ MissionIntelApp.Map = function(app) {
                         anchorXUnits: 'pixels',
                         anchorYUnits: 'pixels',
                         imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
-                        img: (mycanvas)
+                        img: (myCanvas)
                     }))
                 }));
                 layer.getSource().addFeature(f);
@@ -57,7 +57,7 @@ MissionIntelApp.Map = function(app) {
     }
 
     function updateMap(source) {
-        console.log('-> MARKER UPDATE <-');
+        let ratio = window.devicePixelRatio || 1;
         let collection = [];
         let iconSize = {
             "C": 15,
@@ -68,6 +68,15 @@ MissionIntelApp.Map = function(app) {
             "H": 40,
             "I": 45
         };
+
+
+
+        // Console.log time of last marker update
+        let  time = new Date();
+        console.log('-> MARKER UPDATE: ' +
+            ("0" + time.getHours()).slice(-2)   + ":" + 
+            ("0" + time.getMinutes()).slice(-2) + ":" + 
+            ("0" + time.getSeconds()).slice(-2));
 
         // Convert source into an OL3 source
         let s = new ol.source.Vector({
@@ -83,27 +92,26 @@ MissionIntelApp.Map = function(app) {
         s.forEachFeature(function(f) {
            
             // Draw Marker
-            //var mySymbol = new MS.symbol(
             var mySymbol = new ms.symbol(
                 f.getProperties().SIDC, {
-                    size: iconSize[(f.getProperties().SIDC).charAt(11)],
+                    size: iconSize[(f.getProperties().SIDC).charAt(11)]*ratio,
                     uniqueDesignation: f.getProperties().type,
                     monoColor: f.getProperties().monoColor
                     // infoColor: 'white'
                 }
             );
 
-            var mycanvas = mySymbol.getMarker().asCanvas();
+            var myCanvas = mySymbol.asCanvas();
 
             f.setStyle(new ol.style.Style({
                 image: new ol.style.Icon(({
                     scale: 1,
-                    anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
+                    anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
                     anchorXUnits: 'pixels',
                     anchorYUnits: 'pixels',
-                    imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
+                    imgSize: [Math.floor(mySymbol.getSize().width), Math.floor(mySymbol.getSize().height)],
                     //snapToPixel: false, // ENABLE THIS IF ICONS START GETTING JITTERY
-                    img: (mycanvas)
+                    img: (myCanvas)
 
                 }))
             }));
