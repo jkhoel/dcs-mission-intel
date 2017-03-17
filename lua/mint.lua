@@ -23,10 +23,14 @@ do
 	  end
 	  local headingDeg = math.floor(heading / math.pi * 180);
 	  
+	  local velocity = unit:getVelocity()
+	  local speed = math.sqrt(velocity.x^2 + velocity.z^2)
+	  
       msg = msg .. "," .. lat
       msg = msg .. "," .. lon
       msg = msg .. "," .. alt
 	  msg = msg .. "," .. headingDeg
+	  msg = msg .. "," .. speed
       msg = msg .. "]";
     end
 
