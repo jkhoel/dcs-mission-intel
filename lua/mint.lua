@@ -13,16 +13,32 @@ do
     local function addUnit(unit)
       msg = msg .. "[";
       msg = msg .. "\"" .. unit:getTypeName() .. "\""
-      local pos = unit:getPosition().p
-      local lat, lon, alt = coord.LOtoLL(pos)
+	  local unitPosition = unit:getPosition()
+      local lat, lon, alt = coord.LOtoLL(unitPosition.p)
+	  local unitXYZNorthCorr = coord.LLtoLO(lat + 1, lon)
+	  local headingNorthCorr = math.atan2(unitXYZNorthCorr.z - unitPosition.p.z, unitXYZNorthCorr.x - unitPosition.p.x)
+	  local heading = math.atan2(unitPosition.x.z, unitPosition.x.x) + headingNorthCorr
+	  if heading < 0 then
+		heading = heading + 2 * math.pi
+	  end
+	  local headingDeg = math.floor(heading / math.pi * 180);
+	  
+	  local velocity = unit:getVelocity()
+	  local speed = math.sqrt(velocity.x^2 + velocity.z^2)
+
+    local callsign = unit:getCallsign()
+	  
       msg = msg .. "," .. lat
       msg = msg .. "," .. lon
       msg = msg .. "," .. alt
+  	  msg = msg .. "," .. headingDeg
+  	  msg = msg .. "," .. speed
+      msg = msg .. ",\"" .. callsign .. "\""
       msg = msg .. "]";
     end
 
     local function addGroups(groups)
-      local isFirstUnit = true
+      -- local isFirstUnit = true
       for groupIndex = 1, #groups do
         if groupIndex > 1 then
           msg = msg .. ","
@@ -30,11 +46,11 @@ do
         local group = groups[groupIndex]
         local units = group:getUnits()
         for unitIndex = 1, #units do
-          if not isFirstUnit then
-            msg = msg .. ","
-          end
+          -- if not isFirstUnit then
+          --   msg = msg .. ","
+          -- end
           addUnit(units[unitIndex])
-          isFirstUnit = false
+          -- isFirstUnit = false
         end
       end
     end
@@ -54,7 +70,7 @@ do
       return
     end
 
-    timer.scheduleFunction(loop, {}, timer.getTime() + 2)	-- Change to 5 instead of 2 before release so that updates are sent every 5sec
+    timer.scheduleFunction(loop, {}, timer.getTime() + 5)
     sendData()
   end
 

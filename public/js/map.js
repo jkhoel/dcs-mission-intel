@@ -90,12 +90,18 @@ MissionIntelApp.Map = function(app) {
         // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
         //dcsSource.forEachFeature(function(f) {
         s.forEachFeature(function(f) {
-           
+            // let track = new Date();
+            // track = 'TR' + ("0" + time.getMinutes()).slice(-2) + ("0" + time.getMilliseconds()).slice(-2);
+
             // Draw Marker
             var mySymbol = new ms.symbol(
                 f.getProperties().SIDC, {
                     size: iconSize[(f.getProperties().SIDC).charAt(11)]*ratio,
-                    uniqueDesignation: f.getProperties().type,
+                    altitudeDepth: 'FL' + f.getProperties().alt,
+                    direction: f.getProperties().hdg,
+                    speed: Math.round(f.getProperties().speed) + ' kt',
+                    type: f.getProperties().type,
+                    uniqueDesignation: 'TR' + f.getProperties().name,
                     monoColor: f.getProperties().monoColor
                     // infoColor: 'white'
                 }
@@ -105,7 +111,7 @@ MissionIntelApp.Map = function(app) {
 
             f.setStyle(new ol.style.Style({
                 image: new ol.style.Icon(({
-                    scale: 1,
+                    scale: 1/ratio,
                     anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
                     anchorXUnits: 'pixels',
                     anchorYUnits: 'pixels',
