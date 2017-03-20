@@ -14,6 +14,10 @@ do
   local tcp = socket.tcp()
   local connected = false
 
+  local function log(msg)
+    env.info("MINT: " .. msg)
+  end
+
   local function sendData()
     local msg = "{"
 
@@ -74,10 +78,16 @@ do
 
     if not connected then
       connected = tcp:connect(ADDRESS, PORT)
+      if connected then
+        log("Connection established")
+      end
     end
 
     if connected then
       connected = sendData()
+      if not connected then
+        log("Connection lost")
+      end
     end
 
     timer.scheduleFunction(loop, {}, timer.getTime() + DATA_TIMEOUT_SEC)
