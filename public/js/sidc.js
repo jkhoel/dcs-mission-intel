@@ -1,54 +1,3 @@
-// class SIDC {
-
-//     static define(affiliation, battleDimension, status, functionID, modifier1, modifier2) {
-
-//         let sidc = new SIDC();
-//         sidc.codingScheme       = 'S';
-//         sidc.affiliation        = affiliation;
-//         sidc.battleDimension    = battleDimension;
-//         sidc.status             = status;
-//         sidc.functionID         = functionID;
-//         sidc.mod1       		= modifier1;
-//         sidc.mod2           	= size;
-//         return sidc;
-//     }
-
-//     static assign(collection) {
-//     	[].forEach.call(collection, function(col) {
-//     		// find out what unit type this is and define a SIDC. Should be able to use col.type since this function is called on a collection of the Unit() class
-//     		if(col.type == 'KA-50') {
-//     			unitSIDC = SIDC.define('U','A','-','-','-','-','-','-','-','-','-');
-//     		}
-//     		else if (col.type == 'A-10C') {
-//     			unitSIDC = SIDC.define('U','A','-','-','-','-','-','-','-','-','-');
-//     		}
-//     	});
-//     	return unitSIDC;
-//     }
-
-//     // Total length of the SIDC is 12 digits
-//     constructor() {
-//     	this.codingScheme 		= 'S'; 	// Digit 1  - S
-//         this.affiliation        = 'U'; 	// Digit 2	- U
-//         this.battleDimension    = 'A'; 	// Digit 3	- A
-//         this.status             = '-';	// Digit 4	
-//         this.functionID         = '-';	// Digit 5-10
-//         this.modifier1          = '-';	// Digit 11
-//         this.size          		= '-';	// Digit 12
-//     }
-// }
-
-// let table = {
-//     'KA-50': {
-//         battleDimension: 'A',
-//         // etc
-//     },
-//     'A-10C': {
-//         battleDimension: 'A',
-//         // etc
-//     },    
-// };
-
 let SIDC = {
 	'default' : {
 		codingScheme : 'S',
@@ -65,7 +14,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -74,7 +23,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -83,7 +32,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -92,7 +41,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -101,7 +50,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -110,7 +59,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -119,7 +68,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -128,7 +77,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -137,7 +86,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -146,7 +95,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -155,7 +104,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -164,7 +113,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -173,7 +122,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -182,7 +131,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -191,7 +140,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -200,7 +149,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -209,7 +158,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -218,7 +167,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -227,7 +176,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -236,7 +185,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -245,7 +194,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -254,7 +203,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -263,7 +212,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -272,7 +221,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -281,7 +230,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -290,7 +239,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -299,7 +248,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -308,7 +257,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},	
@@ -317,7 +266,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -326,7 +275,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -335,7 +284,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -344,7 +293,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -353,7 +302,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -362,7 +311,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -371,7 +320,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -380,7 +329,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -389,7 +338,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -398,7 +347,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -407,7 +356,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -416,7 +365,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -425,7 +374,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -434,7 +383,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -443,7 +392,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -452,7 +401,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -461,7 +410,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -470,7 +419,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -479,7 +428,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -488,7 +437,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -497,7 +446,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -506,7 +455,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -515,7 +464,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -524,7 +473,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -533,7 +482,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -542,7 +491,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -551,7 +500,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -560,7 +509,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -569,7 +518,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -578,7 +527,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -587,7 +536,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -596,7 +545,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -605,7 +554,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -614,7 +563,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -623,7 +572,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -632,7 +581,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -641,7 +590,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -650,7 +599,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -659,7 +608,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MFF--',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -669,7 +618,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -678,7 +627,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -687,7 +636,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -696,7 +645,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -705,7 +654,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -714,7 +663,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -723,7 +672,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -732,7 +681,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -741,7 +690,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -750,7 +699,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -759,7 +708,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -768,7 +717,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -777,7 +726,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},	'SH-60B' : {
@@ -785,7 +734,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -794,7 +743,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -803,7 +752,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'A',
 		status: '-',
-		functionID: '-----',
+		functionID: 'MH---',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -813,7 +762,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -822,7 +771,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -831,7 +780,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -840,7 +789,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -849,7 +798,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -858,7 +807,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -867,7 +816,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -876,7 +825,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -885,7 +834,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -894,7 +843,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -903,7 +852,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -912,7 +861,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -921,7 +870,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -930,7 +879,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -939,7 +888,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -948,7 +897,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -957,7 +906,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -966,7 +915,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -975,7 +924,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -984,7 +933,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -993,7 +942,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1002,7 +951,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1011,7 +960,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1020,7 +969,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1029,7 +978,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1038,7 +987,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1047,7 +996,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1056,7 +1005,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1065,7 +1014,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1074,7 +1023,7 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
@@ -1083,10 +1032,905 @@ let SIDC = {
 		affiliation: 'U',
 		battleDimension: 'G',
 		status: '-',
-		functionID: '-----',
+		functionID: 'UCII-',
 		modifier1: '-',
 		modifier2: '-'
 	},
+	// MBTs
+	'Challenger2' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Leclerc' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Leopard1A3' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Leopard-2' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M-60' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M1128 Stryker MGS' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M-1 Abrams' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'T-55' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'T-72B' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'T-80UD' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'T-90' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCA--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	// SAM & AAA
+	'2S6 Tunguska' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Kub 2P25 ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'5p73 s-125 ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 5P85C ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 5P85D ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-11 Buk LN 9A310M1' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Osa 9A33 ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Tor 9A331' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Strela-10M3' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Strela-1 9P31' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-11 Buk CC 9S470M1' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-8 Osa LD 9T217' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot AMG' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot ECS' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Gepard' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hawk pcp' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-18 Igla manpad' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-18 Igla comm' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Igla manpad INS' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-18 Igla-S manpad' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-18 Igla-S comm' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Vulcan' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hawk ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M48 Chaparral' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M6 Linebacker' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot ln' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M1097 Avenger' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot EPP' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot cp' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Roland ADS' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 54K6 cp' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Stinger manpad GRG' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Stinger manpad dsr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Stinger comm dsr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Stinger manpad' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Stinger comm' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZSU-23-4 Shilka' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZU-23 Emplacement Closed' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZU-23 Emplacement' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZU-23 Closed Insurgent' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-375 ZU-23 Insurgent' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZU-23 Insurgent' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-375 ZU-23' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UCD--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	// RADAR
+	'1L13 EWR' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Kub 1S91 str' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 40B6M tr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 40B6MD sr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'55G6 EWR' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'S-300PS 64H6E sr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SA-11 Buk SR 9S18M1' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Dog Ear radar' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hawk tr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hawk sr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Patriot str' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hawk cwar' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'p-19 s-125 sr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Roland Radar' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'snr s-125 tr' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'ESR--',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	// UNARMED
+	'Ural-4320 APA-5D' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ATMZ-5' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ATZ-10' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'GAZ-3307' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'GAZ-3308' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'GAZ-66' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M978 HEMTT Tanker' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'HEMTT TFFT' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'IKARUS Bus' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'KAMAZ Truck' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'LAZ Bus' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Hummer' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'M 818' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'MAZ-6303' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Predator GCS' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Predator TrojanSpirit' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Suidae' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Tigr_233036' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Trolley bus' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'UAZ-469' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural ATsP-6' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-375 PBU' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-375' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-4320-31' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'Ural-4320T' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'VAZ Car' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZiL-131 APA-80' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'SKP-11' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZIL-131 KUNG' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	},
+	'ZIL-4331' : {
+		codingScheme : 'S',
+		affiliation: 'U',
+		battleDimension: 'G',
+		status: '-',
+		functionID: 'UU---',
+		modifier1: '-',
+		modifier2: '-'
+	}
 };
 
 

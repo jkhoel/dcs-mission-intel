@@ -159,16 +159,16 @@ MissionIntelApp.Map = function(app) {
         //console.log(collection);
     }
 
-    var jsonify=function(o){
-        var seen=[];
-        var jso=JSON.stringify(o, function(k,v){
-            if (typeof v =='object') {
-                if ( seen.indexOf(v) != -1 ) { return '__cycle__'; }
-                seen.push(v);
-            } return v;
-        });
-    return jso;
-};
+//    var jsonify = function(o){
+//        var seen=[];
+//        var jso=JSON.stringify(o, function(k,v){
+//            if (typeof v =='object') {
+//                if ( seen.indexOf(v) != -1 ) { return '__cycle__'; }
+//                seen.push(v);
+//            } return v;
+//        });
+//    return jso;
+//    };
 
     this.update = function(source) {
         updateMap(source);
@@ -337,7 +337,7 @@ MissionIntelApp.Map = function(app) {
     });
 
     // addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
-    addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
+    // addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
     // addMarkersToLayerBySource(dcsSource, 'planned', new ol.layer.Vector({
     //     id: 'planned'
     // }));
@@ -350,7 +350,13 @@ MissionIntelApp.Map = function(app) {
 
     var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: function(coord) {
-            return ol.coordinate.toStringHDMS(coord, 3);
+            //return ol.coordinate.toStringHDMS(coord, 3);
+            
+            coord.forEach(function(c) {
+                c = c.toFixed(6);
+                console.log(c);
+            });
+            return coord;
         },
         projection: 'EPSG:4326'
     });
@@ -377,7 +383,7 @@ MissionIntelApp.Map = function(app) {
     });
 
     map.addLayer(mapLayer);
-    map.addLayer(vectorLayer);
+    //map.addLayer(vectorLayer);        // JSON VECTOR DRAWINGS
     map.addLayer(drawLayer);
     map.addLayer(_group);
     map.addLayer(streamLayer);

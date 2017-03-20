@@ -1,6 +1,7 @@
 ﻿var express = require('express');
 var app = express();
 app.use('/', express.static(__dirname + '/public')); // ← adjust
+//app.listen(8080);
 app.listen(8080);
 
 MissionIntelApp = {};
@@ -72,37 +73,50 @@ function toGeoJSON(dcsData) {
 
     _all.forEach(function(el) {
         let unit = Unit.parse(el);
-
-        // Marker to be NEUTRAL by default
+        
+        // DEFAULT MARKER
         let side = '0';
         let markerColor = 'rgb(252, 246, 127)';
-        
+
+        let _sidcObject = {};
+        _sidcObject["codingScheme"] = 'S';
+        _sidcObject["affiliation"] = 'U';
+        _sidcObject["battleDimension"] = 'G';
+        _sidcObject["status"] = '-';
+        _sidcObject["functionID"] = '-----';
+        _sidcObject["modifier1"] = '-';
+        _sidcObject["modifier2"] = '-';
+
         // make a SIDC Object to store all values, so that we can override these as needed
         let lookup = SIDCtable[unit.type];
-        let _sidcObject = {};
+        // Check if this unit's type is defined in the table
+        if (!lookup) return;
+        
         for (var atr in lookup) {
-            _sidcObject[atr] = lookup[atr];
+            if(lookup[atr]) _sidcObject[atr] = lookup[atr];
         }
 
-        // Automatic Side desegnation TODO: Make this an option that is default off! (Uncoomment to turn off)
-        // if(unit.coalition == 1) {
-        //     side = '1';
-        //     markerColor = 'rgb(255, 88, 88)';
-        //     _sidcObject["affiliation"] = 'H';
-        // }
-        // if(unit.coalition == 2) {
-        //     side = '2';
-        //     markerColor = 'rgb(128, 224, 255)';
-        //     _sidcObject["affiliation"] = 'F';
-        // }
+        // OPTION: [COMMENT TO TURN OFF] SHOW AFFILIATION
+        if(unit.coalition == 1) {
+            side = '1';
+            markerColor = 'rgb(255, 88, 88)';
+            _sidcObject["affiliation"] = 'H';
+        }
+        if(unit.coalition == 2) {
+            side = '2';
+            markerColor = 'rgb(128, 224, 255)';
+            _sidcObject["affiliation"] = 'F';
+        }
 
+        // OPTION: [COMMENT TO TURN OFF] HIDE UNIT TYPE/FUNCTION
+        //_sidcObject["functionID"] = '-----';
 
         // Generate final SIDC string
         let _sidc = "";
         for (var atr in _sidcObject) {
                 _sidc += _sidcObject[atr];
         }
-
+        
         // Add unit to the feature collection
         featureCollection.push ({
                 lat: unit.x,
