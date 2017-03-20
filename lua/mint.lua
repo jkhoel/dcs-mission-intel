@@ -47,20 +47,16 @@ do
     local function addGroups(groups)
       local addComma = false
       for groupIndex = 1, #groups do
-        if addComma then
-          msg = msg .. ","
-        end
-
         local group = groups[groupIndex]
         local units = group:getUnits()
-        addComma = false
         for unitIndex = 1, #units do
           if Unit.isExist(units[unitIndex]) then
             if addComma then
               msg = msg .. ","
+            else
+              addComma = true
             end
             addUnit(units[unitIndex])
-            addComma = true
           end
         end
       end
