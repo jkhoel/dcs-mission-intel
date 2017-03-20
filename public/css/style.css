@@ -565,6 +565,24 @@ ul {
     background: rgba(0, 0, 0, 0.8);
 }
 
+.orbat-container {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    position: absolute;
+    min-width: 160px;
+    text-decoration: none;
+    z-index: 2;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */
+    top: 22em;
+    background: rgba(255,255,255,0.5);
+}
 
 .root-settings {
   float: right;

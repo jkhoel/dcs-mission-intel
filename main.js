@@ -9,7 +9,7 @@ require('./public/js/marker.js');
 require('./public/js/marker-fids.js');
 
 var Utility = require('./public/js/utility.js');
-var SIDC = require('./public/js/sidc.js');
+var SIDCtable = require('./public/js/sidc.js');
 
 var GeoJSON = require('geojson');
 
@@ -42,6 +42,7 @@ class Unit {
         unit.hdg            = data[4];
         unit.speed          = data[5];
         unit.callsign       = data[6];
+        unit.coalition      = data[7];
         unit.name           = track;
         return unit;
     }
@@ -58,6 +59,7 @@ class Unit {
         this.hdg            = 0;
         this.speed          = 0;
         this.callsign       = "";
+        this.coalition      = 0;
         this.name           = "";
         this.sidc           = "";
     }
@@ -65,34 +67,41 @@ class Unit {
 
 function toGeoJSON(dcsData) {
 
-    // TODO: create and return GeoJSON data here ...
-
-    // Example usage:
-
-    // Red units
-    //let blueUnits = dcsData.blue;
-    // First red unit
-    //let blueUnit0 = Unit.parse(blueUnits[0]);
-
-    // All data printed to console
-    //console.log(dcsData);
-
-    // let geoJSONData = dcsData;
-
-    // These will be featureCollection array holds all features to pass onto the client arranged into individual objects pr. unit (see GeoJSON documentation)
     let featureCollection = [];
-
-    // TODO: ADD MORE CODE TO DECIDE WHAT SIDE IS FRIENDLY TO THE CLIENT
-    let _friendlies = dcsData.blue;
-    let _foes = dcsData.red;
     let _all = dcsData.blue.concat(dcsData.red);
 
-    [].forEach.call(_friendlies, function(el) {
+    _all.forEach(function(el) {
         let unit = Unit.parse(el);
-        
-        // Call function to generate SIDC here! TODO: Update to Milsym 1.0.0!
 
-        console.log(Utility.trackNum(unit.callsign));
+        // Marker to be NEUTRAL by default
+        let side = '0';
+        let markerColor = 'rgb(252, 246, 127)';
+        
+        // make a SIDC Object to store all values, so that we can override these as needed
+        let lookup = SIDCtable[unit.type];
+        let _sidcObject = {};
+        for (var atr in lookup) {
+            _sidcObject[atr] = lookup[atr];
+        }
+
+        // Automatic Side desegnation TODO: Make this an option that is default off! (Uncoomment to turn off)
+        // if(unit.coalition == 1) {
+        //     side = '1';
+        //     markerColor = 'rgb(255, 88, 88)';
+        //     _sidcObject["affiliation"] = 'H';
+        // }
+        // if(unit.coalition == 2) {
+        //     side = '2';
+        //     markerColor = 'rgb(128, 224, 255)';
+        //     _sidcObject["affiliation"] = 'F';
+        // }
+
+
+        // Generate final SIDC string
+        let _sidc = "";
+        for (var atr in _sidcObject) {
+                _sidc += _sidcObject[atr];
+        }
 
         // Add unit to the feature collection
         featureCollection.push ({
@@ -101,30 +110,10 @@ function toGeoJSON(dcsData) {
                 alt: Utility.metersToFL(unit.z),
                 hdg: unit.hdg,
                 speed: unit.speed,
-                monoColor: 'rgb(128, 224, 255)',
-                //SIDC: 'SFGPUCIZ--AH***',
-                //SIDC: 'SFAPMFF----F***',
-                SIDC: 'SFAPMFF----F***',
-                side: 'blue',
-                source: 'awacs',
-                type: unit.type,
-                name: Utility.trackNum(unit.callsign)
-            });
-    });
-
-    [].forEach.call(_foes, function(el) {
-        let unit = Unit.parse(el);
-        
-        featureCollection.push ({
-                lat: unit.x,
-                lon: unit.y,
-                alt: Utility.metersToFL(unit.z),
-                hdg: unit.hdg,
-                speed: unit.speed,
-                monoColor: 'rgb(255, 88, 88)',
-                //SIDC: 'SHAPMFF----F***',
-                SIDC: 'SHAPMFF----F***',
-                side: 'red',
+                monoColor: markerColor,
+                SIDC: _sidc + '***',
+                side : side,
+                size : 30,
                 source: 'awacs',
                 type: unit.type,
                 name: Utility.trackNum(unit.callsign)
@@ -132,7 +121,6 @@ function toGeoJSON(dcsData) {
     });
 
     let geoJSONData = GeoJSON.parse(featureCollection, {Point: ['lat', 'lon']});
-    // console.log(geoJSONData);
 
     return geoJSONData;
 }

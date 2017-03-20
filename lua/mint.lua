@@ -27,13 +27,14 @@ do
 	  local speed = math.sqrt(velocity.x^2 + velocity.z^2)
 
     local callsign = unit:getCallsign()
-	  
+
       msg = msg .. "," .. lat
       msg = msg .. "," .. lon
       msg = msg .. "," .. alt
   	  msg = msg .. "," .. headingDeg
   	  msg = msg .. "," .. speed
       msg = msg .. ",\"" .. callsign .. "\""
+      msg = msg .. "," .. unit:getCoalition()
       msg = msg .. "]";
     end
 

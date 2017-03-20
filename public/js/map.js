@@ -12,6 +12,18 @@ MissionIntelApp.Map = function(app) {
         layerName.setVisible((!layerName.getVisible()));
     }
 
+    function onMarkerClick(browserEvent) {
+        var coordinate = browserEvent.coordinate;
+        var pixel = map.getPixelFromCoordinate(coordinate);
+        map.forEachFeatureAtPixel(pixel, function(feature) {
+          if(feature.getProperties().SIDC) {
+            // Display some option window
+            // Reverse parse the SIDC and put that data in the window. This window then needs to have a button with a Save Event on it
+            console.log(feature.getProperties().SIDC);
+          } 
+        });
+    }
+
     function get(el) {
         if (typeof el == 'string') return document.getElementById(el);
         return el;
@@ -59,17 +71,6 @@ MissionIntelApp.Map = function(app) {
     function updateMap(source) {
         let ratio = window.devicePixelRatio || 1;
         let collection = [];
-        let iconSize = {
-            "C": 15,
-            "D": 20,
-            "E": 25,
-            "F": 30,
-            "G": 35,
-            "H": 40,
-            "I": 45
-        };
-
-
 
         // Console.log time of last marker update
         let  time = new Date();
@@ -85,10 +86,7 @@ MissionIntelApp.Map = function(app) {
             })
         });
 
-        //console.log(jsonify(s));
-
         // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
-        //dcsSource.forEachFeature(function(f) {
         s.forEachFeature(function(f) {
             // let track = new Date();
             // track = 'TR' + ("0" + time.getMinutes()).slice(-2) + ("0" + time.getMilliseconds()).slice(-2);
@@ -96,7 +94,7 @@ MissionIntelApp.Map = function(app) {
             // Draw Marker
             var mySymbol = new ms.symbol(
                 f.getProperties().SIDC, {
-                    size: iconSize[(f.getProperties().SIDC).charAt(11)]*ratio,
+                    size: (f.getProperties().size*ratio),
                     altitudeDepth: 'FL' + f.getProperties().alt,
                     direction: f.getProperties().hdg,
                     speed: Math.round(f.getProperties().speed) + ' kt',
@@ -152,7 +150,6 @@ MissionIntelApp.Map = function(app) {
                     })
                 }));
                 _group.setLayers(grp);
-                //console.log(jsonify(grp));
             }
         });
         
@@ -160,7 +157,6 @@ MissionIntelApp.Map = function(app) {
         streamLayer.getSource().clear(true);
         streamLayer.getSource().addFeatures(collection);
         //console.log(collection);
-        //console.log(jsonify(collection));
     }
 
     var jsonify=function(o){
@@ -341,7 +337,7 @@ MissionIntelApp.Map = function(app) {
     });
 
     // addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
-    // addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
+    addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
     // addMarkersToLayerBySource(dcsSource, 'planned', new ol.layer.Vector({
     //     id: 'planned'
     // }));
@@ -388,6 +384,7 @@ MissionIntelApp.Map = function(app) {
     // map.addLayer(plannedLayer);
 
     /* EVENTS */
+    map.on('singleclick', onMarkerClick);
 
     // --> map filters
     document.getElementById("map-filters-awacs").onclick = function(element) {

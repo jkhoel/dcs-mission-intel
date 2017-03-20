@@ -4,9 +4,9 @@
 <head>
 
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto|Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="assets/fontello/css/fontello.css" type="text/css">
-    <link rel="stylesheet" href="css/ol.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="./css/fontello.css" type="text/css">
+    <link rel="stylesheet" href="./css/ol.css" type="text/css">
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
 
     <meta charset="UTF-8" />
 
@@ -17,6 +17,7 @@
     <!-- <script src="https://openlayers.org/en/v3.19.1/build/ol.js" type="text/javascript"></script> -->
     <script src="https://openlayers.org/en/v4.0.1/build/ol.js" type="text/javascript"></script>
 
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="js/milsymbol-1.0.0.js"></script>
     <!-- <script src="js/milsymbol-0.6.0.js"></script> -->
 
@@ -128,6 +129,9 @@
     <div id="mode-notes-wrapper" class="mode-notes-wrapper">
         <ul id="mode-notes-content" class="mode-notes-content"></ul>
     </div>
+    <!-- <div id="orbat" class="orbat-container"></div> -->
+    <div id="orbat" class="orbat-container"><svg width="500" height="500"><g transform="translate(30,15)"><path class="link" d="M0,0 l 0,25 10,0 L20,25"></path><path class="link" d="M0,0 l 0,50 10,0 L20,50"></path><path class="link" d="M0,0 l 0,75 10,0 L20,75"></path><path class="link" d="M0,0 l 0,100 10,0 L20,100"></path><path class="link" d="M0,0 l 0,125 10,0 L20,125"></path><g class="node" transform="translate(0,0)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(100, 100, 100)" transform="translate(-21, 0) rotate(45) scale(0.999999982885729,0.999999982885729)"></path><g class="symbol" transform="translate(-10.9875,-10.9875)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="21.975" height="21.975" viewBox="26.75 26.75 146.5 146.5"><path d="M63,63 C63,20 137,20 137,63 C180,63 180,137 137,137 C137,180 63,180 63,137 C20,137 20,63 63,63 Z" stroke-width="4" stroke="black" fill="rgb(255,255,128)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">milsymbol ORBAT</text></g><g class="node" transform="translate(20, 25)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(250,250,250)" transform="translate(-21,0) rotate(0)"></path><g class="symbol" transform="translate(-11.85,-8.1)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="23.7" height="16.2" viewBox="21 46 158 108"><path d="M25,50 l150,0 0,100 -150,0 z" stroke-width="4" stroke="black" fill="rgb(128,224,255)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">FTS</text></g><g class="node" transform="translate(20, 50)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(250,250,250)" transform="translate(-21,0) rotate(0)"></path><g class="symbol" transform="translate(-11.85,-8.1)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="23.7" height="16.2" viewBox="21 46 158 108"><path d="M25,50 l150,0 0,100 -150,0 z" stroke-width="4" stroke="black" fill="rgb(128,224,255)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">INSS</text></g><g class="node" transform="translate(20, 75)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(250,250,250)" transform="translate(-21,0) rotate(0)"></path><g class="symbol" transform="translate(-11.85,-8.1)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="23.7" height="16.2" viewBox="21 46 158 108"><path d="M25,50 l150,0 0,100 -150,0 z" stroke-width="4" stroke="black" fill="rgb(128,224,255)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">MRM</text></g><g class="node" transform="translate(20, 100)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(250,250,250)" transform="translate(-21,0) rotate(0)"></path><g class="symbol" transform="translate(-11.85,-8.1)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="23.7" height="16.2" viewBox="21 46 158 108"><path d="M25,50 l150,0 0,100 -150,0 z" stroke-width="4" stroke="black" fill="rgb(128,224,255)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">1.Amfbat</text></g><g class="node" transform="translate(20, 125)" style="opacity: 1;"><path class="indicator" d="M -0,-5 l 5,5 -5,5 z" fill="rgb(250,250,250)" transform="translate(-21,0) rotate(0)"></path><g class="symbol" transform="translate(-11.85,-8.1)"><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="23.7" height="16.2" viewBox="21 46 158 108"><path d="M25,50 l150,0 0,100 -150,0 z" stroke-width="4" stroke="black" fill="rgb(128,224,255)" fill-opacity="1"></path></svg></g><text class="node-text" dy="3" x="20" style="text-anchor: start;">ROL</text></g></g></svg></div>
+    <!-- ################## -->
     <div id="div-map" class="div-map"></div>
 </body>
 </html>

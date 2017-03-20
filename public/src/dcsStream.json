@@ -15,11 +15,11 @@ var dcsStream = {
             "coordinates": [42.000, 42.000]
         },
         "properties": {
-            "SIDC": "SFGPUCIZ--AH***",
+            "SIDC": "SFAPMFF-----***",
             "name": "3.Brig",
             "fullname": "3.Brig/INSS/",
             "command": "INSS",
-            "source": "planned"
+            "source": "awacs"
         }
     }, {
         "type": "Feature",
@@ -29,7 +29,7 @@ var dcsStream = {
             "coordinates": [42.500, 42.500]
         },
         "properties": {
-            "SIDC": "SFAPMFF----F***",
+            "SIDC": "SHAPMFF-----***",
             "name": "EAGLE",
             "fullname": "",
             "command": "THE SHIT BELOW DON'T WORK!",
