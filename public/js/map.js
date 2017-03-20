@@ -12,6 +12,18 @@ MissionIntelApp.Map = function(app) {
         layerName.setVisible((!layerName.getVisible()));
     }
 
+    function onMarkerClick(browserEvent) {
+        var coordinate = browserEvent.coordinate;
+        var pixel = map.getPixelFromCoordinate(coordinate);
+        map.forEachFeatureAtPixel(pixel, function(feature) {
+          if(feature.getProperties().SIDC) {
+            // Display some option window
+            // Reverse parse the SIDC and put that data in the window. This window then needs to have a button with a Save Event on it
+            console.log(feature.getProperties().SIDC);
+          } 
+        });
+    }
+
     function get(el) {
         if (typeof el == 'string') return document.getElementById(el);
         return el;
@@ -32,29 +44,135 @@ MissionIntelApp.Map = function(app) {
 
         source.forEachFeature(function(f) {
             if (f.getProperties().source == lookup) {
-                var mysymbol = new MS.symbol(
+                var mySymbol = new ms.symbol(
                     f.getProperties().SIDC, {
-                        size: iconSize[(f.getProperties().SIDC).charAt(11)],
+                        // size: iconSize[(f.getProperties().SIDC).charAt(11)],
                         uniqueDesignation: f.getProperties().name
                     }
                 );
 
-                var mycanvas = mysymbol.getMarker().asCanvas();
+                var myCanvas = mySymbol.getMarker().asCanvas();
 
                 f.setStyle(new ol.style.Style({
                     image: new ol.style.Icon(({
                         scale: 1,
-                        anchor: [mysymbol.markerAnchor.x, mysymbol.markerAnchor.y],
+                        anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
                         anchorXUnits: 'pixels',
                         anchorYUnits: 'pixels',
-                        imgSize: [Math.floor(mysymbol.width), Math.floor(mysymbol.height)],
-                        img: (mycanvas)
+                        imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
+                        img: (myCanvas)
                     }))
                 }));
                 layer.getSource().addFeature(f);
             }
         });
     }
+
+    function updateMap(source) {
+        let ratio = window.devicePixelRatio || 1;
+        let collection = [];
+
+        // Console.log time of last marker update
+        let  time = new Date();
+        console.log('-> MARKER UPDATE: ' +
+            ("0" + time.getHours()).slice(-2)   + ":" + 
+            ("0" + time.getMinutes()).slice(-2) + ":" + 
+            ("0" + time.getSeconds()).slice(-2));
+
+        // Convert source into an OL3 source
+        let s = new ol.source.Vector({
+            features: (new ol.format.GeoJSON()).readFeatures(source, {
+                featureProjection: 'EPSG:3857'
+            })
+        });
+
+        // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
+        s.forEachFeature(function(f) {
+            // let track = new Date();
+            // track = 'TR' + ("0" + time.getMinutes()).slice(-2) + ("0" + time.getMilliseconds()).slice(-2);
+
+            // Draw Marker
+            var mySymbol = new ms.symbol(
+                f.getProperties().SIDC, {
+                    size: (f.getProperties().size*ratio),
+                    altitudeDepth: 'FL' + f.getProperties().alt,
+                    direction: f.getProperties().hdg,
+                    speed: Math.round(f.getProperties().speed) + ' kt',
+                    type: f.getProperties().type,
+                    uniqueDesignation: 'TR' + f.getProperties().name,
+                    monoColor: f.getProperties().monoColor
+                    // infoColor: 'white'
+                }
+            );
+
+            var myCanvas = mySymbol.asCanvas();
+
+            f.setStyle(new ol.style.Style({
+                image: new ol.style.Icon(({
+                    scale: 1/ratio,
+                    anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
+                    anchorXUnits: 'pixels',
+                    anchorYUnits: 'pixels',
+                    imgSize: [Math.floor(mySymbol.getSize().width), Math.floor(mySymbol.getSize().height)],
+                    //snapToPixel: false, // ENABLE THIS IF ICONS START GETTING JITTERY
+                    img: (myCanvas)
+
+                }))
+            }));
+
+            // Add it to some Array to be put to a layer later
+            collection.push(f);
+
+        });
+
+        // Remove all old features from the layer group
+        _group.getLayers().clear(true);
+
+        // Add updated features to layer TODO: THE BELOW FUNCTION DOES NOT WORK... THE COLLECTION IS JUST PASSED TO THE streamLayer (SEE BELOW)
+        [].forEach.call(collection, function(obj) {
+            let exists;
+            
+            // If there is a layer with an ID equal to SOURCE then this layer exists and we will add the feature to this layer
+            _group.getLayers().forEach(function(layer) {
+                if(layer.getProperties().id == obj.getProperties().source) { 
+                    exists = true;
+                    layer.getSource().addFeature(obj);
+                } 
+            });
+
+            // .. if there is not - then we have to make it, add a source and then add the feature here
+            if (!exists) {
+                let grp = _group.getLayers();
+                grp.push(new ol.layer.Vector({
+                    id: obj.getProperties().source,
+                    source: new ol.source.Vector({
+                        features: obj
+                    })
+                }));
+                _group.setLayers(grp);
+            }
+        });
+        
+        // UNCOMMENT BELOW IN ORDER TO SEND COLLECTION TO A PRE-MADE LAYER
+        streamLayer.getSource().clear(true);
+        streamLayer.getSource().addFeatures(collection);
+        //console.log(collection);
+    }
+
+//    var jsonify = function(o){
+//        var seen=[];
+//        var jso=JSON.stringify(o, function(k,v){
+//            if (typeof v =='object') {
+//                if ( seen.indexOf(v) != -1 ) { return '__cycle__'; }
+//                seen.push(v);
+//            } return v;
+//        });
+//    return jso;
+//    };
+
+    this.update = function(source) {
+        updateMap(source);
+    };
 
     function drawInteraction(source, brush) {
         if (brush !== 'None') {
@@ -88,16 +206,6 @@ MissionIntelApp.Map = function(app) {
 
     /* GLOBALS */
     var draw;
-    var iconSize = {
-        "C": 15,
-        "D": 20,
-        "E": 25,
-        "F": 30,
-        "G": 35,
-        "H": 40,
-        "I": 45
-    };
-
 
 
     /* SOURCES */
@@ -195,18 +303,23 @@ MissionIntelApp.Map = function(app) {
         }),
     });
 
+    /* LAYER GROUPS */
+    let _group = new ol.layer.Group;
+
+
     /* LAYERS SETUP */
     var vectorLayer = new ol.layer.Vector({ // "Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors."
         id: 'vectors',
         source: vectorSource
     });
 
-    var plannedLayer = new ol.layer.Vector({
-        id: 'planned'
-    });
+    // var plannedLayer = new ol.layer.Vector({
+    //     id: 'planned'
+    // });
 
-    var awacsLayer = new ol.layer.Vector({
-        id: 'awacs'
+    var streamLayer = new ol.layer.Vector({
+        id: 'stream',
+        source: new ol.source.Vector()
     });
 
     var drawLayer = new ol.layer.Vector({
@@ -223,21 +336,27 @@ MissionIntelApp.Map = function(app) {
         })
     });
 
-    addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
-    addMarkersToLayerBySource(dcsSource, 'awacs', awacsLayer);
+    // addMarkersToLayerBySource(dcsSource, 'planned', plannedLayer);
+    // addMarkersToLayerBySource(dcsSource, 'awacs', streamLayer);
     // addMarkersToLayerBySource(dcsSource, 'planned', new ol.layer.Vector({
     //     id: 'planned'
     // }));
 
     /* CONTROLS SETUP */
-    // var mousePositionControl = new ol.control.MousePosition({
-    //     coordinateFormat: ol.coordinate.createStringXY(4),
-    //     projection: 'EPSG:4326'
-    // });
+/*     var mousePositionControl = new ol.control.MousePosition({
+         coordinateFormat: ol.coordinate.createStringXY(4),
+         projection: 'EPSG:4326'
+     });*/
 
     var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: function(coord) {
-          return ol.coordinate.toStringHDMS(coord, 3);
+            //return ol.coordinate.toStringHDMS(coord, 3);
+            
+            coord.forEach(function(c) {
+                c = c.toFixed(6);
+                console.log(c);
+            });
+            return coord;
         },
         projection: 'EPSG:4326'
     });
@@ -264,32 +383,58 @@ MissionIntelApp.Map = function(app) {
     });
 
     map.addLayer(mapLayer);
-    map.addLayer(vectorLayer);
+    //map.addLayer(vectorLayer);        // JSON VECTOR DRAWINGS
     map.addLayer(drawLayer);
-    map.addLayer(plannedLayer);
-    map.addLayer(awacsLayer);
-
+    map.addLayer(_group);
+    map.addLayer(streamLayer);
+    // map.addLayer(plannedLayer);
 
     /* EVENTS */
+    map.on('singleclick', onMarkerClick);
+
+    // --> map filters
     document.getElementById("map-filters-awacs").onclick = function(element) {
-        document.getElementById("map-filters-awacs").classList.toggle("enabled-map-function");
-        document.getElementById("map-filters-awacs").classList.toggle("disabled-map-function");
-        toggleLayer(awacsLayer);
+        document.getElementById("map-filters-awacs").classList.toggle("enabled-map-menu-object");
+        document.getElementById("map-filters-awacs").classList.toggle("disabled-map-menu-object");
+        toggleLayer(streamLayer);
     };
 
     document.getElementById("map-filters-planned").onclick = function(element) {
-        document.getElementById("map-filters-planned").classList.toggle("enabled-map-function");
-        document.getElementById("map-filters-planned").classList.toggle("disabled-map-function");
+        document.getElementById("map-filters-planned").classList.toggle("enabled-map-menu-object");
+        document.getElementById("map-filters-planned").classList.toggle("disabled-map-menu-object");
         toggleLayer(plannedLayer);
     };
 
-    document.getElementById("map-draw-brush-type").onchange = function() {
-        map.removeInteraction(draw);
-        drawInteraction(drawSource, this.value);
+    // --> drawing brushes
+    document.getElementById('map-draw-brush-type-selector').onclick = function() {
+        this.classList.toggle("wrapper-dropdown-active");
     };
 
-    drawInteraction(drawSource, document.getElementById("map-draw-brush-type").value);
+    document.getElementById("map-draw-brush-type-none").onclick = function(el) {
+        map.removeInteraction(draw);
+    };
 
+    document.getElementById("map-draw-brush-type-point").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Point");
+    };
+
+    document.getElementById("map-draw-brush-type-circle").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Circle");
+    };
+
+    document.getElementById("map-draw-brush-type-polygon").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "Polygon");
+    };
+
+    document.getElementById("map-draw-brush-type-linestring").onclick = function(el) {
+        map.removeInteraction(draw);
+        drawInteraction(drawSource, "LineString");
+    };
+
+    // --> drawing controls
     drawSource.on('addfeature', function(e) {
         // add controls for deleting and manipulating all features in the source
         var container = document.getElementById("map-draw-features");
@@ -309,55 +454,77 @@ MissionIntelApp.Map = function(app) {
                 }, true);
             }
 
-            node.className = 'enabled-map-function';
-            node.innerHTML = "<i class='icon-block' /></i><i class='icon-cog'></i><i class='icon-user-plus'></i><textarea id='map-draw-feature-namebox'>" + f.getProperties().name + "</textarea></li>";
+            //node.className = 'enabled-map-menu-object';
+            node.classList.add('enabled-map-menu-object');
+            node.innerHTML = "<span class='inline-flex'><i class='icon-block' /></i><i class='icon-cog'></i><i class='icon-user-plus'></i><textarea id='map-draw-feature-namebox'>" + f.getProperties().name + "</textarea></span></li>";
 
-            // TODO Add code for options-menu, based on type of feature
-            var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
+            // IDEA put the below code into a function addDrawingEvents(feature, node);
+            var geometryCoords;
             var inputCoords;
 
-            console.log(f.getGeometry().getCoordinates());
-
+            // CREATE NODE
             if (f.getGeometry().getType() == 'Point') {
-                // var coordX = f.getGeometry().getFirstCoordinate();
-                // var coordY = f.getGeometry().getLastCoordinate();
-                //console.log(ol.proj.toLonLat(coordX));
-                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
-                                                    <li class='opt opt-color'>COLOR:</li>\
-                                                    <li class='opt opt-color'><textarea></textarea></li>\
-                                                    <li class='opt opt-fillcolor'>FILL COLOR</li>\
-                                                    <li class='opt opt-fillcolor'><textarea></textarea></li>\
-                                                    <li class='opt opt-coord'>COORDS:</li>\
-                                                    <li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
-                                                    </ul></div>";
+                var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
+                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>"+
+                                                    "<li class='opt opt-color'>COLOR:</li>" +
+                                                    "<li class='opt opt-color'><textarea></textarea></li>" +
+                                                    "<li class='opt opt-fillcolor'>FILL COLOR</li>" + 
+                                                    "<li class='opt opt-fillcolor'><textarea></textarea></li>" +
+                                                    "<li class='opt opt-coord'>COORDS:</li>" +
+                                                    "<li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>" +
+                                                    "</ul></div>";
 
                 // var circle = new ol.geom.Circle(f.getGeometry().getCoordinates(), 1);
                 // circle.setRadius(findProjectedRadius(circle.getCenter(), f.getProperties().radius));
             }
 
             if (f.getGeometry().getType() == 'Circle') {
+                var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCenter());
+                // node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
+                //                                   <li class='opt opt-color'>COLOR:</li>\
+                //                                   <li class='opt opt-color'><textarea></textarea></li>\
+                //                                   <li class='opt opt-fillcolor'>FILL COLOR</li>\
+                //                                   <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                //                                   <li class='opt opt-radius'>RADIUS:</li>\
+                //                                   <li class='opt opt-radius'><textarea></textarea></li>\
+                //                                   <li class='opt opt-coord'>CENTER:</li>\
+                //                                   <li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
+                //                                   </ul></div>";
+
                 node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
                                                   <li class='opt opt-color'>COLOR:</li>\
-                                                  <li class='opt opt-color'><textarea></textarea></li>\
-                                                  <li class='opt opt-fillcolor'>FILL COLOR></li>\
-                                                  <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                                                  <li class='opt opt-color'><input id='map-draw-circle-color' type='color' /></li>\
+                                                  <li class='opt opt-fillcolor'>FILL COLOR</li>\
+                                                  <li class='opt opt-fillcolor'><input id='map-draw-circle-fill' type='color' /></li>\
                                                   <li class='opt opt-radius'>RADIUS:</li>\
                                                   <li class='opt opt-radius'><textarea></textarea></li>\
                                                   <li class='opt opt-coord'>CENTER:</li>\
-                                                  <li class='opt opt-coord-center opt-coord'><textarea>" + geometryCoords[0].toFixed(7) + "</textarea><textarea>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
+                                                  <li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>\
                                                   </ul></div>";
             }
 
             if (f.getGeometry().getType() == 'Polygon') {
-                //node.innerHTML = node.innerHTML + "SOME HTML HERE!"
+                var geometryCoords = f.getGeometry().getCoordinates();
+                var coordHTML = '';
 
-                // IDEA the coords variable will most likely return a longer array of coords for polys and lineStrings and so will probably need to iterate trough the whole array - outputting textareas.
-                // IDEA On polys and lineStrings - each coordinate pair needs to be deletable
+                geometryCoords[0].forEach(function(c) {
+                    var c = ol.proj.toLonLat(c);
+                    coordHTML = coordHTML + "<li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + c[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + c[1].toFixed(7) + "</textarea></li>"
+                });
+
+                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>\
+                                                  <li class='opt opt-color'>COLOR:</li>\
+                                                  <li class='opt opt-color'><textarea></textarea></li>\
+                                                  <li class='opt opt-fillcolor'>FILL COLOR</li>\
+                                                  <li class='opt opt-fillcolor'><textarea></textarea></li>\
+                                                  <li class='opt opt-radius'>RADIUS:</li>\
+                                                  <li class='opt opt-radius'><textarea></textarea></li>\
+                                                  <li class='opt opt-coord'>COORDS:</li>" + coordHTML + "</ul></div>";
             }
 
             container.appendChild(node);
 
-            // add events pr feature
+            // EVENTS
             node.querySelector('[id="map-draw-feature-namebox"]').onblur = function() {
                 f.setProperties({
                     name: this.value,
@@ -372,17 +539,46 @@ MissionIntelApp.Map = function(app) {
             node.querySelector(".icon-cog").onclick = function() {
                 node.querySelector(".opt-actions").classList.toggle("opt-actions-active");
 
-                // update position
-                inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
-                inputCoords = ol.proj.fromLonLat(inputCoords);
-                f.getGeometry().setCoordinates(inputCoords);
+                if (f.getGeometry().getType() == 'Point') {
+                    inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    inputCoords = ol.proj.fromLonLat(inputCoords);
+                    f.getGeometry().setCoordinates(inputCoords);
+                }
+
+                if (f.getGeometry().getType() == 'Circle') {
+                    inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    inputCoords = ol.proj.fromLonLat(inputCoords);
+                    f.getGeometry().setCenter(inputCoords);
+
+                    // TODO This should be made into a function of some sort:
+                    // var style = new ol.style.Style({
+                    //     stroke: new ol.style.Stroke({
+                    //         color: node.querySelector(".map-draw-circle-color").value,
+                    //         width: 2
+                    //     }),
+                    //     fill: new ol.style.Fill({
+                    //         color: node.querySelector(".map-draw-circle-fill").value
+                    //     }),
+                    // });
+                    // f.setStyle(style);
+                    // console.log(f.getStyle());
+                    console.log(node.querySelector(".map-draw-circle-color").value);
+                }
+
+                if (f.getGeometry().getType() == 'Polygon') {
+                    // XXX Continue here! Need to convert and store new coords. Most likely the whole object could be stored, but how to get all the inputs...?
+
+                    // inputCoords = [parseFloat(node.querySelector(".opt-coord-inputx").value), parseFloat(node.querySelector(".opt-coord-inputy").value)];
+                    // inputCoords = ol.proj.fromLonLat(inputCoords);
+                    // f.getGeometry().setCenter(inputCoords);
+                }
 
                 // TODO update color information
             }
 
             node.querySelector(".icon-user-plus").onclick = function() {
                 this.classList.toggle("icon-user-plus-active");
-                // TODO this gets disabled when the list re-renders. Probably a status property will have to be added to f and checked
+                // BUG this gets disabled when the list re-renders. Probably a status property will have to be added to f and checked
             }
 
             //console.log(f._objectID);
