@@ -2,7 +2,7 @@ do
 
   local ADDRESS = '127.0.0.1'
   local PORT = 3001
-  local DATA_TIMEOUT_SEC = 5
+  local DATA_TIMEOUT_SEC = 1
 
   package.path = package.path..";.\\LuaSocket\\?.lua"
   package.cpath = package.cpath..";.\\LuaSocket\\?.dll"
@@ -11,14 +11,11 @@ do
   local socket = require("socket")
   require = nil
 
-  local tcp = socket.tcp()
-  local connected = false
-
   local function log(msg)
-    env.info("MINT: " .. msg)
+    env.info("MINT (t=" .. timer.getTime() .. "): " .. msg)
   end
 
-  local function sendData()
+  local function getDataMessage()
     local msg = "{"
 
     local function addUnit(unit)
@@ -77,28 +74,45 @@ do
     addGroups(blueGroups)
     msg = msg .. "]}\n"
 
-    return pcall(tcp.send, tcp, msg)
+    return msg
   end
 
-  local function loop()
+  local tcp
+
+  local function initTCP()
+    tcp = socket.tcp()
+  end
+
+  local connected
+  local function step()
+
+    if not tcp then
+      initTCP()
+    end
 
     if not connected then
+      tcp:settimeout(0.0001)
       connected = tcp:connect(ADDRESS, PORT)
       if connected then
-        log("Connection established")
+        tcp:settimeout(0)
       end
     end
 
     if connected then
-      connected = sendData()
-      if not connected then
-        log("Connection lost")
+      local msg = getDataMessage()
+      local bytes, status, lastByte = tcp:send(msg)
+      if not bytes then
+        tcp = nil
+        connected = nil
       end
     end
-
-    timer.scheduleFunction(loop, {}, timer.getTime() + DATA_TIMEOUT_SEC)
   end
 
-  loop()
+  log("Starting. Attempting connection on port " .. PORT)
+
+  timer.scheduleFunction(function(arg, time)
+    pcall(step)
+    return timer.getTime() + DATA_TIMEOUT_SEC
+  end, nil, timer.getTime() + DATA_TIMEOUT_SEC)
 
 end
