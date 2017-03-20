@@ -81,6 +81,7 @@ do
 
   local function initTCP()
     tcp = socket.tcp()
+    tcp:settimeout(0.0001)
   end
 
   local connected
@@ -91,9 +92,9 @@ do
     end
 
     if not connected then
-      tcp:settimeout(0.0001)
       connected = tcp:connect(ADDRESS, PORT)
       if connected then
+        log("Connection established")
         tcp:settimeout(0)
       end
     end
@@ -102,6 +103,7 @@ do
       local msg = getDataMessage()
       local bytes, status, lastByte = tcp:send(msg)
       if not bytes then
+        log("Connection lost")
         tcp = nil
         connected = nil
       end
