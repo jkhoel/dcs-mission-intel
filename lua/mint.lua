@@ -42,23 +42,29 @@ do
       msg = msg .. "," .. alt
       msg = msg .. "," .. headingDeg
       msg = msg .. "," .. speed
+      msg = msg .. ",\"" .. unit:getCallsign() .. "\""
+      msg = msg .. "," .. unit:getCoalition()
       msg = msg .. "]";
     end
 
     local function addGroups(groups)
-      local isFirstUnit = true
+      local addComma = false
       for groupIndex = 1, #groups do
-        if groupIndex > 1 then
+        if addComma then
           msg = msg .. ","
         end
+
         local group = groups[groupIndex]
         local units = group:getUnits()
+        addComma = false
         for unitIndex = 1, #units do
-          if not isFirstUnit then
-            msg = msg .. ","
+          if Unit.isExist(units[unitIndex]) then
+            if addComma then
+              msg = msg .. ","
+            end
+            addUnit(units[unitIndex])
+            addComma = true
           end
-          addUnit(units[unitIndex])
-          isFirstUnit = false
         end
       end
     end
