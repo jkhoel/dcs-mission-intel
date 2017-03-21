@@ -17,16 +17,16 @@ var GeoJSON = require('geojson');
 var wsConnections = [];
 
 var websocket = require('nodejs-websocket');
-var server = websocket.createServer(function(conn) {
-    
+var server = websocket.createServer(function (conn) {
+
     let time = new Date();
-    console.log(time.getHours()+':'+ time.getMinutes() + ':' + time.getSeconds() + ' :: Client connected');
+    console.log(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ' :: <- Client connected');
     wsConnections.push(conn);
-    conn.on("close", function(code, reason) {
+    conn.on("close", function (code, reason) {
         wsConnections.splice(wsConnections.indexOf(conn), 1);
-        
+
         time = new Date();
-        console.log(time.getHours()+':'+ time.getMinutes() + ':' + time.getSeconds() + ' :: Client disconnected');
+        console.log(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ' :: -> Client disconnected');
     });
 });
 
@@ -39,15 +39,15 @@ class Unit {
         track = 'TR' + ("0" + track.getMinutes()).slice(-2) + ("0" + track.getMilliseconds()).slice(-2);
 
         let unit = new Unit();
-        unit.type           = data[0];
-        unit.x              = data[1];
-        unit.y              = data[2];
-        unit.z              = data[3];
-        unit.hdg            = data[4];
-        unit.speed          = data[5];
-        unit.callsign       = data[6];
-        unit.coalition      = data[7];
-        unit.name           = track;
+        unit.type = data[0];
+        unit.x = data[1];
+        unit.y = data[2];
+        unit.z = data[3];
+        unit.hdg = data[4];
+        unit.speed = data[5];
+        unit.callsign = data[6];
+        unit.coalition = data[7];
+        unit.name = track;
         return unit;
     }
 
@@ -56,16 +56,16 @@ class Unit {
     }
 
     constructor() {
-        this.type           = "";
-        this.x              = 0;
-        this.y              = 0;
-        this.z              = 0;
-        this.hdg            = 0;
-        this.speed          = 0;
-        this.callsign       = "";
-        this.coalition      = 0;
-        this.name           = "";
-        this.sidc           = "";
+        this.type = "";
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.hdg = 0;
+        this.speed = 0;
+        this.callsign = "";
+        this.coalition = 0;
+        this.name = "";
+        this.sidc = "";
     }
 }
 
@@ -73,12 +73,12 @@ function toGeoJSON(dcsData) {
 
     let featureCollection = [];
     let _all = dcsData.blue.concat(dcsData.red);
-    
-    console.log(dcsData);
 
-    _all.forEach(function(el) {
+    //console.log(dcsData);
+
+    _all.forEach(function (el) {
         let unit = Unit.parse(el);
-        
+
         // DEFAULT MARKER
         let side = '0';
         let markerColor = 'rgb(252, 246, 127)';
@@ -95,19 +95,21 @@ function toGeoJSON(dcsData) {
         // make a SIDC Object to store all values, so that we can override these as needed
         let lookup = SIDCtable[unit.type];
         // Check if this unit's type is defined in the table
-        if (!lookup) return;
-        
+        if (!lookup)
+            return;
+
         for (var atr in lookup) {
-            if(lookup[atr]) _sidcObject[atr] = lookup[atr];
+            if (lookup[atr])
+                _sidcObject[atr] = lookup[atr];
         }
 
         // OPTION: [COMMENT TO TURN OFF] SHOW AFFILIATION
-        if(unit.coalition == 1) {
+        if (unit.coalition == 1) {
             side = '1';
             markerColor = 'rgb(255, 88, 88)';
             _sidcObject["affiliation"] = 'H';
         }
-        if(unit.coalition == 2) {
+        if (unit.coalition == 2) {
             side = '2';
             markerColor = 'rgb(128, 224, 255)';
             _sidcObject["affiliation"] = 'F';
@@ -119,24 +121,24 @@ function toGeoJSON(dcsData) {
         // Generate final SIDC string
         let _sidc = "";
         for (var atr in _sidcObject) {
-                _sidc += _sidcObject[atr];
+            _sidc += _sidcObject[atr];
         }
-        
+
         // Add unit to the feature collection
-        featureCollection.push ({
-                lat: unit.x,
-                lon: unit.y,
-                alt: Utility.metersToFL(unit.z),
-                hdg: unit.hdg,
-                speed: unit.speed,
-                monoColor: markerColor,
-                SIDC: _sidc + '***',
-                side : side,
-                size : 30,
-                source: 'awacs',
-                type: unit.type,
-                name: Utility.trackNum(unit.callsign)
-            });
+        featureCollection.push({
+            lat: unit.x,
+            lon: unit.y,
+            alt: Utility.metersToFL(unit.z),
+            hdg: unit.hdg,
+            speed: unit.speed,
+            monoColor: markerColor,
+            SIDC: _sidc + '***',
+            side: side,
+            size: 30,
+            source: 'awacs',
+            type: unit.type,
+            name: Utility.trackNum(unit.callsign)
+        });
     });
 
     let geoJSONData = GeoJSON.parse(featureCollection, {Point: ['lat', 'lon']});
