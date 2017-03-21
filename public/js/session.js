@@ -15,11 +15,15 @@ MissionIntelApp.Session = function(dataCallback) {
         var websocket = new WebSocket(wsURL);
         websocket.onmessage = this.onmessage;
 
+        window.addEventListener("beforeunload", function() {
+          websocket.onclose = function() {};
+          websocket.close();
+        });
     };
 
     this.onmessage = function(evt) {
 
-        dataCallback(evt.data);
+        dataCallback(JSON.parse(evt.data));
     };
 
 };

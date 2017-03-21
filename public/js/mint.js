@@ -88,8 +88,11 @@ var MissionIntelApp = function() {
     var navigation = new MissionIntelApp.SiteNavigation(this);
     var map = new MissionIntelApp.Map(this);
 
+    // (new MissionIntelApp.Session(console.log)).initialize();
+    (new MissionIntelApp.Session(map.update)).initialize();
+
     // var gui = new MissionIntelApp.GUI(this);
-    // var session = new MissionIntelApp.Session(gui);
+    
     // session.initialize();
 
     /* PUBLIC DECLARATIONS OF THE ABOVE INITIALIZATIONS */

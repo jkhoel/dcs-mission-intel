@@ -5,6 +5,10 @@ MissionIntelApp.Notes = function(app) {
         saveNotes();
     }
 
+    this.addNote = function() {
+        addNote();
+    }
+
     var notes, count = 0;
     loadNotes();
 
@@ -45,7 +49,8 @@ MissionIntelApp.Notes = function(app) {
 
         node.innerHTML = "<div><textarea class='note-title' id='note-title' placeholder='Untitled' maxlength='10' ident='" + ident + "TLE'></textarea>" +
             "<textarea class='note-content' id='note-content' placeholder='Your content here' ident='" + ident + "CON'/></textarea>" +
-            "<a href='#' id='mode-notes-controls-remove' ident='" + ident + "DEL'>×</a></div>";
+            "<i id='mode-notes-controls-remove' class='icon-block mode-notes-controls-remove-button' ident='" + ident + "DEL' /></i></div>";
+            // "<a href='#' id='mode-notes-controls-remove' class='icon-block mode-notes-controls-remove-button' ident='" + ident + "DEL'></a>";
 
         notes.appendChild(node);
 
@@ -96,7 +101,7 @@ MissionIntelApp.Notes = function(app) {
     };
 
     /* EVENT: Add Note */
-    document.getElementById("mode-notes-controls-add").onclick = function() {
-        addNote();
-    }
+    // document.getElementById("mode-notes-controls-add").onclick = function() {
+    //     addNote();
+    // }
 };

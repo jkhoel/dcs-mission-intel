@@ -9,25 +9,27 @@ var dcsStream = {
     },
     "features": [{
         "type": "Feature",
+        "id" : "1",
         "geometry": {
             "type": "Point",
             "coordinates": [42.000, 42.000]
         },
         "properties": {
-            "SIDC": "SFGPUCIZ--AH***",
+            "SIDC": "SFAPMFF-----***",
             "name": "3.Brig",
             "fullname": "3.Brig/INSS/",
             "command": "INSS",
-            "source": "planned"
+            "source": "awacs"
         }
     }, {
         "type": "Feature",
+        "id" : "2",
         "geometry": {
             "type": "Point",
             "coordinates": [42.500, 42.500]
         },
         "properties": {
-            "SIDC": "SFAPMFF----F***",
+            "SIDC": "SHAPMFF-----***",
             "name": "EAGLE",
             "fullname": "",
             "command": "THE SHIT BELOW DON'T WORK!",
