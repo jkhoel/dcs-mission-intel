@@ -2,7 +2,8 @@ module.exports = function DCSDataRetriever(dataCallback) {
 
     let net = require('net');
     net.createServer(function(dcs_socket) {
-        console.log('DCS connected.');
+        let time = new Date();
+        console.log(time.getHours()+':'+ time.getMinutes() + ':' + time.getSeconds() + ' :: DCS connected');
         let buffer = "";
         dcs_socket.on('data', function(data) {
             buffer += data;

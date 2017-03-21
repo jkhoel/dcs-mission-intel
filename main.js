@@ -18,12 +18,15 @@ var wsConnections = [];
 
 var websocket = require('nodejs-websocket');
 var server = websocket.createServer(function(conn) {
-
-    console.log("Client connected");
+    
+    let time = new Date();
+    console.log(time.getHours()+':'+ time.getMinutes() + ':' + time.getSeconds() + ' :: Client connected');
     wsConnections.push(conn);
     conn.on("close", function(code, reason) {
         wsConnections.splice(wsConnections.indexOf(conn), 1);
-        console.log("Client disconnected");
+        
+        time = new Date();
+        console.log(time.getHours()+':'+ time.getMinutes() + ':' + time.getSeconds() + ' :: Client disconnected');
     });
 });
 
@@ -70,6 +73,8 @@ function toGeoJSON(dcsData) {
 
     let featureCollection = [];
     let _all = dcsData.blue.concat(dcsData.red);
+    
+    console.log(dcsData);
 
     _all.forEach(function(el) {
         let unit = Unit.parse(el);
