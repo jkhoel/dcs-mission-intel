@@ -19,8 +19,6 @@ do
     local msg = "{"
 
     local function addUnit(unit)
-      msg = msg .. "[";
-      msg = msg .. "\"" .. unit:getTypeName() .. "\""
       local unitPosition = unit:getPosition()
       local lat, lon, alt = coord.LOtoLL(unitPosition.p)
       local unitXYZNorthCorr = coord.LLtoLO(lat + 1, lon)
@@ -34,6 +32,8 @@ do
       local velocity = unit:getVelocity()
       local speed = math.sqrt(velocity.x^2 + velocity.z^2)
 
+      msg = msg .. "[";
+      msg = msg .. "\"" .. unit:getTypeName() .. "\""
       msg = msg .. "," .. lat
       msg = msg .. "," .. lon
       msg = msg .. "," .. alt
