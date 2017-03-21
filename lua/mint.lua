@@ -1,6 +1,5 @@
 do
 
-  local ADDRESS = '127.0.0.1'
   local PORT = 3001
   local DATA_TIMEOUT_SEC = 1
 
@@ -73,43 +72,51 @@ do
     return msg
   end
 
-  local tcp
+  log("Starting DCS unit data server")
 
-  local function initTCP()
-    tcp = socket.tcp()
-    tcp:settimeout(0.0001)
+  local tcp = socket.tcp()
+  local bound, error = tcp:bind('*', PORT)
+  if not bound then
+    log("Could not bind: " .. error)
+    return
   end
+  log("Port " .. PORT .. " bound")
 
-  local connected
+  local serverStarted, error = tcp:listen(1)
+  if not serverStarted then
+    log("Could not start server: " .. error)
+    return
+  end
+  log("Server started")
+
+  local client
   local function step()
 
-    if not tcp then
-      initTCP()
-    end
+    if not client then
+      tcp:settimeout(0.001)
+      client = tcp:accept()
 
-    if not connected then
-      connected = tcp:connect(ADDRESS, PORT)
-      if connected then
-        log("Connection established")
+      if client then
         tcp:settimeout(0)
+        log("Connection established")
       end
     end
 
-    if connected then
+    if client then
       local msg = getDataMessage()
-      local bytes, status, lastByte = tcp:send(msg)
+      local bytes, status, lastbyte = client:send(msg)
       if not bytes then
         log("Connection lost")
-        tcp = nil
-        connected = nil
+        client = nil
       end
     end
   end
 
-  log("Starting. Attempting connection on port " .. PORT)
-
   timer.scheduleFunction(function(arg, time)
-    pcall(step)
+    local success, error = pcall(step)
+    if not success then
+      log("Error: " .. error)
+    end
     return timer.getTime() + DATA_TIMEOUT_SEC
   end, nil, timer.getTime() + DATA_TIMEOUT_SEC)
 
