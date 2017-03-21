@@ -204,6 +204,19 @@ MissionIntelApp.Map = function(app) {
         return object._objectID;
     }
 
+    function toDMS(prefix, coord) {
+
+        coord = coord.toFixed(5);
+        let len = coord.length;
+
+        let d = coord.slice(-len,len-6);
+        let m = (Number((coord - d)) * 60);
+        let s = (m.toFixed(3)).toString().slice(-3,m.length);
+        let dms = prefix + d + '°' + m.toFixed(0) +'.' + s;
+
+        return dms;
+    }
+
     /* GLOBALS */
     var draw;
 
@@ -351,12 +364,12 @@ MissionIntelApp.Map = function(app) {
     var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: function(coord) {
             //return ol.coordinate.toStringHDMS(coord, 3);
-            
-            coord.forEach(function(c) {
-                c = c.toFixed(6);
-                console.log(c);
-            });
-            return coord;
+
+            let n = toDMS('N', coord[1]);
+            let e = toDMS(' E', coord[0]);
+            let mousePos = [n,e];
+
+            return mousePos; // return coord to get XY coords
         },
         projection: 'EPSG:4326'
     });
