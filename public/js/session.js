@@ -11,12 +11,14 @@ MissionIntelApp.Session = function(dataCallback) {
         wsURL += ":" + 8081;
         wsURL += window.location.pathname;
 
-        console.log(wsURL);
-
         console.log("Connecting to \"" + wsURL + "\"");
         var websocket = new WebSocket(wsURL);
         websocket.onmessage = this.onmessage;
 
+        window.addEventListener("beforeunload", function() {
+          websocket.onclose = function() {};
+          websocket.close();
+        });
     };
 
     this.onmessage = function(evt) {
