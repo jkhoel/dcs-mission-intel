@@ -71,10 +71,14 @@ class Unit {
 
 function toGeoJSON(dcsData) {
 
+    // console.log(dcsData);
+    // console.log("############################");
+    // return;
+
     let featureCollection = [];
     let _all = dcsData.blue.concat(dcsData.red);
 
-    //console.log(dcsData);
+
 
     _all.forEach(function (el) {
         let unit = Unit.parse(el);

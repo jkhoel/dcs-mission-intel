@@ -3,6 +3,8 @@ module.exports = function DCSDataRetriever(dataCallback) {
     const PORT = 3001;
     const ADDRESS = "127.0.0.1";
     //const ADDRESS = "89.11.174.88";
+    //const ADDRESS = "51.175.54.160";
+    //const PORT = 10308;
 
     const net = require('net');
 
@@ -16,6 +18,8 @@ module.exports = function DCSDataRetriever(dataCallback) {
 
         client.on('data', (data) => {
             let dcsData = JSON.parse(data.toString());
+            //let dcsData = data.toString();
+            
             dataCallback(dcsData);
         });
 
