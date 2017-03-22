@@ -1,8 +1,8 @@
 /* global MissionIntelApp */
-MissionIntelApp.Map = function(app) {
+MissionIntelApp.Map = function (app) {
 
     /* GLOBAL FUNCTIONS */
-    this.toggleLayer = function(layerName) {
+    this.toggleLayer = function (layerName) {
         toggleLayer(layerName);
     };
 
@@ -15,17 +15,18 @@ MissionIntelApp.Map = function(app) {
     function onMarkerClick(browserEvent) {
         var coordinate = browserEvent.coordinate;
         var pixel = map.getPixelFromCoordinate(coordinate);
-        map.forEachFeatureAtPixel(pixel, function(feature) {
-          if(feature.getProperties().SIDC) {
-            // Display some option window
-            // Reverse parse the SIDC and put that data in the window. This window then needs to have a button with a Save Event on it
-            console.log(feature.getProperties().SIDC);
-          } 
+        map.forEachFeatureAtPixel(pixel, function (feature) {
+            if (feature.getProperties().SIDC) {
+                // Display some option window
+                // Reverse parse the SIDC and put that data in the window. This window then needs to have a button with a Save Event on it
+                console.log(feature.getProperties().SIDC);
+            }
         });
     }
 
     function get(el) {
-        if (typeof el == 'string') return document.getElementById(el);
+        if (typeof el == 'string')
+            return document.getElementById(el);
         return el;
     }
 
@@ -37,36 +38,36 @@ MissionIntelApp.Map = function(app) {
         return groundRadius;
     }
 
-    function addMarkersToLayerBySource(source, lookup, layer) {
-        if (!layer.getSource()) {
-            layer.setSource(new ol.source.Vector());
-        }
-
-        source.forEachFeature(function(f) {
-            if (f.getProperties().source == lookup) {
-                var mySymbol = new ms.symbol(
-                    f.getProperties().SIDC, {
-                        // size: iconSize[(f.getProperties().SIDC).charAt(11)],
-                        uniqueDesignation: f.getProperties().name
-                    }
-                );
-
-                var myCanvas = mySymbol.getMarker().asCanvas();
-
-                f.setStyle(new ol.style.Style({
-                    image: new ol.style.Icon(({
-                        scale: 1,
-                        anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
-                        anchorXUnits: 'pixels',
-                        anchorYUnits: 'pixels',
-                        imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
-                        img: (myCanvas)
-                    }))
-                }));
-                layer.getSource().addFeature(f);
-            }
-        });
-    }
+//    function addMarkersToLayerBySource(source, lookup, layer) {
+//        if (!layer.getSource()) {
+//            layer.setSource(new ol.source.Vector());
+//        }
+//
+//        source.forEachFeature(function (f) {
+//            if (f.getProperties().source == lookup) {
+//                var mySymbol = new ms.symbol(
+//                        f.getProperties().SIDC, {
+//                    // size: iconSize[(f.getProperties().SIDC).charAt(11)],
+//                    uniqueDesignation: f.getProperties().name
+//                }
+//                );
+//
+//                var myCanvas = mySymbol.getMarker().asCanvas();
+//
+//                f.setStyle(new ol.style.Style({
+//                    image: new ol.style.Icon(({
+//                        scale: 1,
+//                        anchor: [mySymbol.markerAnchor.x, mySymbol.markerAnchor.y],
+//                        anchorXUnits: 'pixels',
+//                        anchorYUnits: 'pixels',
+//                        imgSize: [Math.floor(mySymbol.width), Math.floor(mySymbol.height)],
+//                        img: (myCanvas)
+//                    }))
+//                }));
+//                layer.getSource().addFeature(f);
+//            }
+//        });
+//    }
 
     function updateMap(source) {
         let ratio = window.devicePixelRatio || 1;
@@ -75,9 +76,9 @@ MissionIntelApp.Map = function(app) {
         // Console.log time of last marker update
         let  time = new Date();
         console.log('-> MARKER UPDATE: ' +
-            ("0" + time.getHours()).slice(-2)   + ":" + 
-            ("0" + time.getMinutes()).slice(-2) + ":" + 
-            ("0" + time.getSeconds()).slice(-2));
+                ("0" + time.getHours()).slice(-2) + ":" +
+                ("0" + time.getMinutes()).slice(-2) + ":" +
+                ("0" + time.getSeconds()).slice(-2));
 
         // Convert source into an OL3 source
         let s = new ol.source.Vector({
@@ -87,29 +88,29 @@ MissionIntelApp.Map = function(app) {
         });
 
         // Generate Markers - CHANGE dcsSOURCE FOR THE ABOVE s SOURCE TO USE DATA FROM MAIN.JS!!
-        s.forEachFeature(function(f) {
+        s.forEachFeature(function (f) {
             // let track = new Date();
             // track = 'TR' + ("0" + time.getMinutes()).slice(-2) + ("0" + time.getMilliseconds()).slice(-2);
 
             // Draw Marker
             var mySymbol = new ms.symbol(
-                f.getProperties().SIDC, {
-                    size: (f.getProperties().size*ratio),
-                    altitudeDepth: 'FL' + f.getProperties().alt,
-                    direction: f.getProperties().hdg,
-                    speed: Math.round(f.getProperties().speed) + ' kt',
-                    type: f.getProperties().type,
-                    uniqueDesignation: 'TR' + f.getProperties().name,
-                    monoColor: f.getProperties().monoColor
-                    // infoColor: 'white'
-                }
+                    f.getProperties().SIDC, {
+                size: (f.getProperties().size * ratio),
+                altitudeDepth: 'FL' + f.getProperties().alt,
+                direction: f.getProperties().hdg,
+                speed: Math.round(f.getProperties().speed) + ' kt',
+                type: f.getProperties().type,
+                uniqueDesignation: 'TR' + f.getProperties().name,
+                monoColor: f.getProperties().monoColor
+                        // infoColor: 'white'
+            }
             );
 
             var myCanvas = mySymbol.asCanvas();
 
             f.setStyle(new ol.style.Style({
                 image: new ol.style.Icon(({
-                    scale: 1/ratio,
+                    scale: 1 / ratio,
                     anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
                     anchorXUnits: 'pixels',
                     anchorYUnits: 'pixels',
@@ -129,15 +130,15 @@ MissionIntelApp.Map = function(app) {
         _group.getLayers().clear(true);
 
         // Add updated features to layer TODO: THE BELOW FUNCTION DOES NOT WORK... THE COLLECTION IS JUST PASSED TO THE streamLayer (SEE BELOW)
-        [].forEach.call(collection, function(obj) {
+        [].forEach.call(collection, function (obj) {
             let exists;
-            
+
             // If there is a layer with an ID equal to SOURCE then this layer exists and we will add the feature to this layer
-            _group.getLayers().forEach(function(layer) {
-                if(layer.getProperties().id == obj.getProperties().source) { 
+            _group.getLayers().forEach(function (layer) {
+                if (layer.getProperties().id == obj.getProperties().source) {
                     exists = true;
                     layer.getSource().addFeature(obj);
-                } 
+                }
             });
 
             // .. if there is not - then we have to make it, add a source and then add the feature here
@@ -152,7 +153,7 @@ MissionIntelApp.Map = function(app) {
                 _group.setLayers(grp);
             }
         });
-        
+
         // UNCOMMENT BELOW IN ORDER TO SEND COLLECTION TO A PRE-MADE LAYER
         streamLayer.getSource().clear(true);
         streamLayer.getSource().addFeatures(collection);
@@ -170,7 +171,7 @@ MissionIntelApp.Map = function(app) {
 //    return jso;
 //    };
 
-    this.update = function(source) {
+    this.update = function (source) {
         updateMap(source);
     };
 
@@ -209,10 +210,10 @@ MissionIntelApp.Map = function(app) {
         coord = coord.toFixed(5);
         let len = coord.length;
 
-        let d = coord.slice(-len,len-6);
+        let d = coord.slice(-len, len - 6);
         let m = (Number((coord - d)) * 60);
-        let s = (m.toFixed(3)).toString().slice(-3,m.length);
-        let dms = prefix + d + '°' + m.toFixed(0) +'.' + s;
+        let s = (m.toFixed(3)).toString().slice(-3, m.length);
+        let dms = prefix + d + '°' + ("0" + m.toFixed(0)).slice(-2) + '.' + s;
 
         return dms;
     }
@@ -233,11 +234,11 @@ MissionIntelApp.Map = function(app) {
     });
 
     var vectorSource = new ol.source.Vector({
-        loader: function() {
+        loader: function () {
             var url = 'src/vectors/vectors.geojson';
             var source = this;
 
-            app.getJSON(url, '', function(r) {
+            app.getJSON(url, '', function (r) {
 
                 if (Object.keys(r).length > 0) {
                     var f = (new ol.format.GeoJSON()).readFeatures(r, {
@@ -247,7 +248,7 @@ MissionIntelApp.Map = function(app) {
                 }
 
                 // Replace all features of type Point with a Circle feature in stead.
-                source.forEachFeature(function(f) {
+                source.forEachFeature(function (f) {
 
                     if (f.getGeometry().getType() == 'Point') {
 
@@ -321,7 +322,7 @@ MissionIntelApp.Map = function(app) {
 
 
     /* LAYERS SETUP */
-    var vectorLayer = new ol.layer.Vector({ // "Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors."
+    var vectorLayer = new ol.layer.Vector({// "Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors."
         id: 'vectors',
         source: vectorSource
     });
@@ -356,20 +357,21 @@ MissionIntelApp.Map = function(app) {
     // }));
 
     /* CONTROLS SETUP */
-/*     var mousePositionControl = new ol.control.MousePosition({
-         coordinateFormat: ol.coordinate.createStringXY(4),
-         projection: 'EPSG:4326'
+    /*     var mousePositionControl = new ol.control.MousePosition({
+     coordinateFormat: ol.coordinate.createStringXY(4),
+     projection: 'EPSG:4326'
      });*/
 
     var mousePositionControl = new ol.control.MousePosition({
-        coordinateFormat: function(coord) {
+        coordinateFormat: function (coord) {
             //return ol.coordinate.toStringHDMS(coord, 3);
 
             let n = toDMS('N', coord[1]);
             let e = toDMS(' E', coord[0]);
-            let mousePos = [n,e];
+            let mousePos = [n, e];
 
             return mousePos; // return coord to get XY coords
+            //return coord;
         },
         projection: 'EPSG:4326'
     });
@@ -406,49 +408,49 @@ MissionIntelApp.Map = function(app) {
     map.on('singleclick', onMarkerClick);
 
     // --> map filters
-    document.getElementById("map-filters-awacs").onclick = function(element) {
+    document.getElementById("map-filters-awacs").onclick = function (element) {
         document.getElementById("map-filters-awacs").classList.toggle("enabled-map-menu-object");
         document.getElementById("map-filters-awacs").classList.toggle("disabled-map-menu-object");
         toggleLayer(streamLayer);
     };
 
-    document.getElementById("map-filters-planned").onclick = function(element) {
+    document.getElementById("map-filters-planned").onclick = function (element) {
         document.getElementById("map-filters-planned").classList.toggle("enabled-map-menu-object");
         document.getElementById("map-filters-planned").classList.toggle("disabled-map-menu-object");
         toggleLayer(plannedLayer);
     };
 
     // --> drawing brushes
-    document.getElementById('map-draw-brush-type-selector').onclick = function() {
+    document.getElementById('map-draw-brush-type-selector').onclick = function () {
         this.classList.toggle("wrapper-dropdown-active");
     };
 
-    document.getElementById("map-draw-brush-type-none").onclick = function(el) {
+    document.getElementById("map-draw-brush-type-none").onclick = function (el) {
         map.removeInteraction(draw);
     };
 
-    document.getElementById("map-draw-brush-type-point").onclick = function(el) {
+    document.getElementById("map-draw-brush-type-point").onclick = function (el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Point");
     };
 
-    document.getElementById("map-draw-brush-type-circle").onclick = function(el) {
+    document.getElementById("map-draw-brush-type-circle").onclick = function (el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Circle");
     };
 
-    document.getElementById("map-draw-brush-type-polygon").onclick = function(el) {
+    document.getElementById("map-draw-brush-type-polygon").onclick = function (el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "Polygon");
     };
 
-    document.getElementById("map-draw-brush-type-linestring").onclick = function(el) {
+    document.getElementById("map-draw-brush-type-linestring").onclick = function (el) {
         map.removeInteraction(draw);
         drawInteraction(drawSource, "LineString");
     };
 
     // --> drawing controls
-    drawSource.on('addfeature', function(e) {
+    drawSource.on('addfeature', function (e) {
         // add controls for deleting and manipulating all features in the source
         var container = document.getElementById("map-draw-features");
         while (container.firstChild) {
@@ -456,7 +458,7 @@ MissionIntelApp.Map = function(app) {
         }
         var containerLastChild = container.lastChild;
 
-        drawSource.forEachFeature(function(f) {
+        drawSource.forEachFeature(function (f) {
             var objectID = getObjectID(f);
             var node = document.createElement("LI");
 
@@ -478,14 +480,14 @@ MissionIntelApp.Map = function(app) {
             // CREATE NODE
             if (f.getGeometry().getType() == 'Point') {
                 var geometryCoords = ol.proj.toLonLat(f.getGeometry().getCoordinates());
-                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>"+
-                                                    "<li class='opt opt-color'>COLOR:</li>" +
-                                                    "<li class='opt opt-color'><textarea></textarea></li>" +
-                                                    "<li class='opt opt-fillcolor'>FILL COLOR</li>" + 
-                                                    "<li class='opt opt-fillcolor'><textarea></textarea></li>" +
-                                                    "<li class='opt opt-coord'>COORDS:</li>" +
-                                                    "<li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>" +
-                                                    "</ul></div>";
+                node.innerHTML = node.innerHTML + "<div id='map-draw-opt-actions' class='opt-actions'><ul>" +
+                        "<li class='opt opt-color'>COLOR:</li>" +
+                        "<li class='opt opt-color'><textarea></textarea></li>" +
+                        "<li class='opt opt-fillcolor'>FILL COLOR</li>" +
+                        "<li class='opt opt-fillcolor'><textarea></textarea></li>" +
+                        "<li class='opt opt-coord'>COORDS:</li>" +
+                        "<li class='opt opt-coord-input opt-coord'><textarea class='opt-coord-inputx'>" + geometryCoords[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + geometryCoords[1].toFixed(7) + "</textarea></li>" +
+                        "</ul></div>";
 
                 // var circle = new ol.geom.Circle(f.getGeometry().getCoordinates(), 1);
                 // circle.setRadius(findProjectedRadius(circle.getCenter(), f.getProperties().radius));
@@ -520,7 +522,7 @@ MissionIntelApp.Map = function(app) {
                 var geometryCoords = f.getGeometry().getCoordinates();
                 var coordHTML = '';
 
-                geometryCoords[0].forEach(function(c) {
+                geometryCoords[0].forEach(function (c) {
                     var c = ol.proj.toLonLat(c);
                     coordHTML = coordHTML + "<li class='opt opt-coord-center opt-coord'><textarea class='opt-coord-inputx'>" + c[0].toFixed(7) + "</textarea><textarea class='opt-coord-inputy'>" + c[1].toFixed(7) + "</textarea></li>"
                 });
@@ -538,18 +540,18 @@ MissionIntelApp.Map = function(app) {
             container.appendChild(node);
 
             // EVENTS
-            node.querySelector('[id="map-draw-feature-namebox"]').onblur = function() {
+            node.querySelector('[id="map-draw-feature-namebox"]').onblur = function () {
                 f.setProperties({
                     name: this.value,
                 }, true);
             }
 
-            node.querySelector(".icon-block").onclick = function() {
+            node.querySelector(".icon-block").onclick = function () {
                 drawSource.removeFeature(f);
                 node.parentNode.removeChild(node);
             }
 
-            node.querySelector(".icon-cog").onclick = function() {
+            node.querySelector(".icon-cog").onclick = function () {
                 node.querySelector(".opt-actions").classList.toggle("opt-actions-active");
 
                 if (f.getGeometry().getType() == 'Point') {
@@ -589,7 +591,7 @@ MissionIntelApp.Map = function(app) {
                 // TODO update color information
             }
 
-            node.querySelector(".icon-user-plus").onclick = function() {
+            node.querySelector(".icon-user-plus").onclick = function () {
                 this.classList.toggle("icon-user-plus-active");
                 // BUG this gets disabled when the list re-renders. Probably a status property will have to be added to f and checked
             }

@@ -7,6 +7,7 @@ module.exports = function DCSDataRetriever(dataCallback) {
     //const PORT = 10308;
 
     const net = require('net');
+    let buffer;
 
     function connect() {
 
@@ -14,13 +15,16 @@ module.exports = function DCSDataRetriever(dataCallback) {
             let time = new Date();
             console.log(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ' :: Connected to DCS server!');
             //console.log("Connected");
+            buffer = "";
         });
 
         client.on('data', (data) => {
-            let dcsData = JSON.parse(data.toString());
-            //let dcsData = data.toString();
-            
-            dataCallback(dcsData);
+            buffer += data;
+            while ((i = buffer.indexOf("\n")) >= 0) {
+                let data = JSON.parse(buffer.substring(0, i));
+                dataCallback(data);
+                buffer = buffer.substring(i + 1);
+            }
         });
 
         client.on('close', () => {
